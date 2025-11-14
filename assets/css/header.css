@@ -1,0 +1,137 @@
+/* ====== RESET ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f5f9fc;
+  color: #333;
+}
+
+/* ====== HEADER ====== */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #8ecae6;
+  color: #033649;
+  height: 48px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 100%;
+}
+
+/* LOGO */
+.logo a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #033649;
+}
+
+/* CONTENEDOR DERECHO (menú + user info) */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* NAV */
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #033649;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #0077b6;
+}
+
+/* User info */
+.user-info {
+  font-size: 0.9rem;
+}
+
+/* Logout */
+.btn-logout {
+  background: #219ebc;
+  color: white !important;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn-logout:hover {
+  background: #0077b6;
+}
+
+/* ====== MENU HAMBURGUESA ====== */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #033649;
+  cursor: pointer;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 48px;
+    right: 16px;
+    background: #bde0fe;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    padding: 0;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .main-nav.show {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: all;
+    padding: 10px 20px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* ====== OCULTAR CRUD LINKS ====== */
+.hide-crud-links .crud-link {
+  display: none;
+}

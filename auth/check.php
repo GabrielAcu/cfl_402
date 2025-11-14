@@ -1,0 +1,33 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+function isLogin() {
+    return isset($_SESSION['user']);
+}
+
+function requireLogin() {
+    if (!isLogin()) {
+        header('Location: /gb/cfl_402/index.php');
+        exit();
+    }
+}
+
+function isAdmin() {
+    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 0;
+}
+
+function isInstructor() {
+    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 1;
+}
+
+function idAdminOrInstructor() {
+    if (isAdmin()) {
+        header('Location: /gb/cfl_402/admin');
+        exit();
+    } elseif (isInstructor()) {
+        header('Location: /gb/cfl_402/instructor');
+        exit();
+    }
+}

@@ -1,0 +1,69 @@
+<?php 
+session_start(); 
+require_once '../include/header.php'; 
+
+require_once '../auth/check.php';
+
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: /gb/cfl_402/index.php');
+    exit();
+}
+
+echo $_SERVER['DOCUMENT_ROOT'];
+?>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración - CFL402</title>
+  <link rel="stylesheet" href="../assets/css/panel.css">
+  <link rel="stylesheet" href="/cfl_402/assets/css/header.css">
+</head>
+<body class="hide-crud-links">
+    <h1>Panel de Administración</h1>
+
+  <main>
+    <section class="panel-container">
+      <a href="crud/alumnos/index.php" class="card">
+        <h2>👨‍🎓 Alumnos</h2>
+        <p>Gestión completa de los alumnos registrados.</p>
+      </a>
+
+      <a href="crud/instructores/index.php" class="card">
+        <h2>👩‍🏫 Instructores</h2>
+        <p>Administrar docentes e instructores.</p>
+      </a>
+
+      <a href="crud/cursos/index.php" class="card">
+        <h2>📘 Cursos</h2>
+        <p>Alta, baja y modificación de cursos disponibles.</p>
+      </a>
+
+      <a href="../crud/inscripciones/index.php" class="card">
+        <h2>🧾 Inscripciones</h2>
+        <p>Vincular alumnos con cursos.</p>
+      </a>
+
+      <a href="crud/horarios/index.php" class="card">
+        <h2>⏰ Horarios</h2>
+        <p>Definir días y horas de cursado.</p>
+      </a>
+
+      <a href="crud/usuarios/index.php" class="card">
+        <h2>🔐 Usuarios</h2>
+        <p>Gestión de accesos al sistema.</p>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 CFL402 - Sistema Educativo</p>
+  </footer>
+  <script src="/assets/js/header.js" defer></script>
+</body>
+</html>
