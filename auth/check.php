@@ -9,7 +9,7 @@ function isLogin() {
 
 function requireLogin() {
     if (!isLogin()) {
-        header('Location: /gb/cfl_402/index.php');
+        header('Location: /cfl_402/index.php');
         exit();
     }
 }
@@ -24,10 +24,11 @@ function isInstructor() {
 
 function idAdminOrInstructor() {
     if (isAdmin()) {
-        header('Location: /gb/cfl_402/admin');
+        header('Location: /cfl_402/admin');
         exit();
     } elseif (isInstructor()) {
-        header('Location: /gb/cfl_402/instructor');
+        header('Location: /cfl_402/instructor');
         exit();
     }
 }
+
