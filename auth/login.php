@@ -1,8 +1,11 @@
 <?php
+define('BASE_PATH', __DIR__); // Define la ruta absoluta del archivo actual
+
 session_start();
 
-include_once __DIR__ . '/../config/conexion.php';
-require_once 'check.php';
+require_once BASE_PATH . '/../config/conexion.php';
+require_once __DIR__ . '/check.php';
+
 
 $userName = $_POST['usuario'] ?? null;
 $pass = $_POST['password'] ?? null;

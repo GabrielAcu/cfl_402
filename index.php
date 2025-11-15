@@ -1,6 +1,8 @@
 <?php 
+define('BASE_PATH', __DIR__); // Define la ruta absoluta del archivo actual
+
 session_start();
-require_once 'auth/check.php';
+require_once BASE_PATH . "/auth/check.php";
 
 if (isLogin()) {
     idAdminOrInstructor();

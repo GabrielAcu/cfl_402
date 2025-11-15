@@ -1,5 +1,16 @@
 <?php
-include_once __DIR__ . '/../../config/conexion.php';
+
+require_once dirname(__DIR__, 2) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
 $conn = conectar();
 ?>
 <!doctype html>

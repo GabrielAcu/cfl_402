@@ -1,5 +1,16 @@
 <?php
-include_once __DIR__ . '/../../config/conexion.php';
+// Cargar path.php desde crud/alumnos (2 niveles arriba)
+require_once dirname(__DIR__, 2) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
 $conn = conectar();
 ?>
 <!DOCTYPE html>
@@ -7,6 +18,7 @@ $conn = conectar();
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Cursos</title>
+  
   <link rel="stylesheet" href="cursos.css">
 </head>
 <body>

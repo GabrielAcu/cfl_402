@@ -8,7 +8,7 @@
 
     <!-- Logo -->
     <div class="logo">
-      <a href="/cfl_402/admin/index.php">CFL 402</a>
+      <a href="<?= BASE_URL ?>/admin/index.php">CFL 402</a>
     </div>
 
     <!-- Contenedor derecho -->
@@ -19,14 +19,14 @@
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li class="crud-link"><a href="/cfl_402/admin/index.php">Inicio</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/alumnos/index.php">Alumnos</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/cursos/index.php">Cursos</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/horarios/index.php">Horarios</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/inscripciones/index.php">Inscripciones</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/instructores/index.php">Instructores</a></li>
-          <li class="crud-link"><a href="/cfl_402/crud/usuarios/index.php">Usuarios</a></li>
-          <li><a href="../auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/index.php">Inicio</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/alumnos/index.php">Alumnos</a></li>
+          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/cursos/index.php">Cursos</a></li> -->
+          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/horarios/index.php">Horarios</a></li> -->
+          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/inscripciones/index.php">Inscripciones</a></li> -->
+          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/instructores/index.php">Instructores</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/usuarios/index.php">Usuarios</a></li>
+          <li><a href="<?= BASE_URL ?>/auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
         </ul>
       </nav>
 
@@ -41,5 +41,5 @@
 
 
 <!-- Enlaces CSS y JS -->
-<link rel="stylesheet" href="/cfl_402/assets/css/header.css">
-<script src="/cfl_402/assets/js/header.js" defer></script>
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
+<script src="<?= BASE_URL ?>/assets/js/header.js" defer></script>

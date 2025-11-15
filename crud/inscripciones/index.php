@@ -1,8 +1,17 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/cfl_402/include/header.php'); ?>
-
 <?php
-include_once __DIR__ . '/../../config/conexion.php';
-$conn = conectar();
+// Cargar path.php desde crud/alumnos (2 niveles arriba)
+require_once dirname(__DIR__, 2) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar(); 
 
 $alumnos = $conn->query("SELECT id_alumno, CONCAT(apellido, ', ', nombre) AS nombre FROM alumnos WHERE activo = 1 ORDER BY apellido, nombre")->fetchAll(PDO::FETCH_ASSOC);
 $cursos = $conn->query("SELECT id_curso, nombre_curso FROM cursos WHERE activo = 1 ORDER BY nombre_curso")->fetchAll(PDO::FETCH_ASSOC);
