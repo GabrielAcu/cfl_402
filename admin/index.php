@@ -35,12 +35,12 @@ $conn = conectar();
     
     <main>
       <section class="panel-container">
-        <a href="../crud/alumnos/index.php" class="card">
+        <a href="../admin/crud/alumnos/index.php" class="card">
         <h2>👨‍🎓 Alumnos</h2>
         <p>Gestión completa de los alumnos registrados.</p>
       </a>
       
-      <a href="../crud/instructores/index.php" class="card">
+      <a href="../admin/crud/instructores/index.php" class="card">
         <h2>👩‍🏫 Instructores</h2>
         <p>Administrar docentes e instructores.</p>
       </a>
