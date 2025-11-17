@@ -7,8 +7,13 @@ require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
 
-// Seguridad
+// 3. Autenticación
 requireLogin();
+
+if (!isAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Conexión
 $conn = conectar();

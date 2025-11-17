@@ -1,5 +1,14 @@
 <?php
 session_start();
+// 3. Autenticación
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+require_once BASE_PATH . '/auth/check.php';
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 $id_entidad = $_POST['id_entidad'] ?? $_SESSION['entidad_id'] ?? null;
 $tipo = $_POST['tipo'] ?? $_SESSION['tipo'] ?? null;
