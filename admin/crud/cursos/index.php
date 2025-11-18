@@ -1,3 +1,18 @@
+<?php
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,8 +34,8 @@
     </form>
     <h2>Listado de Cursos</h2> <!-- sección para mostrar la lista de cursos -->
     <?php
-        require_once "conexion.php"; // incluir el archivo de conexión a la base de datos
-        $conexion=conectar(); // establecer la conexión
+      
+        
         
         if (isset($_POST["dato"])){
             $dato=$_POST["dato"];
@@ -38,7 +53,7 @@
             turnos.descripcion LIKE :descripcion OR
             instructores.nombre LIKE :nombre OR
             Instructores.apellido LIKE :apellido)";
-        $consulta=$conexion->prepare($texto);
+        $consulta=$conn->prepare($texto);
         $consulta->execute([":nombre_curso"=>"%$dato%",":codigo"=>"%$dato%",":descripcion"=>"%$dato%",":nombre"=>"%$dato%",":apellido"=>"%$dato%"]);
         
         if ($consulta->rowCount()>0){ // si la cantidad de filas es mayor a 0, es porque hay cursos
