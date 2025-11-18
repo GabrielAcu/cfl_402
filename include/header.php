@@ -19,13 +19,13 @@
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/index.php">Inicio</a></li>
-          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/alumnos/index.php">Alumnos</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/index.php">Inicio</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/alumnos/index.php">Alumnos</a></li>
           <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/cursos/index.php">Cursos</a></li> -->
           <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/horarios/index.php">Horarios</a></li> -->
           <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/inscripciones/index.php">Inscripciones</a></li> -->
-          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/instructores/index.php">Instructores</a></li>
-          <li class="crud-link"><a href="<?= BASE_URL ?>/crud/usuarios/index.php">Usuarios</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/instructores/index.php">Instructores</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/usuarios/index.php">Usuarios</a></li>
           <li><a href="<?= BASE_URL ?>/auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
         </ul>
       </nav>
