@@ -1,7 +1,7 @@
 <?php
 function conectar(){
     $servidor = "localhost";
-    $nombreBaseDeDatos = "cfl402_2025";
+    $nombreBaseDeDatos = "cfl402_2025_4";
     $usuario = "root";
     $contrasena = "";
 
@@ -20,3 +20,4 @@ function conectar(){
     }
 }
 ?>
+ <!-- #region -->
