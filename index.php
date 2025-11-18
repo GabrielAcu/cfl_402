@@ -1,12 +1,10 @@
 <?php 
+// ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+
 define('BASE_PATH', __DIR__); // Define la ruta absoluta del archivo actual
 
 session_start();
-require_once BASE_PATH . "/auth/check.php";
-
-if (isLogin()) {
-    idAdminOrInstructor();
-}
 
 ?>
 <!DOCTYPE html>

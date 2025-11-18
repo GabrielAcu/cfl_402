@@ -13,7 +13,7 @@ require_once BASE_PATH . '/include/header.php';
 requireLogin();
 
 if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: cfl_402_ciro/cfl_402/index.php');
     exit();
 }
 

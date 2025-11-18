@@ -19,7 +19,7 @@
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/index.php">Inicio</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/index.php">Inicio</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/crud/alumnos/index.php">Alumnos</a></li>
           <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/cursos/index.php">Cursos</a></li> -->
           <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/horarios/index.php">Horarios</a></li> -->
