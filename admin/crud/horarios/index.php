@@ -1,6 +1,6 @@
 <?php
-
-require_once dirname(__DIR__, 2) . '/config/path.php';
+// Cargar path.php desde crud/alumnos (2 niveles arriba)
+require_once dirname(__DIR__, 3) . '/config/path.php';
 
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
@@ -13,50 +13,94 @@ requireLogin();
 // Conexión
 $conn = conectar();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Horarios — Listado</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="horarios.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="ver_h.css">
+    <title>X</title>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Horarios</h1>
-      <div class="controls">
-        <input id="search" type="search" placeholder="Buscar por curso o día...">
-        <a class="btn new" href="agregar.php">+ Nuevo horario</a>
-      </div>
-    </header>
+    <h1>Horarios</h1>
+    <?php
+    $id_curso=$_POST["id_curso"];
+    // $id_curso=1;
 
-    <main>
-      <table id="tabla-horarios">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Curso</th>
-            <th>Día</th>
-            <th>Inicio</th>
-            <th>Fin</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="resultado-body">
-          <!-- filas cargadas vía AJAX -->
-        </tbody>
-      </table>
-      <div id="no-results" class="hidden">No se encontraron horarios.</div>
-    </main>
-  </div>
+        require_once "conexion.php";
+        $conexion=conectar();
+        $consulta=$conexion->prepare("SELECT `cursos`.`codigo`, `cursos`.`nombre_curso`, `turnos`.`descripcion`, `cursos`.`id_curso`
+            FROM `cursos`
+            LEFT JOIN `turnos` ON `cursos`.`id_turno` = `turnos`.`id_turno`
+            WHERE (`cursos`.`id_curso` =?)");
+        $consulta->execute([$id_curso]);
+        $registro=$consulta->fetch();
+        if ($consulta->rowCount()>0){
+            echo "<h2>Del curso: $registro[codigo] - $registro[nombre_curso] - $registro[descripcion]</h2>" ;
+        }
 
-  <script src="horarios.js"></script>
-  <script>
-    // Inicializa carga y búsqueda
-    document.addEventListener('DOMContentLoaded', () => {
-      initHorarios(); // función en horarios.js
-    });
-  </script>
+    ?>
+    <form action="crear_horario.php" method= "POST">
+        <input type="hidden" name="id_curso" values="id_curso">
+        <select name="dia_semana" id="dias">
+            <option value="Lunes">Lunes</option>
+            <option value="Martes">Martes</option>
+            <option value="Miércoles">Miercoles</option>
+            <option value="Jueves">Jueves</option>
+            <option value="Viernes">Viernes</option>
+            <option value="Sábado">Sabado</option>
+        </select>
+        <input type="time" name="hora_inicio" placeholpder="hora_inicio">
+        <input type="time" name="hora_fin" placeholpder="hora_fin">
+        <input type="submit">
+    </form> 
+
+      
+    <h2>Registro de horarios</h2>
+
+    <?php
+        
+        $consulta=$conexion->prepare("SELECT * FROM horarios where id_curso=?");
+        $consulta->execute([$id_curso]);
+        // $consulta=$conexion->query("SELECT * FROM horarios where id_curso=$id_curso");
+        if ($consulta->rowCount()>0){
+            echo "
+            <table>
+                <thead>
+                    <tr>
+                        <th>Días de la semnana</th>
+                        <th>Horario de inicio</th>
+                        <th>Horario de finalización</th>
+                    </tr>
+                </thead>
+                <tbody>";
+            while ($registro=$consulta->fetch()){
+                echo "
+                <tr>
+                    <td>$registro[dia_semana]</td>
+                    <td>$registro[hora_inicio]</td>
+                    <td>$registro[hora_fin]</td>
+                    <td>
+                        <form action='modificar_horario.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='id_horario' value='$registro[id_horario]'>
+                            <input type='submit' value='✏️ Modificar'>
+                        </form>
+                        <form action='eliminar_horario.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='id_horario' value='$registro[id_horario]'>
+                            <input type='submit' value='❌ Eliminar'>
+                        </form>
+                    </td>
+                </tr>
+                ";
+            }
+            echo "
+                </tbody>
+            </table>
+            ";
+        } else {
+            echo "<p>No hay horarios registrados.</p>";
+        }
+
+    ?>
 </body>
 </html>

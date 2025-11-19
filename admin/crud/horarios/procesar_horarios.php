@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXXXX</title>
+</head>
+<body>
+    <?php
+    require_once "conexion.php";
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $id_horario = $_POST["id_horario"];
+        echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
+        $id_curso = $_POST["id_curso"];
+        // $id_curso = 1;
+        $dia_semana = $_POST["dia_semana"];
+        $hora_inicio = $_POST["hora_inicio"];
+        $hora_fin = $_POST["hora_fin"];
+
+        $conexion = conectar();
+        // echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
+        try{
+            $consulta = $conexion->prepare("UPDATE horarios SET id_curso = ?, dia_semana = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?");
+            $consulta->execute([$id_curso, $dia_semana, $hora_inicio, $hora_fin, $id_horario]);
+            if($consulta->rowCount()>0){
+                echo"<p>Horario modificado correctamente.</p>";
+                echo"<a href='index.php'>Volver al inicio.</a>";
+            }
+        }catch (Exception $e) {
+            echo "<p class='error'>Error al modificar el horario: " . $e->getMessage() . "</p>";
+        }
+    };
+    ?>
+</body>
+</html>
