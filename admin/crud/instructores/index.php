@@ -25,45 +25,84 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Crud Instructores</title>
 </head>
 <body>
+    <h1>Instructor</h1>
+    <h2>Nuevo Instructor</h2>
+    <form action="agregar_instructor.php" method="POST">
+        <input type="text" name="nombre" placeholder="nombre">
+        <input type="text" name="apellido" placeholder="apellido">
+        <input type="number" name="dni"placeholder="dni">
+        <input type="text" name="telefono"placeholder="telefono">
+        <input type="text" name="correo" placeholder="correo">
+        <input type="submit">
+    </form>
+    <hr>Listado de Instructores<hr>
+    <td>
+        <form action='recuperar_instructor.php' method='POST' class='enlinea'>
+            <input type='hidden' name='id' value=$registro[id_instructor]>
+            <input type='submit' value='Instructores eliminados 🗑️'>
+            
+        </form>
     <?php
-    echo "<br><br><br><br><br><br>";
-    echo "
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody> 
-            <tr>
-                <td>DATO 1</td>
-                <td>DATO 2</td>
-                <td>DATO 2</td>
-                <td>
-                    <form action='../contacto/listar_contactos.php' method='post'>
-                        <input type='hidden' name='id_entidad' value='1'>                            
-                        <input type='hidden' name='tipo' value='instructor'>
-                        <input type='submit' value='Contacto'>
-                    </form>
-
-                    <form action='../inscripciones/index.php' method='POST'>
-                        <input type='hidden' name='tipo' value='instructor'>
-                        <input type='hidden' name='id' value='<?= $instructor[id_instructor] ?>'>
-                        <input type='hidden' name='volver' value='instructores'>
-                        <input type='submit' value='Asignar alumnos/cursos'>
-                    </form>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    ";
+    $consulta=$conn->query("SELECT * FROM instructores WHERE activo=1");
+    if ($consulta->rowCount()>0){
+        echo "<table>
+                <thead>
+                    <tr>
+                        <th>nombre</th>
+                        <th>apellido</th>
+                        <th>dni</th>
+                        <th>telefono</th>
+                        <th>correo</th>
+                        <td>
+                            <th>acciones</th>
+                            <th>contactos</th>
+                            <th>cursos</th>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>";
+                while ($registro=$consulta->fetch()){
+                    echo "
+                    <tr>
+                        <td>$registro[nombre]</td>
+                        <td>$registro[apellido]</td>
+                        <td>$registro[dni]</td>
+                        <td>$registro[telefono]</td>
+                        <td>$registro[correo]</td>
+                        <td>
+                            <form action='modificar_instructor.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id' value=$registro[id_instructor]>
+                                <input type='submit' value='MODIFICAR ✏️'>
+                            </form>
+                        </td>
+                        <td>
+                            <form action='eliminar_instructor.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id'value=$registro[id_instructor]>
+                                <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
+                                <input type='submit' value='ELIMINAR ❌'>
+                            </form>
+                        </td>
+                        <td>
+                            <form action='listar_contactos_instructor.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
+                                <input type='hidden' name='tipo' value='instructor'>
+                                <input type='submit' value='CONTACTOS 📇'>
+                            </form>
+                        </td>
+                        <td>
+                            <form action='listar_cursos_instructor.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
+                                <input type='submit' value='CURSOS 📚'>
+                            </form>
+                        </td>
+                    </tr>";
+        } "</tbody></table>";
+    }else {
+        echo "<p>Aún no existen Instructores</p>";
+    }
     ?>
 </body>
 </html>
