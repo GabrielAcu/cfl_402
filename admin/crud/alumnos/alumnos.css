@@ -779,6 +779,102 @@ body{
 
 
 
+
+
+
+
+
+.fallido{ /* cuadro de fondo */
+    background-color: rgb(175, 37, 37);
+    width: 20%;
+    box-shadow: 0 0 20px rgb(116, 27, 27) ;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.titulo-fallido{ /* Título de registro fallido */
+    color: red;
+    font-size: 24px;
+    text-align: center;
+    font-family: var(--font-family);
+}
+
+.exitoso{ /* cuadro de fondo */
+    background-color: rgb(88, 138, 90);
+    max-width: 40%;
+
+
+
+    box-shadow: 0 0 35px rgb(34, 85, 36) ;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.no-change{ /* cuadro de fondo */
+    background-color: rgb(255, 182, 26);
+    max-width: 40%;
+
+
+
+    box-shadow: 0 0 35px rgb(170, 122, 18) ;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 30px;
+    margin-top: 30px;
+
+    font-family: var(--font-family);
+    text-align: center;
+    font-size: 24px;
+
+    .titulo-exitoso{
+        color: black;
+    }
+}
+
+.titulo-exitoso{ /* Título de registro exitoso */
+    color: rgb(204, 224, 204);
+    font-size: 1.2em;
+    font-weight: 500;
+    text-align: center;
+
+    font-family: 'roboto';
+}
+ 
+.motivo{  /* motivo del error  */
+    color: aliceblue;
+    text-align: center;
+    font-family: var(--font-family);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width:992px) {  /*TABLETS */
     .table_header{
     /* background-color: rgb(237, 253, 253); */
