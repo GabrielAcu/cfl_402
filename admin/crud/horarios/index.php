@@ -26,12 +26,9 @@ $conn = conectar();
     <?php
     $id_curso=$_POST["id_curso"];
     // $id_curso=1;
-
-        require_once "conexion.php";
-        $conexion=conectar();
-        $consulta=$conexion->prepare("SELECT `cursos`.`codigo`, `cursos`.`nombre_curso`, `turnos`.`descripcion`, `cursos`.`id_curso`
+        $consulta=$conn->prepare("SELECT `cursos`.`codigo`, `cursos`.`nombre_curso`, `turnos`.`descripcion`, `cursos`.`id_curso`
             FROM `cursos`
-            LEFT JOIN `turnos` ON `cursos`.`id_turno` = `turnos`.`id_turno`
+            LEFT JOIN `turnos` ON `cursos`.`turno` = `turnos`.`id_turno`
             WHERE (`cursos`.`id_curso` =?)");
         $consulta->execute([$id_curso]);
         $registro=$consulta->fetch();
@@ -60,7 +57,7 @@ $conn = conectar();
 
     <?php
         
-        $consulta=$conexion->prepare("SELECT * FROM horarios where id_curso=?");
+        $consulta=$conn->prepare("SELECT * FROM horarios where id_curso=?");
         $consulta->execute([$id_curso]);
         // $consulta=$conexion->query("SELECT * FROM horarios where id_curso=$id_curso");
         if ($consulta->rowCount()>0){

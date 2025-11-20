@@ -1,3 +1,18 @@
+<?php
+// Cargar path.php desde crud/alumnos (2 niveles arriba)
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +22,7 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
+    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $id_horario = $_POST["id_horario"];
         echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
@@ -20,7 +35,7 @@
         $conexion = conectar();
         // echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
         try{
-            $consulta = $conexion->prepare("UPDATE horarios SET id_curso = ?, dia_semana = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?");
+            $consulta = $conn->prepare("UPDATE horarios SET id_curso = ?, dia_semana = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?");
             $consulta->execute([$id_curso, $dia_semana, $hora_inicio, $hora_fin, $id_horario]);
             if($consulta->rowCount()>0){
                 echo"<p>Horario modificado correctamente.</p>";

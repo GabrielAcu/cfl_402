@@ -46,7 +46,7 @@ $conn = conectar();
         $texto="SELECT cursos.*, instructores.nombre, instructores.apellido, turnos.descripcion
             FROM cursos
             LEFT JOIN instructores ON cursos.id_instructor = instructores.id_instructor
-            LEFT JOIN turnos ON cursos.id_turno=turnos.id_turno
+            LEFT JOIN turnos ON cursos.turno=turnos.id_turno
             WHERE (cursos.activo =1) AND (
             cursos.nombre_curso LIKE :nombre_curso OR 
             cursos.codigo LIKE :codigo OR
