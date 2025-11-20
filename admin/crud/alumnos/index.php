@@ -6,6 +6,8 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
+require_once 'layouts.php';
+
 
 // 3. Autenticación
 requireLogin();
@@ -30,9 +32,12 @@ $conn = conectar();
                     <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno.."> 
                     <button class="boton_enviar" type="submit"> Buscar </button>
                 </form>
-
-                 <button class='boton_registrar' id="register_button"> <a class='add_link' href='/cfl_402/cruds/crud_alumnos/registrar_alumno.php'> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno </a> -->  </button>
+                
+                <form action="registrar.php" method="post">
+                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno   </button>
+                </form>
             </div>
+
             
             <hr class="search_line">
 
