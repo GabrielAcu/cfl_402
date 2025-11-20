@@ -142,14 +142,14 @@ $conn = conectar();
 
                         <!-- ACCIONES -->
                         <td class='td_actions' title='Eliminar Alumno'>
-                            <form action='/cfl_402/cruds/crud_alumnos/modificar_alumno.php' method='POST' class='enlinea'>
+                            <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' alt='Modificar' title='Modificar'>
                                 </button>
                             </form>
 
-                            <form action='/cfl_402/cruds/crud_alumnos/eliminar_alumno.php' method='POST' class='enlinea'>
+                            <form action='../../crud/alumnos/bajar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
