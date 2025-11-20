@@ -158,8 +158,10 @@ $conn = conectar();
                         </td>
 
                         <td class='td_actions3' title='Inscribir a un curso'>
-                            <form action='/cfl_402/cruds/inscripciones/agregar.php' method='POST' class='enlinea'>
+                            <form action='../inscripciones/index.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='tipo' value='alumno'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
+                                <input type='hidden' name='volver' value='alumnos'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/plus.svg' alt='Modificar' title='Inscribir a un curso'>
                                 </button>

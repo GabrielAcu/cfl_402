@@ -51,6 +51,14 @@ $conn = conectar();
                         <input type='hidden' name='tipo' value='instructor'>
                         <input type='submit' value='Contacto'>
                     </form>
+
+                    <form action='../inscripciones/index.php' method='POST'>
+                        <input type='hidden' name='tipo' value='instructor'>
+                        <input type='hidden' name='id' value='<?= $instructor[id_instructor] ?>'>
+                        <input type='hidden' name='volver' value='instructores'>
+                        <input type='submit' value='Asignar alumnos/cursos'>
+                    </form>
+
                 </td>
             </tr>
         </tbody>

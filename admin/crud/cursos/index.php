@@ -100,7 +100,9 @@ $conn = conectar();
                             <input type='submit' value='👨‍👩‍👧‍👦 Horarios'>
                         </form>
                         <form action='../inscripciones/index.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='tipo' value='curso'>
                             <input type='hidden' name='id_curso' value='$registro[id_curso]'>
+                            <input type='hidden' name='volver' value='cursos'>
                             <input type='submit' value='📖 Inscripciones'>
                         </form>
 
