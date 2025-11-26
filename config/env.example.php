@@ -13,7 +13,8 @@ INSTRUCCIONES PARA EL EQUIPO:
 */
 
 // Ejemplo de configuración (Edita esto en tu env.php):
-putenv("DB_HOST=localhost");        // Generalmente es 'localhost'
-putenv("DB_NAME=cfl402_2025_2");    // El nombre de nuestra base de datos
-putenv("DB_USER=root");             // Por defecto en XAMPP es 'root'
-putenv("DB_PASS=");                 // Por defecto en XAMPP suele estar vacío
+
+putenv("DB_HOST=nombre-del-servidor");// Generalmente es 'localhost'
+putenv("DB_NAME=nombre-de-la-base-de-datos");// El nombre de nuestra base de datos
+putenv("DB_USER=nombre-de-usuario");// Por defecto en XAMPP es 'root'
+putenv("DB_PASS=contraseña");// Por defecto en XAMPP suele estar vacío
