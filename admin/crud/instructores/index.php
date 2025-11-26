@@ -13,7 +13,7 @@ require_once BASE_PATH . '/include/header.php';
 requireLogin();
 
 if (!isAdmin()) {
-    header('Location: cfl_402_ciro/cfl_402/index.php');
+    header('Location: /cfl_402/index.php');
     exit();
 }
 
@@ -25,6 +25,7 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="instructores.css">
     <title>Crud Instructores</title>
 </head>
 <body>
@@ -60,6 +61,7 @@ $conn = conectar();
                             <th>acciones</th>
                             <th>contactos</th>
                             <th>cursos</th>
+                            
                         </td>
                     </tr>
                 </thead>
@@ -98,6 +100,7 @@ $conn = conectar();
                                 <input type='submit' value='CURSOS 📚'>
                             </form>
                         </td>
+                        
                     </tr>";
         } "</tbody></table>";
     }else {

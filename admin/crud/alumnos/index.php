@@ -34,7 +34,7 @@ $conn = conectar();
                 </form>
                 
                 <form action="registrar.php" method="post">
-                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno   </button>
+                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='../../../assets/svg/plus_circle.svg' alt=''> Registrar Nuevo Alumno   </button>
                 </form>
             </div>
 
@@ -58,7 +58,7 @@ $conn = conectar();
     <!-- </div>s -->
         <hr>
         <h2>Listado de Alumnos</h2> <!-- sección para mostrar la lista de alumnos -->
-        <link rel="stylesheet" href="alumnos.css">
+        <link rel="stylesheet" href="alumnos2.css">
         
         <?php
             if (isset($_POST['search'])) {
@@ -98,7 +98,7 @@ $conn = conectar();
                         <th class='table_th'>Teléfono</th>
                         <th class='table_th'>Correo</th>
                         <th class='table_th'>Datos Extra</th>
-                        <th class='table_th_final'>Acciones</th>
+                        
                     </tr>
                     
                 </thead>
@@ -174,7 +174,7 @@ $conn = conectar();
                 "<tfoot> <a href='alumnos_eliminados.php'>Mostrar Alumnos Eliminados</a>' </tfoot>";
 
                 echo "</tbody>";
-                echo "<tfoot>;
+                echo "<tfoot>
 
             </table>
             

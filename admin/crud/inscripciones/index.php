@@ -14,39 +14,35 @@ $conn = conectar();
 
 
 // Validar entrada
-if (!isset($_POST["tipo"])) {
-  die("Error: acceso inválido a inscripciones (falta tipo).");
+// 
+
+// Validar entrada
+$tipo = $_POST["tipo"] ?? $_GET["tipo"] ?? null;
+$volver = $_POST["volver"] ?? $_GET["volver"] ?? null;
+
+if (!$tipo) {
+    die("Error: acceso inválido a inscripciones (falta tipo).");
 }
 
-$tipo = $_POST["tipo"];
-$volver = $_POST["volver"] ?? null;
+// buscar id por POST o GET
+$map = [
+    "curso"      => "id_curso",
+    "alumno"     => "id_alumno",
+    "instructor" => "id_instructor"
+];
 
-
-switch ($tipo) {
-  case "curso":
-      if (!isset($_POST["id_curso"])) {
-          die("Error: acceso inválido a inscripciones (falta id_curso).");
-      }
-      $id = intval($_POST["id_curso"]);
-      break;
-
-  case "alumno":
-      if (!isset($_POST["id_alumno"])) {
-          die("Error: acceso inválido a inscripciones (falta id_alumno).");
-      }
-      $id = intval($_POST["id_alumno"]);
-      break;
-
-  case "instructor":
-      if (!isset($_POST["id_instructor"])) {
-          die("Error: acceso inválido a inscripciones (falta id_instructor).");
-      }
-      $id = intval($_POST["id_instructor"]);
-      break;
-
-  default:
-      die("Error: tipo inválido en inscripciones.");
+if (!isset($map[$tipo])) {
+    die("Error: tipo inválido en inscripciones.");
 }
+
+$param = $map[$tipo];
+$id = $_POST[$param] ?? $_GET[$param] ?? null;
+
+if (!$id) {
+    die("Error: falta $param.");
+}
+
+$id = intval($id);
 
 
 // ==========================
@@ -103,17 +99,22 @@ switch ($tipo) {
         $cursos = $conn->prepare("
             SELECT c.id_curso, c.nombre_curso
             FROM cursos c
-            WHERE c.instructor = ?
+            WHERE c.id_instructor = ?
         ");
+        $cursos_disponibles = $conn->query("
+            SELECT id_curso, nombre_curso 
+            FROM cursos 
+            WHERE activo = 1
+        ")->fetchAll();
         $cursos->execute([$id]);
 
         // Alumnos de esos cursos
         $inscripciones = $conn->prepare("
-            SELECT i.id_inscripcion, a.apellido, a.nombre, c.nombre_curso
+            SELECT i.id_inscripcion, i.fecha_inscripcion, a.apellido, a.nombre, c.nombre_curso
             FROM inscripciones i
             JOIN alumnos a ON i.id_alumno = a.id_alumno
             JOIN cursos c ON i.id_curso = c.id_curso
-            WHERE c.instructor = ?
+            WHERE c.id_instructor = ?
         ");
         $inscripciones->execute([$id]);
     break;
@@ -138,11 +139,12 @@ switch ($tipo) {
 <!-- ===================== -->
 <!--     INFORMACIÓN       -->
 <!-- ===================== -->
-
+<!--  DESDE TABLA ALUMNOS  -->
 <?php if ($tipo === "alumno"): ?>
     <h3>Alumno: <?= $origen["apellido"] . ", " . $origen["nombre"] ?></h3>
 
     <form action="crear.php" method="POST">
+        <input type="hidden" name="tipo" value="alumno">
         <input type="hidden" name="id_alumno" value="<?= $id ?>">
 
         <label>Curso a inscribir:</label>
@@ -155,10 +157,13 @@ switch ($tipo) {
         <input type="submit" value="Inscribir">
     </form>
 
+<!-- DESDE TABLA CURSOS -->
+
 <?php elseif ($tipo === "curso"): ?>
     <h3>Curso: <?= $origen["nombre_curso"] ?></h3>
 
     <form action="crear.php" method="POST">
+        <input type="hidden" name="tipo" value="curso">
         <input type="hidden" name="id_curso" value="<?= $id ?>">
 
         <label>Alumno a inscribir:</label>
@@ -173,6 +178,8 @@ switch ($tipo) {
         <input type="submit" value="Inscribir">
     </form>
 
+<!-- DESDE TABLA INSTRUCTORES -->
+ 
 <?php elseif ($tipo === "instructor"): ?>
     <h3>Instructor: <?= $origen["apellido"] . ", " . $origen["nombre"] ?></h3>
 
@@ -182,6 +189,22 @@ switch ($tipo) {
             <li><?= $c["nombre_curso"] ?></li>
         <?php endforeach; ?>
     </ul>
+    <h4>Asignar nuevo curso:</h4>
+
+    <form action="crear.php" method="POST">
+        <input type="hidden" name="tipo" value="instructor">
+        <input type="hidden" name="id_instructor" value="<?= $id ?>">
+
+        <label>Curso:</label>
+        <select name="id_curso">
+            <?php foreach ($cursos_disponibles as $c): ?>
+                <option value="<?= $c["id_curso"] ?>"><?= $c["nombre_curso"] ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <input type="submit" value="Asignar">
+    </form>
+
 
 <?php endif; ?>
 
@@ -211,7 +234,7 @@ switch ($tipo) {
                 <td><?= ($i["apellido"] ?? '') . " " . ($i["nombre"] ?? '') ?></td>
             <?php endif; ?>
 
-            <td><?= $i["fecha_inscripcion"] ?></td>
+            <td><?= $i["fecha_inscripcion"] ?? '' ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
