@@ -1,15 +1,19 @@
 <?php
-//ESTE ARCHIVO ES DE EJEMPLO, NO DEBE TOCARSE
-/*
-INSTRUCCIONES:
-Lo que se debe hacer es crear un archivo env.php dentro de
-la carpeta config/ y ahi copiar estas lineas de codigo.
+// ⚠️ ESTE ES UN ARCHIVO DE EJEMPLO (PLANTILLA) ⚠️
+// NO GUARDES TUS CONTRASEÑAS REALES AQUÍ.
 
-Luego dentro del archivo env.php si poner las credenciales de tu: 
-localhost, base de datos, usuario y contraseña.
+/*
+INSTRUCCIONES PARA EL EQUIPO:
+1. Crea un archivo nuevo dentro de la carpeta 'config/' llamado: env.php
+   (El archivo env.php ya está ignorado por Git, así que es seguro).
+
+2. Copia todo el código de abajo y pégalo en tu nuevo archivo env.php.
+
+3. En env.php, cambia los valores por tus credenciales reales de XAMPP/MySQL.
 */
 
-putenv("DB_HOST=nombre-del-servidor");
-putenv("DB_NAME=nombre-de-la-base-de-datos");
-putenv("DB_USER=nombre-de-usuario");
-putenv("DB_PASS=contraseña");
+// Ejemplo de configuración (Edita esto en tu env.php):
+putenv("DB_HOST=localhost");        // Generalmente es 'localhost'
+putenv("DB_NAME=cfl402_2025_2");    // El nombre de nuestra base de datos
+putenv("DB_USER=root");             // Por defecto en XAMPP es 'root'
+putenv("DB_PASS=");                 // Por defecto en XAMPP suele estar vacío
