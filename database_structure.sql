@@ -3,14 +3,12 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2025 a las 13:55:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -49,19 +47,16 @@ CREATE TABLE `alumnos` (
 --
 
 INSERT INTO `alumnos` (`id_alumno`, `nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `correo`, `direccion`, `localidad`, `cp`, `activo`, `vehiculo`, `patente`, `observaciones`) VALUES
-(1, 'Juana', 'González', 38222111, '0000-00-00', '11-5566-7788', '', '', '', '', 1, '', '', ''),
-(3, 'Martín', 'Pereyra', 37999888, '0000-00-00', '11-8765-5544', '', '', '', '', 1, '', '', ''),
-(5, 'Juan', 'Pérez', 38222999, '0000-00-00', '11-9999-5555', '', '', '', '', 1, '', '', ''),
-(10, 'Mirta', 'Legrand', 3450697, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(12, 'Carlos', 'Avarese', 55444777, '0000-00-00', '221-25-2525', '', '', '', '', 1, '', '', ''),
-(13, 'Sandra', 'Capel', 24321456, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(15, 'Nora', 'Carabajal', 21555777, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(209, 'Javier', 'De Leon', 55882, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(211, 'Javier', 'DELETE FROM alumnos', 558821, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(212, 'Javier', 'DELETE FROM alumnos', 5588226, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(213, 'Franco', 'Colapinto', 22334, '0000-00-00', '', '', '', '', '', 1, '', '', ''),
-(214, 'Gabriel', 'Batistuta', 28012345, '0000-00-00', '1122', '', '', '', '', 1, '', '', ''),
-(215, 'Mercedes', 'Sosa', 12345678, '0000-00-00', '45454', '', '', '', '', 1, '', '', '');
+(1, 'Juana', 'González', 38222111, '2000-05-15', '11-5566-7788', 'juana@email.com', 'Calle Falsa 123', 'Bernal', '1876', 1, '', '', ''),
+(3, 'Martín', 'Pereyra', 37999888, '1999-08-20', '11-8765-5544', 'martin@email.com', 'Av. Mitre 500', 'Quilmes', '1878', 1, '', '', ''),
+(5, 'Juan', 'Pérez', 38222999, '2001-02-10', '11-9999-5555', 'juanp@email.com', '', '', '', 1, '', '', ''),
+(10, 'Mirta', 'Legrand', 3450697, '1927-02-23', '', '', '', '', '', 1, '', '', ''),
+(12, 'Carlos', 'Avarese', 55444777, '1998-11-30', '221-25-2525', '', '', '', '', 1, '', '', ''),
+(13, 'Sandra', 'Capel', 24321456, '1985-07-12', '', '', '', '', '', 1, '', '', ''),
+(15, 'Nora', 'Carabajal', 21555777, '1980-03-25', '', '', '', '', '', 1, '', '', ''),
+(209, 'Javier', 'De Leon', 55882, '2002-09-18', '', '', '', '', '', 1, '', '', ''),
+(214, 'Gabriel', 'Batistuta', 28012345, '1975-02-01', '11223344', '', '', '', '', 1, '', '', ''),
+(215, 'Mercedes', 'Sosa', 12345678, '1935-07-09', '45454545', '', '', '', '', 1, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -91,7 +86,7 @@ CREATE TABLE `contactos` (
 --
 
 INSERT INTO `contactos` (`id_contacto_alumno`, `nombre`, `apellido`, `dni`, `telefono`, `correo`, `direccion`, `localidad`, `cp`, `activo`, `entidad_id`, `parentesco`, `observaciones`, `tipo`) VALUES
-(1, 'Elsa', 'Gimenez', 555, '11', 'c@c.com', 'su casa', 'Ezpeleta', '1880', 1, 1, 'Madre', '', 'alumno');
+(1, 'Elsa', 'Gimenez', 11223344, '11-4455-6677', 'madre@email.com', 'su casa', 'Ezpeleta', '1880', 1, 1, 'Madre', '', 'alumno');
 
 -- --------------------------------------------------------
 
@@ -117,7 +112,7 @@ CREATE TABLE `cursos` (
 INSERT INTO `cursos` (`id_curso`, `codigo`, `nombre_curso`, `descripcion`, `activo`, `id_turno`, `cupo`, `id_instructor`) VALUES
 (1, 540, 'Electricidad domiciliaria', 'Introducción a instalaciones eléctricas residenciales, normas de seguridad, cableado, tableros y mediciones.', 1, 1, 20, 1),
 (3, 220, 'Reparación de PC', 'Armado, diagnóstico de hardware, instalación de sistemas operativos, soluciones a problemas frecuentes.', 1, 2, 20, 1),
-(11, 321, 'Panadero', 'Curso de panadería', 1, 1, 20, 2);
+(11, 321, 'Panadero', 'Curso de panadería profesional', 1, 1, 20, 2);
 
 -- --------------------------------------------------------
 
@@ -160,8 +155,8 @@ CREATE TABLE `inscripciones` (
 --
 
 INSERT INTO `inscripciones` (`id_inscripcion`, `id_alumno`, `id_curso`, `fecha_inscripcion`, `observaciones`) VALUES
-(2, 5, 1, NULL, ''),
-(3, 5, 3, NULL, ''),
+(2, 5, 1, '2025-03-01', ''),
+(3, 5, 3, '2025-03-01', ''),
 (6, 3, 3, '2025-10-07', '');
 
 -- --------------------------------------------------------
@@ -192,8 +187,8 @@ CREATE TABLE `instructores` (
 --
 
 INSERT INTO `instructores` (`id_instructor`, `nombre`, `apellido`, `dni`, `telefono`, `fecha_nacimiento`, `correo`, `direccion`, `localidad`, `cp`, `activo`, `vehiculo`, `patente`, `observaciones`) VALUES
-(1, 'Pablo', 'Di Zoccolo', 99999999, '11-9999-5555', '1975-01-12', 'pablo@x.com', 'mi casa', 'quilmes', '1878', 1, '', '', ''),
-(2, 'Juan', 'Perez', 40111222, '', '0000-00-00', '', '', '', '', 1, '', '', '');
+(1, 'Pablo', 'Di Zoccolo', 99999999, '11-9999-5555', '1975-01-12', 'pablo@email.com', 'mi casa', 'Quilmes', '1878', 1, '', '', ''),
+(2, 'Juan', 'Perez', 40111222, '11-4444-2222', '1980-06-15', 'juan.p@email.com', 'Centro', 'Bernal', '1876', 1, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -233,8 +228,10 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
+-- NOTA: Idealmente encriptar la contraseña en el futuro con password_hash()
 INSERT INTO `usuarios` (`id`, `nombre`, `contrasenia`, `rol`, `activo`) VALUES
-(1, 'gabriel', 'gabygabygaby', 0, 1);
+(1, 'admin', '1234', 0, 1),
+(2, 'instructor', '4321', 1, 1);
 
 --
 -- Índices para tablas volcadas
