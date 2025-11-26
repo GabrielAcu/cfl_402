@@ -26,18 +26,16 @@ h2 {
 }
 
 /* --------------------------
-     FORMULARIOS SUPERIORES
-     (Nuevo curso + Buscador)
+     FORMULARIO NUEVO INSTRUCTOR
   --------------------------- */
 form {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-form input[type="search"],
 form input[type="text"],
 form input[type="number"],
 form input[type="email"] {
@@ -46,8 +44,7 @@ form input[type="email"] {
   border: 1px solid #ccc;
 }
 
-form input[type="submit"],
-form button {
+form input[type="submit"] {
   padding: 10px 16px;
   background: #007bff;
   border: none;
@@ -57,13 +54,12 @@ form button {
   transition: 0.2s;
 }
 
-form input[type="submit"]:hover,
-form button:hover {
+form input[type="submit"]:hover {
   background: #0056c1;
 }
 
 /* --------------------------
-     TABLA DE CURSOS
+     TABLA DE INSTRUCTORES
   --------------------------- */
 table {
   width: 100%;

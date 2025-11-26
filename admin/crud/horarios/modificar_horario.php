@@ -7,6 +7,7 @@
 </head>
 <body>
     <?php
+<<<<<<< HEAD
     require_once "conexion.php";
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $conexion=conectar();
@@ -14,6 +15,23 @@
         
         $texto="SELECT * FROM horarios WHERE id_horario=$id_horario";
         $consulta=$conexion->prepare($texto);
+=======
+    require_once dirname(__DIR__, 3) . '/config/path.php';
+
+    // Dependencias
+    require_once BASE_PATH . '/config/conexion.php';
+    require_once BASE_PATH . '/auth/check.php';
+    require_once BASE_PATH . '/include/header.php';
+    
+    // Seguridad
+    requireLogin();
+    if ($_SERVER["REQUEST_METHOD"]=="POST"){
+        $conn=conectar();
+        $id_horario=$_POST["id_horario"];
+        
+        $texto="SELECT * FROM horarios WHERE id_horario=$id_horario";
+        $consulta=$conn->prepare($texto);
+>>>>>>> 6dbbbf02e5d31fe234d00729d021a3048be77525
         // $consulta->bindParam(' :id_horario',$id_horario);
         $consulta->execute();
         $horario=$consulta->fetch();
