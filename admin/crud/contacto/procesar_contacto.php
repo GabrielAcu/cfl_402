@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try{
         if(isset($_POST['action']) && $_POST['action'] == 'modificar'){
             //modifica
-            $sentencia = "UPDATE contactos SET nombre = ?, apellido = ?, dni = ?, telefono = ?, correo = ?, direccion = ?, localidad = ?, cp = ?, parentesco = ?, observaciones = ? WHERE id_contacto = ?";
+            $sentencia = "UPDATE contactos SET nombre = ?, apellido = ?, dni = ?, telefono = ?, correo = ?, direccion = ?, localidad = ?, cp = ?, parentesco = ?, observaciones = ? WHERE id_contacto_alumno = ?";
             $modificar = $conexion->prepare($sentencia); 
             $modificar->execute([$nombre, $apellido, $dni, $telefono, $correo, $direccion, $localidad, $cp, $parentesco, $observaciones, $id_contacto]);
            
