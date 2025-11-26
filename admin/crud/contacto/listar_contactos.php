@@ -79,11 +79,11 @@ if ($contactos->rowCount() > 0) {
             <td>{$registro['telefono']}</td>            
             <td>
                 <form action='modificar_contacto.php' method='post'>
-                <input type='hidden' name='id_contacto' value={$registro['id_contacto']}>                            
+                <input type='hidden' name='id_contacto' value={$registro['id_contacto_alumno']}>                            
                 <input type='submit' value='Modificar'>
                 </form>
                 <form action='eliminar_contacto.php' method='post'>
-                <input type='hidden' name='id_contacto' value={$registro['id_contacto']}>                            
+                <input type='hidden' name='id_contacto' value={$registro['id_contacto_alumno']}>                            
                 <input type='submit' value='Eliminar'>
                 </form>
             </td>

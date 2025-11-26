@@ -123,8 +123,8 @@ $conn = conectar();
 
                         <!-- DATOS EXTRA -->
                         <td class='td_actions' >
-                            <form action='/cfl_402/cruds/contacto/listar_contactos.php' method='POST' class='enlinea'>
-                                <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
+                            <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_entidad' value='$registro[id_alumno]'>
                                 <input type='hidden' name='tipo' value='alumno'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' alt='Contactos' title='Contactos'>
