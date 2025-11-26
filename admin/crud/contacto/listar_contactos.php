@@ -10,7 +10,7 @@ if (!isAdmin()) {
     exit();
 }
 
-// Dependencias
+// Dependencias importantes
 require_once BASE_PATH . '/config/conexion.php';
 
 $id_entidad = $_POST['id_entidad'] ?? null;
