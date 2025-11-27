@@ -1,5 +1,5 @@
 <?php
-// Cargar path.php desde crud/alumnos (2 niveles arriba)
+
 require_once dirname(__DIR__, 3) . '/config/path.php';
 
 // Dependencias
@@ -16,44 +16,131 @@ $conn = conectar();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Gestión de Cursos</title>
-  
-  <link rel="stylesheet" href="cursos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Cursos</title>
 </head>
 <body>
-  <h2>Gestión de Cursos</h2>
+    <link rel="stylesheet" href="cursos.css">
+    <h1>Cursos</h1>
 
-  <div class="acciones-superiores">
-    <a href="agregar.php" class="btn-agregar">+ Nuevo curso</a>
-  </div>
+    <div class="search_container">
+        <div class="search_block">
 
-  <!-- Buscador dinámico -->
-  <div class="form-busqueda">
-    <input 
-      type="text" 
-      id="buscar" 
-      placeholder="Buscar por nombre o código..."
-      autocomplete="off"
-    >
-    <p>🔍</p>
-  </div>
+            <div class="search_row">
 
-  <!-- loader -->
-  <div id="spinner" aria-hidden="true" style="display:none;">
-    <div class="spinner-inner" role="status" aria-live="polite">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <span class="sr-only">Cargando...</span>
+
+               
+                <form class="search_form" action="index.php" method="POST">
+                    <input class="search_bar" type="search" name="dato" placeholder="Buscar...">
+                    <input  class="boton_enviar" type="submit" value="Buscar">
+                </form>
+               
+                <form action="nuevo_curso.php" method="POST">
+                    <button class='boton_enviar' type="submit">Nuevo Curso</button>
+                </form>
+
+            <!-- <hr class="search_line"> -->
+                
+                 
+            </div>
+        </div>
     </div>
-  </div>
+    <h2>Listado de Cursos</h2> <!-- sección para mostrar la lista de cursos -->
+    <?php
+      
+        
+        
+        if (isset($_POST["dato"])){
+            $dato=$_POST["dato"];
+        } else {
+            $dato="";
+        }
 
-  <!-- Aquí se cargan los cursos -->
-  <div id="resultado">
-    <!-- listado inicial se inyecta vía JS -->
-  </div>
+        $texto="SELECT cursos.*, instructores.nombre, instructores.apellido, turnos.descripcion
+            FROM cursos
+            LEFT JOIN instructores ON cursos.id_instructor = instructores.id_instructor 
+            LEFT JOIN turnos ON cursos.id_turno=turnos.id_turno
+            WHERE (cursos.activo =1) AND (
+            cursos.nombre_curso LIKE :nombre_curso OR 
+            cursos.codigo LIKE :codigo OR
+            turnos.descripcion LIKE :descripcion OR
+            instructores.nombre LIKE :nombre OR
+            Instructores.apellido LIKE :apellido)";
+        $consulta=$conn->prepare($texto);
+        $consulta->execute([":nombre_curso"=>"%$dato%",":codigo"=>"%$dato%",":descripcion"=>"%$dato%",":nombre"=>"%$dato%",":apellido"=>"%$dato%"]);
+        
+        if ($consulta->rowCount()>0){ // si la cantidad de filas es mayor a 0, es porque hay cursos
+            echo "
+        <table>
+            <thead>
+                <tr class='table_header'>
+                    <th class='table_th'>Código</th>
+                    <th class='table_th'>Nombre Curso</th>
+                    <th class='table_th'>Turno</th>
+                    <th class='table_th'>Cupo</th>
+                    <th class='table_th' colspan='2'>Instructor</th>
+                    <th class='table_th'>Acciones</th>
+                    <th class='table_th_final'>Datos Extras</th>
+                </tr>
+            </thead>
+            <tbody>"; // imprimimos el encabezado de la tabla
+            while ($registro=$consulta->fetch()){ // recorremos cada registro obtenido de la consulta
+                // para cada registro, imprimimos una fila en la tabla con los datos del curso 
+                // y los botones de acción, a los cuales les pasamos el id_curso oculto mediante un campo hidden
+                // para que se pueda identificar qué curso se quiere modificar o eliminar
+                // Las acciones envían los datos a modificar_curso.php y eliminar_curso.php respectivamente
+                echo "
+                <tr>
+                    <td class='td_name'>$registro[codigo]</td> 
+                    <td class='td_name2'>$registro[nombre_curso]</td>
+                    <td class='td_data'>$registro[descripcion]</td>
+                    <td class='td_data'>$registro[cupo]</td>
+                    <td class='td_name'>$registro[apellido]</td>
+                    <td class='td_name2'>$registro[nombre]</td>
+                    <td class='td_actions'>
+                        <form action='modificar_curso.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='id_curso' value='$registro[id_curso]'>
+                            <button type='submit' class='submit-button'>
+                                <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' alt='Modificar' title='Modificar'>
+                            </button>
+                        </form>
+                        <form action='eliminar_curso.php' method='POST' class='enlinea' onsubmit='return confirm(\"Está seguro que desea eliminar el curso?\")'>
+                            <input type='hidden' name='id_curso' value='$registro[id_curso]'>
+                            <button type='submit' class='submit-button'>
+                                <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
+                            </button>
+                        </form>
+                    </td>
+                    <td class='td_actions'>
+                    
+                        <form action='../horarios/index.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='id_curso' value='$registro[id_curso]'>
+                            <button type='submit' class='submit-button'>
+                                    <img class='svg_lite' src='/cfl_402/assets/svg/clock.svg' alt='Eliminar' title='Eliminar'>
+                                </button>
+                        </form>
 
-  <script src="funciones.js"></script>
+                    
+                        <form action='../inscripciones/index.php' method='POST' class='enlinea'>
+                            <input type='hidden' name='tipo' value='curso'>
+                            <input type='hidden' name='id_curso' value='$registro[id_curso]'>
+                            <input type='hidden' name='volver' value='cursos'>
+                            <button type='submit' class='submit-button'>
+                                    <img class='svg_lite' src='/cfl_402/assets/svg/file.svg' alt='Eliminar' title='Eliminar'>
+                            </button>
+                        </form>
+
+                    </td>
+                </tr>";
+            }
+            echo "</tbody>
+        </table>"; // cerramos la tabla
+        } else {
+            echo "<p>Aún no existen cursos</p>"; // si no hay cursos, mostramos este mensaje
+        }
+    ?>
+    
 </body>
 </html>

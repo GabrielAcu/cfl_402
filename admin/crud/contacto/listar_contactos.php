@@ -16,6 +16,7 @@ require_once BASE_PATH . '/config/conexion.php';
 $id_entidad = $_POST['id_entidad'] ?? null;
 $tipo = $_POST['tipo'] ?? null;
 
+
 if ($tipo == null || $id_entidad == null) {    
     header("Location: ../../index.php");
     exit();
@@ -32,7 +33,7 @@ echo "
 
 $individuo = $tipo.'s';
 $id_individuo = null;
-if($individuo == 'instructors'){
+if($individuo == 'instructor'){
     $id_individuo = 'id_instructor';
     $individuo = 'instructores';
 } else {

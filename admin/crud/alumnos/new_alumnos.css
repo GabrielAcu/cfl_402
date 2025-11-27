@@ -1,0 +1,124 @@
+ .pagination a {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            margin: 2px;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            
+        }
+
+:root{
+    --fondo: #690f0f;
+    --gradiente:  radial-gradient( circle 921px at 94.2% 47.5%,  rgba(243,31,115,1) 0%, rgba(240,117,117,1) 42.8%, rgba(240,117,117,1) 71.5%, rgba(243,31,115,1) 82.8%, rgba(255,175,2,1) 97.6% );
+    --gradiente-tabla:linear-gradient(90deg,rgba(23, 10, 10, 1) 0%, rgba(8, 3, 3, 1) 47%, rgba(15, 6, 6, 1) 99%);
+}
+
+main{
+    display: flex;
+    justify-content: center;
+}
+
+
+tbody tr{
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.new-thead{
+    background: var(--gradiente);
+    
+    border-top-right-radius: 5px;
+    border-bottom: 2px solid rgb(255, 243, 243);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.new-th{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 4px;
+    padding-right: 8px;
+    text-align: start;
+    
+
+
+}
+
+.new-th-start{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 6px;
+    text-align: start;
+    border-top-left-radius: 5px;
+    
+    
+
+
+}
+
+.new-th-end{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 4px;
+    padding-right: 6px;
+    text-align: start;
+    border-top-right-radius: 5px;
+ 
+
+    
+
+
+}
+
+
+
+
+.new-td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 0px;
+    /* background: var(--gradiente-tabla); */
+    background-attachment: fixed;
+    border-bottom: 1px solid black;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    border-bottom:1px solid #e8e6e6 !important;
+
+}
+
+.new-td-start{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 15px;
+    /* background: var(--gradiente-tabla); */
+    background-attachment: fixed;
+    border-bottom:1px solid #e8e6e6  !important;
+
+
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+}
+
+.new-td-end{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    /* background: var(--gradiente-tabla); */
+    background-attachment: fixed;
+    border-bottom:1px solid #e8e6e6 !important;
+
+
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+}

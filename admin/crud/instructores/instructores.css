@@ -2,6 +2,7 @@
     --background-color: rgb(206, 245, 245);
     --mi-gradiente: linear-gradient(90deg, #FC466B 0%, #903ffb 100%);
     --roboto: font-family:'roboto','Segoe UI';
+    --eliminado:rgb(190, 42, 42);
 }
 
 body{
@@ -127,9 +128,9 @@ tbody tr:hover .td_actions3{
     border-bottom: 1px solid #f1f1f1 ;
     border-left: 1px solid #f1f1f1;
      padding-left:20px;
-    /* padding-right: 50px;
-    padding-top: 5px;
-    padding-bottom: 5px; */
+    padding-right: 50px; 
+    padding-top: 5px; 
+    padding-bottom: 5px; 
     text-align: start;
 
     font-weight: 450;
@@ -160,8 +161,8 @@ tbody tr:hover .td_actions3{
     border-top: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1 ;
     /* border-left: 1px solid #f1f1f1; */
-    padding-left:10px;
-    padding-right: 5px;
+    padding-left:15px;
+    padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: start;
@@ -865,39 +866,37 @@ body{
     font-family: var(--roboto);
 }
 
-.pagination{
-    margin-top: 10px;
+.eliminados{
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 20%;
+    
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    
+    max-width: 50%;
+    border:2px solid var(--eliminado);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.pagination a {
-            padding-top:3px ;
-            padding-bottom: 3px;
-            padding-left: 6px;
-            padding-right: 6px;
-            background: white;
-            background-attachment:local;
-            color: rgb(183, 0, 255);
-            border: 1px solid #ccc;
-            text-decoration: none;
-            margin: 2px;
-        }
-.pagination a.active {
-            background: var(--mi-gradiente);
-            background-attachment: fixed;
-            color: #f0efef;
-            
-            
-        }
-.pagination a:hover{
-    transition:transform 0.5s ease;
-    transform: translateY(-3px);
-    box-shadow: 0 0 10px #7c3aed;
+.form_eliminado{
+    
 }
 
+.eliminados_title{
+    color: var(--eliminado);
+    font-family: var(--roboto);
+    font-weight: 500;
+    font-style: italic;
+}
 
-
+.light_text{
+    font-weight: 400;
+}
 
 
 

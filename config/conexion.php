@@ -20,4 +20,3 @@ function conectar(){
     }
 }
 ?>
- <!-- #region -->

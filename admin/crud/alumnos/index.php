@@ -6,6 +6,8 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
+require_once 'layouts.php';
+
 
 // 3. Autenticación
 requireLogin();
@@ -30,9 +32,12 @@ $conn = conectar();
                     <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno.."> 
                     <button class="boton_enviar" type="submit"> Buscar </button>
                 </form>
-
-                 <button class='boton_registrar' id="register_button"> <a class='add_link' href='/cfl_402/cruds/crud_alumnos/registrar_alumno.php'> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno </a> -->  </button>
+                
+                <form action="registrar.php" method="post">
+                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno   </button>
+                </form>
             </div>
+
             
             <hr class="search_line">
 
@@ -118,8 +123,8 @@ $conn = conectar();
 
                         <!-- DATOS EXTRA -->
                         <td class='td_actions' >
-                            <form action='/cfl_402/cruds/contacto/listar_contactos.php' method='POST' class='enlinea'>
-                                <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
+                            <form action='/cfl_402/admin/crud/contacto/listar_contactos.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_entidad' value='$registro[id_alumno]'>
                                 <input type='hidden' name='tipo' value='alumno'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' alt='Contactos' title='Contactos'>
@@ -127,7 +132,7 @@ $conn = conectar();
                             </form>
                         
 
-                            <form action='/cfl_402/cruds/crud_alumnos/inscripciones_alumno.php' method='POST' class='enlinea'>
+                            <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                     <button type='submit' class='submit-button'>
                                      <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' alt='Ver contactos' title='Cursos'>
@@ -137,14 +142,14 @@ $conn = conectar();
 
                         <!-- ACCIONES -->
                         <td class='td_actions' title='Eliminar Alumno'>
-                            <form action='/cfl_402/cruds/crud_alumnos/modificar_alumno.php' method='POST' class='enlinea'>
+                            <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' alt='Modificar' title='Modificar'>
                                 </button>
                             </form>
 
-                            <form action='/cfl_402/cruds/crud_alumnos/eliminar_alumno.php' method='POST' class='enlinea'>
+                            <form action='../../crud/alumnos/bajar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
@@ -153,8 +158,10 @@ $conn = conectar();
                         </td>
 
                         <td class='td_actions3' title='Inscribir a un curso'>
-                            <form action='/cfl_402/cruds/inscripciones/agregar.php' method='POST' class='enlinea'>
+                            <form action='../inscripciones/index.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='tipo' value='alumno'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
+                                <input type='hidden' name='volver' value='alumnos'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/plus.svg' alt='Modificar' title='Inscribir a un curso'>
                                 </button>
