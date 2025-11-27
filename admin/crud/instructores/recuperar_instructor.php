@@ -1,3 +1,25 @@
+<?php
+
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: cfl_402_ciro/cfl_402/index.php');
+    exit();
+}
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +29,9 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $id_instructor=$_POST["id_instructor"];
-
-        $conexion=conectar();
-        $consulta=$conexion->query("SELECT * FROM instructores WHERE activo=0");
+        $consulta=$conn->query("SELECT * FROM instructores WHERE activo=0");
         echo "
         <h2>Instructores eliminados</h2>
         <table>
@@ -44,7 +63,7 @@
                 </tr>";
             } "</tbody></table>";
         try {
-            $consulta=$conexion->prepare("UPDATE instructores SET activo=1 WHERE id_instructor=:id_instructor");
+            $consulta=$conn->prepare("UPDATE instructores SET activo=1 WHERE id_instructor=:id_instructor");
             $consulta->execute([$id_instructor]);
             if ($consulta->rowCount()>0){
                 echo "<p class='correcto'>Instructor recuperado correctamente</p>";
