@@ -13,6 +13,7 @@ requireLogin();
 // Conexión
 $conn = conectar();
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

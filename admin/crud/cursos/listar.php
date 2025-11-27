@@ -57,7 +57,7 @@ if (count($cursos) === 0) {
         <td><?= htmlspecialchars($c['codigo']) ?></td>
         <td><?= htmlspecialchars($c['nombre_curso']) ?></td>
         <td><?= htmlspecialchars($c['descripcion']) ?></td>
-        <td><?= htmlspecialchars($c['turno']) ?></td>
+        <td><?= htmlspecialchars($c['id_turno']) ?></td>
         <td><?= htmlspecialchars($c['cupo']) ?></td>
         <td><?= htmlspecialchars($c['instructor']) ?></td>
         <td>
