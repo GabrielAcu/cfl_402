@@ -1,3 +1,25 @@
+<?php
+
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: cfl_402_ciro/cfl_402/index.php');
+    exit();
+}
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,12 +29,10 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $conexion=conectar();
         $id=$_POST["id"];
         $texto="SELECT * FROM instructores WHERE id_instructor=:id";
-        $consulta=$conexion->prepare($texto);
+        $consulta=$conn->prepare($texto);
         $consulta->bindParam(':id',$id);
         $consulta->execute();
         $instructor=$consulta->fetch();
