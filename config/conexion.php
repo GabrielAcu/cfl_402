@@ -1,9 +1,10 @@
 <?php
+require_once 'env.php';
 function conectar(){
-    $servidor = "localhost";
-    $nombreBaseDeDatos = "cfl402_2025";
-    $usuario = "root";
-    $contrasena = "";
+    $servidor = getenv("DB_HOST");
+    $nombreBaseDeDatos = getenv("DB_NAME");
+    $usuario = getenv("DB_USER");
+    $contrasena = getenv("DB_PASS");
 
     try {
         $dsn = "mysql:host=$servidor;dbname=$nombreBaseDeDatos;charset=utf8";

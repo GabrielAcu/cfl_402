@@ -163,7 +163,7 @@ $conn = conectar();
 
                         <!-- DATOS EXTRA -->
                         <td class='td_actions' >
-                            <form action='/cfl_402/admin/crud/contacto/listar_contactos.php' method='POST' class='enlinea'>
+                            <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_entidad' value='$registro[id_alumno]'>
                                 <input type='hidden' name='tipo' value='alumno'>
                                 <button type='submit' class='submit-button'>

@@ -88,8 +88,8 @@ $conn = conectar();
                             </form>
                         </td>
                         <td>
-                            <form action='listar_contactos_instructor.php' method='POST' class='enlinea'>
-                                <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
+                            <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_entidad' value=$registro[id_instructor]>
                                 <input type='hidden' name='tipo' value='instructor'>
                                 <input type='submit' value='CONTACTOS 📇'>
                             </form>

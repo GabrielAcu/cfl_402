@@ -15,7 +15,7 @@ require_once BASE_PATH . '/config/conexion.php';
 $id_contacto = $_POST['id_contacto'] ?? null;
 
 $conexion = conectar();
-$datos_por_id = "SELECT * FROM contactos WHERE id_contacto = $id_contacto";
+$datos_por_id = "SELECT * FROM contactos WHERE id_contacto_alumno = $id_contacto";
 
 $contacto = $conexion->query($datos_por_id);
 $registro = $contacto->fetch();
@@ -23,7 +23,7 @@ $registro = $contacto->fetch();
 // exit();
 if ($registro['activo']) {
     //cambiar activo en 0
-    $sentencia = "UPDATE contactos SET activo = ? WHERE id_contacto = ?";
+    $sentencia = "UPDATE contactos SET activo = ? WHERE id_contacto_alumno = ?";
     $modificar = $conexion->prepare($sentencia); 
     $modificar->execute([0, $id_contacto]);
     header('Location: listar_contactos.php');
