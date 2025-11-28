@@ -8,10 +8,16 @@ body{
     overflow-y: scroll;
 }
 
+table{
+    border-collapse: collapse;
+   
+}
+
 .main_alumnos{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    
+    margin:0 80px;
 }
 
 .main_no_visible{
@@ -29,6 +35,7 @@ body{
 h1{
     text-align: center;
     margin-bottom: 20px;
+
 }
 
 h2{
@@ -37,9 +44,7 @@ h2{
 
 }
 
-.table_tr:hover{
-    /* background-color: rgb(142, 103, 233); */
-}
+
 
 
 tbody tr{
@@ -223,7 +228,7 @@ tbody tr:hover .td_actions3{
 }
 
 .td_actions3{
-    display: none;
+    display: table-cell;
     text-align: center;
     justify-content: space-around;
     border: 0;
@@ -261,11 +266,6 @@ tbody tr:hover .td_actions3{
     font-weight: 300;
 }
 
-.search_container{
-    /* width:700px; */
-    /* display: flex;  */
-    /* justify-content: center; */
-}
 
 .search_block{ 
     
@@ -586,7 +586,8 @@ title{
     margin-left: 35px;
     /* padding: 15px; */
     padding-top: 10px;
-    background-color: rgb(255, 239, 239);
+    background-color: rgb(255, 255, 255);
+    /* background:#4682B4; */
     /* background-color: rgb(255, 250, 250); */
     border-bottom: 2px solid #ccc;
     border-top: 1px solid #ccc;
@@ -616,10 +617,15 @@ label{
 }
 
 h3{
+    text-align: start;
+}
+
+.h3-alumnos{
     padding-top: 10px;
     padding-left: 20px;
     font-size: 1.3rem;
     font-weight: 600;
+    font-family: var(--roboto);
 }
 
 .fila{  /* CADA COLUMNA VERTICAL */
@@ -628,7 +634,7 @@ h3{
         
 }
 
-.campoo{ /* CADA CAMPO(IMPUT) INDIVIDUAL */
+.campo{ /* CADA CAMPO(IMPUT) INDIVIDUAL */
     display: flex;
     flex-direction: column;
 
@@ -642,12 +648,17 @@ h3{
     border: 1px solid #ccc;
     background-color: #f1f0f0;
 
-    font-family: 'roboto';
+    font-family: var(--roboto);
     font-size: 1rem;
 }
 
 .input-modify::placeholder{
-    font-family: 'roboto';
+    font-family: var(--roboto);
+}
+
+
+.input-modify:focus{
+    font-family: var(--roboto);
 }
 
 .boton_enviar{
@@ -710,6 +721,7 @@ h3{
     font-family: var(--font-family);
     color: #000000;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .add_link{
@@ -799,7 +811,7 @@ body{
     color: red;
     font-size: 24px;
     text-align: center;
-    font-family: var(--font-family);
+    font-family: var(--roboto);
 }
 
 .exitoso{ /* cuadro de fondo */
@@ -829,7 +841,7 @@ body{
     margin-left: 30px;
     margin-top: 30px;
 
-    font-family: var(--font-family);
+    font-family: var(--roboto);
     text-align: center;
     font-size: 24px;
 
@@ -844,16 +856,45 @@ body{
     font-weight: 500;
     text-align: center;
 
-    font-family: 'roboto';
+    font-family: var(--roboto);
 }
  
 .motivo{  /* motivo del error  */
     color: aliceblue;
     text-align: center;
-    font-family: var(--font-family);
+    font-family: var(--roboto);
 }
 
+.pagination{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
 
+.pagination a {
+            padding-top:3px ;
+            padding-bottom: 3px;
+            padding-left: 6px;
+            padding-right: 6px;
+            background: white;
+            background-attachment:local;
+            color: rgb(183, 0, 255);
+            border: 1px solid #ccc;
+            text-decoration: none;
+            margin: 2px;
+        }
+.pagination a.active {
+            background: var(--mi-gradiente);
+            background-attachment: fixed;
+            color: #f0efef;
+            
+            
+        }
+.pagination a:hover{
+    transition:transform 0.5s ease;
+    transform: translateY(-3px);
+    box-shadow: 0 0 10px #7c3aed;
+}
 
 
 

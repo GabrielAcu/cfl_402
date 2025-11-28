@@ -1,10 +1,10 @@
 <?php
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 
-include_once __DIR__ . '/../../../config/conexion.php';
+
 require_once 'layouts.php';
 require_once BASE_PATH . '/include/header.php';
-
+require_once BASE_PATH . '/config/conexion.php';
 $conn = conectar();
 
 ?>
@@ -19,81 +19,84 @@ $conn = conectar();
 
         <h3> Información Personal </h3> 
     <div class='fila'>
-        <div class="campoo">
+        <div class="campo">
             <label for="nombre-alumno"> Nombre de Alumno: </label>
-            <input class="input-modify" type="text" name="nombre" id="dni-alumno" placeholder="Juan" required>
+            <input class="input-modify" type="text" name="nombre" id="dni-alumno" placeholder="Nombre">
         </div>
-        <div class="campoo">
+        <div class="campo">
             <label for="apellido-alumno"> Apellido de Alumno: </label>
-            <input class="input-modify" type="text" name="apellido" id="dni-alumno" placeholder="Perez" required>
+            <input class="input-modify" type="text" name="apellido" id="dni-alumno" placeholder="Apellido" required>
         </div>
     </div>
     
     <div class='fila'>
-        <div class="campoo">
+        <div class="campo">
             <label for="dni-alumno"> DNI de Alumno: </label>
-            <input class="input-modify" type="number"  id="dni-alumno" name="dni" placeholder="10.100.100" required>
+            <input class="input-modify" type="number"  id="dni-alumno" name="dni" placeholder="DNI" required>
         </div>
     
 
-        <div class="campoo">
+        <div class="campo">
             <label for="email-alumno"> Email de Alumno: </label>
-            <input class="input-modify" type="text" id="email-alumno" name="email" placeholder="miCorreo@gmail.com" required>
+            <input class="input-modify" type="email" id="email-alumno" name="email" placeholder="Email" required>
         </div>
     </div>
 
 
 
     <div class='fila'>
-        <div class="campoo">
-            <label for="telefono-alumno">Télefono del Alumno: </label>
-            <input class="input-modify" type="text" id="telefono-alumno" name="telefono" placeholder="11-222-3333" required>
+        <div class="campo">
+            <label for="telefono-alumno"> Télefono de Alumno: </label>
+            <input class="input-modify" type="text" id="telefono-alumno" name="telefono" placeholder="Teléfono" required>
         </div>
     
 
-        <div class="campoo">
+        <div class="campo">
             <label for="fecha-alumno"> Fecha De Nacimiento: </label>
-            <input class="input-modify" type="date" id="fecha-alumno" name="nacimiento" placeholder="" required>
+            <input class="input-modify" type="date" id="fecha-alumno" name="nacimiento" placeholder="Fecha de Nacimiento" required>
         </div>
     </div>
 
     <div class='fila'>
-        <div class="campoo">
+        <div class="campo">
             <label for="domicilio-alumno"> Domicilio: </label>
-            <input class="input-modify" type="text" id="domicilio-alumno" name="domicilio" placeholder="Calchaqui 1111" required>
+            <input class="input-modify" type="text" id="domicilio-alumno" name="domicilio" placeholder="Domicilio" required>
         </div>
     
 
-        <div class="campoo">
+        <div class="campo">
             <label for="localidad-alumno"> Localidad: </label>
-            <input class="input-modify" type="text" id="localidad-alumno" name="localidad" placeholder="Quilmes Oeste" required>
+            <input class="input-modify" type="text" id="localidad-alumno" name="localidad" placeholder="Localidad" required>
         </div>
     </div>
 
     <div class='fila'>
-        <div class="campoo">
+        <div class="campo">
             <label for="postal-alumno"> Código Postal: </label>
-            <input class="input-modify" type="text" id="postal-alumno" name="postal" placeholder="1811" required>
+            <input class="input-modify" type="text" id="postal-alumno" name="postal" placeholder="Código Postal" required>
         </div>
     </div>
 
     <div class='fila'>
-        <div class="campoo">
-            <label for="auto-alumno"> Modeolo de Auto (si posee): </label>
-            <input class="input-modify" type="text" id="auto-alumno" name="autos" placeholder="Ford Fiesta" >
+        <div class="campo">
+            <label for="auto-alumno"> Modelo de Auto (si posee): </label>
+            <input class="input-modify" type="text" id="auto-alumno" name="autos" placeholder="Modelo de Auto" >
         </div>
     
 
-        <div class="campoo">
+        <div class="campo">
             <label for="patente-alumno"> Patente: </label>
-            <input class="input-modify" type="text" id="patente-alumno" name="patente" placeholder="AAA 111" >
+            <input class="input-modify" type="text" id="patente-alumno" name="patente" placeholder="Patente" >
         </div>
     </div>
 
     <div class='fila'>
-        <div class="campoo">
+        <div class="campo">
             <label for="observaciones-alumno"> Observaciones: </label>
-            <input class="input-modify" type="text" id="observaciones-alumno" name="observaciones" placeholder="" >
+            <!-- <input class="input-modify" type="text" id="observaciones-alumno" name="observaciones" placeholder="Teléfono" > -->
+            <textarea class="input-modify" name="observaciones" id="observaciones-alumno" placeholder="Observaciones">
+
+            </textarea>
         </div>
     
 

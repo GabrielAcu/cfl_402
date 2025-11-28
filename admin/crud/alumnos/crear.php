@@ -1,11 +1,12 @@
 <?php
 
 include_once __DIR__ . '/../../../config/conexion.php';
+require_once 'layouts.php';
 $conn = conectar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nombre      = $_POST["nombre"]; 
+    $nombre      = $_POST["nombre"] ?? null; 
     $apellido    = $_POST["apellido"];
     $dni         = $_POST["dni"];
     $telefono    = $_POST["telefono"];
@@ -19,8 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $observaciones = $_POST["observaciones"];
     $activo      = "1";
 
-    if (empty($nombre)) {
+    if (isset($nombre) || $nombre == '') {
         fallido("Sin Nombre");
+        exit();
     } elseif (strlen($nombre) > 50) {
         fallido("El Nombre supera el límite de caractéres");
     } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre)) { 

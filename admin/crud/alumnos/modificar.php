@@ -1,5 +1,23 @@
   <?php
     include_once __DIR__ . '/../../../config/conexion.php';
+
+    // Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+require_once 'layouts.php';
+
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $conn=conectar(); 
@@ -25,7 +43,7 @@
 
                     
 
-                    <h3> Información Personal </h3> 
+                    <h3 class='h3-alumnos'> Información Personal </h3> 
 
                     <input class='input-modify' type='hidden' name='id_alumno' value=$id_alumno'>
 
