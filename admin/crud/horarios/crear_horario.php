@@ -1,3 +1,18 @@
+<?php
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,9 +47,9 @@
     </form>  -->
 
     <?php
-    require_once "conexion.php";
+    
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $conexion=conectar();
+        $conn=conectar();
         $dia_semana=$_POST["dia_semana"];
         $hora_inicio=$_POST["hora_inicio"];
         $hora_fin=$_POST["hora_fin"];
@@ -42,12 +57,16 @@
         try {
             $sql="INSERT INTO horarios (id_curso, dia_semana, hora_inicio, hora_fin) 
             VALUES (:id_curso, :dia_semana, :hora_inicio, :hora_fin)";
-            $consulta=$conexion->prepare($sql);
+            $consulta=$conn->prepare($sql);
             $consulta->execute([':id_curso'=>$id_curso,':dia_semana'=>$dia_semana,':hora_inicio'=>$hora_inicio,':hora_fin'=>$hora_fin]);
             echo "<p class='correcto'>Se registró exitosamente</p>";     
 
 
-            echo "<a href='index.php'>Volver al Listado de Horarios</a>";
+            echo "<form action='index.php' method='POST'>
+                <input type='hidden' value='$id_curso' name='id_curso'>
+                <input type='submit' value='Volver al Listado de Horarios'>
+                </form>";
+            // <a href='index.php?id_curso=$id_curso'>Volver al Listado de Horarios</a>";
         } catch (PDOException $e) {
             echo "Ocurrió un error al insertar los datos: ". $e->getMessage();
         }
