@@ -31,7 +31,11 @@
             echo "<p class='error'>Error al eliminar el alumno: ".$e->getMessage()."</p>";
         }
         } catch (Exception $e){
+<<<<<<< HEAD
             if ($e->errorInfo[1 ]==1451){ // código de error para restricción de clave foránea
+=======
+            if ($e->errorInfo[1]==1451){ // código de error para restricción de clave foránea
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 
                 nochange( "<p class='error'>No se puede eliminar el alumno porque está inscripto en curso/s.</p>");
             }else{ // otro error

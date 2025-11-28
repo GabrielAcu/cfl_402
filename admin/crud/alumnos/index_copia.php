@@ -214,23 +214,23 @@ $conn = conectar();
                 echo "</tbody>";
                 echo "<tfoot>;
 
-            </table>
-            
-             
+            </table>"
+            ?>
+                
 
                     <div class='pagination'>
-                <?php if ($total_paginas > 1){
+                    <?php if ($total_paginas > 1){
                     // Enlace a la primera página 
                     
                     if($pagina_actual == 1){
-                        echo '<a href='?pagina=1' class='active'>Primera</a>';
+                        echo "<a href='?pagina=1' class='active'>Primera</a>";
                     } else {
-                        echo '<a href='?pagina=1' class=''>Primera</a>';
+                        echo "<a href='?pagina=1' class=''>Primera</a>";
                     }
                     
                     // Enlace a la página anterior 
                     if ($pagina_actual > 1){
-                        echo '<a href='?pagina='.($pagina_actual - 1).'">Anterior</a>"'";
+                        echo "<a href='?pagina='.($pagina_actual - 1).'>Anterior</a>";
                     }
 
                     // Mostrar enlaces para algunas páginas (ej: 5 páginas alrededor de la actual)
@@ -259,5 +259,5 @@ $conn = conectar();
             }
 
             
-        ?>
+            ?>
         

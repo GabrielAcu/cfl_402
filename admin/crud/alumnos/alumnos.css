@@ -6,10 +6,13 @@
 
 body{
     overflow-y: scroll;
+<<<<<<< HEAD
 }
 
 table{
     border-collapse: collapse;
+=======
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
 
 .main_alumnos{
@@ -591,8 +594,12 @@ title{
     margin-left: 35px;
     /* padding: 15px; */
     padding-top: 10px;
+<<<<<<< HEAD
     background-color: rgb(255, 255, 255);
     /* background:#4682B4; */
+=======
+    background-color: rgb(255, 239, 239);
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
     /* background-color: rgb(255, 250, 250); */
     border-bottom: 2px solid #ccc;
     border-top: 1px solid #ccc;
@@ -621,12 +628,19 @@ label{
     font-weight: 450;
 }
 
+<<<<<<< HEAD
 .h3-alumnos{
+=======
+h3{
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
     padding-top: 10px;
     padding-left: 20px;
     font-size: 1.3rem;
     font-weight: 600;
+<<<<<<< HEAD
     font-family: var(--roboto);
+=======
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
 
 .fila{  /* CADA COLUMNA VERTICAL */
@@ -649,17 +663,25 @@ label{
     border: 1px solid #ccc;
     background-color: #f1f0f0;
 
+<<<<<<< HEAD
     font-family: var(--roboto);
+=======
+    font-family: 'roboto';
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
     font-size: 1rem;
 }
 
 .input-modify::placeholder{
+<<<<<<< HEAD
     font-family: var(--roboto);
 }
 
 
 .input-modify:focus{
     font-family: var(--roboto);
+=======
+    font-family: 'roboto';
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
 
 .boton_enviar{
@@ -811,7 +833,11 @@ body{
     color: red;
     font-size: 24px;
     text-align: center;
+<<<<<<< HEAD
     font-family: var(--roboto);
+=======
+    font-family: var(--font-family);
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
 
 .exitoso{ /* cuadro de fondo */
@@ -841,7 +867,11 @@ body{
     margin-left: 30px;
     margin-top: 30px;
 
+<<<<<<< HEAD
     font-family: var(--roboto);
+=======
+    font-family: var(--font-family);
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
     text-align: center;
     font-size: 24px;
 
@@ -856,12 +886,17 @@ body{
     font-weight: 500;
     text-align: center;
 
+<<<<<<< HEAD
     font-family: var(--roboto);
+=======
+    font-family: 'roboto';
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
  
 .motivo{  /* motivo del error  */
     color: aliceblue;
     text-align: center;
+<<<<<<< HEAD
     font-family: var(--roboto);
 }
 
@@ -894,6 +929,9 @@ body{
     transition:transform 0.5s ease;
     transform: translateY(-3px);
     box-shadow: 0 0 10px #7c3aed;
+=======
+    font-family: var(--font-family);
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 }
 
 
@@ -906,6 +944,11 @@ body{
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 
 
 

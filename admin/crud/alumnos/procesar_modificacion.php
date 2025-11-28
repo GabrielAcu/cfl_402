@@ -1,6 +1,7 @@
  <?php
     include_once __DIR__ . '/../../../config/conexion.php';
 require_once 'layouts.php';
+<<<<<<< HEAD
     include_once __DIR__ . '/../../../config/conexion.php';
 
     // Cargar path.php
@@ -12,6 +13,8 @@ require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
+=======
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"] == "POST") { // verificar que el método de solicitud sea POST
@@ -69,7 +72,10 @@ require_once 'layouts.php';
         echo "<p class='error'>Solicitud inválida.</p>"; // mensaje de error si no es método POST
     }
     ?>
+<<<<<<< HEAD
 
     <link rel="stylesheet" href="alumnos.css">
+=======
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 </body>
 </html>

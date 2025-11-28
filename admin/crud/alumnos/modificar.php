@@ -1,5 +1,6 @@
   <?php
     include_once __DIR__ . '/../../../config/conexion.php';
+<<<<<<< HEAD
 
     // Cargar path.php
 require_once dirname(__DIR__, 2) . '/../config/path.php';
@@ -18,6 +19,8 @@ if (!isAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
+=======
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $conn=conectar(); 
@@ -43,7 +46,11 @@ if (!isAdmin()) {
 
                     
 
+<<<<<<< HEAD
                     <h3 class='h3-alumnos'> Información Personal </h3> 
+=======
+                    <h3> Información Personal </h3> 
+>>>>>>> bcf6d57b12aaecfa789a1755b407d395075382bb
 
                     <input class='input-modify' type='hidden' name='id_alumno' value=$id_alumno'>
 
