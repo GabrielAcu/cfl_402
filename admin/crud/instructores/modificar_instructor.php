@@ -40,14 +40,15 @@ $conn = conectar();
             echo "<h2>Modificar Instructor</h2>
             <form action='procesar_modificacion_instructor.php' method='POST'>
         <input type='hidden' name='id_instructor' value='$instructor[id_instructor]'>
-        <input type='text' name='nombre' placeholder='$instructor[nombre]'>
-        <input type='text' name='apellido' placeholder='$instructor[apellido]'>
-        <input type='number' name='dni'placeholder='$instructor[dni]'>
-        <input type='text' name='telefono'placeholder='$instructor[telefono]'>
-        <input type='text' name='correo' placeholder='$instructor[correo]'>
+        <input type='text' name='nombre' value='$instructor[nombre]'>
+        <input type='text' name='apellido' value='$instructor[apellido]'>
+        <input type='number' name='dni'value='$instructor[dni]'>
+        <input type='text' name='telefono'value='$instructor[telefono]'>
+        <input type='text' name='correo' value='$instructor[correo]'>
         <input type='submit'>
     </form>
             ";
+        echo "<a href='index.php'>Volver al listado de instructores</a>";
         } else {
             echo "<p class='error'>El instructor no existe</p>";
         }

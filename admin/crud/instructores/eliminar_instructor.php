@@ -37,7 +37,6 @@ $conn = conectar();
                 echo "<h1>Instructor eliminado correctamente</h1>";
                 echo "<a href='index.php'>Volver al listado de instructores</a>";
             } else {
-                echo "<p class='error'>El instructor no existe</p>";
                 echo "<a href='index.php'>Volver al listado de instructores</a>";
             }
         } catch (PDOException $e) {

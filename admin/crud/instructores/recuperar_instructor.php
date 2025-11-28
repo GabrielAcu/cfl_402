@@ -30,7 +30,25 @@ $conn = conectar();
 <body>
     <?php
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $id_instructor=$_POST["id_instructor"];
+        if (isset($_POST["id_instructor"])) {
+            try {
+                
+                $id_instructor=$_POST["id_instructor"];
+                $consulta=$conn->prepare("UPDATE instructores SET activo=1 WHERE id_instructor=:id_instructor");
+                $consulta->execute([$id_instructor]);
+                if ($consulta->rowCount()>0){
+                    echo "<p class='correcto'>Instructor recuperado correctamente</p>";
+                    echo "<a href='index.php'>Volver al listado de instructores</a>";
+                } else {
+                    echo "<p class='error'>No hay instructores</p>";
+                    echo "<a href='index.php'>Volver al listado de instructores</a>";
+                }
+            
+            } catch (PDOException $e) {
+                echo "<p class='error'>Error al recuperar el instructor: ".$e->getMessage()."</p>";
+                echo "<a href='index.php'>Volver al listado de instructores</a>";
+            }
+        } 
         $consulta=$conn->query("SELECT * FROM instructores WHERE activo=0");
         echo "
         <h2>Instructores eliminados</h2>
@@ -62,20 +80,7 @@ $conn = conectar();
                     </td>
                 </tr>";
             } "</tbody></table>";
-        try {
-            $consulta=$conn->prepare("UPDATE instructores SET activo=1 WHERE id_instructor=:id_instructor");
-            $consulta->execute([$id_instructor]);
-            if ($consulta->rowCount()>0){
-                echo "<p class='correcto'>Instructor recuperado correctamente</p>";
-                echo "<a href='index.php'>Volver al listado de instructores</a>";
-            } else {
-                echo "<p class='error'>El instructor no existe</p>";
-                echo "<a href='index.php'>Volver al listado de instructores</a>";
-            }
-        } catch (PDOException $e) {
-            echo "<p class='error'>Error al recuperar el instructor: ".$e->getMessage()."</p>";
-            echo "<a href='index.php'>Volver al listado de instructores</a>";
-        }
+
     } else {
         echo "<p class='error'>solicitud no válida</p>";
     }

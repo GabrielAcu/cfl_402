@@ -41,10 +41,11 @@ $conn = conectar();
     <hr>Listado de Instructores<hr>
     <td>
         <form action='recuperar_instructor.php' method='POST' class='enlinea'>
-            <input type='hidden' name='id' value=$registro[id_instructor]>
+            <!-- <input type='hidden' name='id_instructor' value=$registro[id_instructor]> -->
             <input type='submit' value='Instructores eliminados 🗑️'>
-            
+            <a href='../../index.php'>Volver</a>
         </form>
+    </td>
     <?php
     
     
@@ -88,14 +89,14 @@ $conn = conectar();
                             </form>
                         </td>
                         <td>
-                            <form action='listar_contactos_instructor.php' method='POST' class='enlinea'>
-                                <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
+                            <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
+                                <input type='hidden' name='id_entidad' value=$registro[id_instructor]>
                                 <input type='hidden' name='tipo' value='instructor'>
                                 <input type='submit' value='CONTACTOS 📇'>
                             </form>
                         </td>
                         <td>
-                            <form action='listar_cursos_instructor.php' method='POST' class='enlinea'>
+                            <form action='../cursos/index.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
                                 <input type='submit' value='CURSOS 📚'>
                             </form>
