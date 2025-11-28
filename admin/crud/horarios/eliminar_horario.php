@@ -1,3 +1,18 @@
+<?php
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +22,13 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
+    
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
+        $id_curso=$_POST["id_curso"];
         $id_horario=$_POST["id_horario"];
-        $conexiom=conectar();
+        $conn=conectar();
         try {
-            $consulta=$conexiom->prepare("DELETE FROM horarios WHERE id_horario=?");
+            $consulta=$conn->prepare("DELETE FROM horarios WHERE id_horario=?");
             $consulta->execute([$id_horario]);
             echo "Eliminado correctamente tilin";
             
@@ -22,11 +38,13 @@
 
         }
     }
-    ?>
+            echo "<form action='index.php' method='POST'>
+                <input type='hidden' value='$id_curso' name='id_curso'>
+                <input type='submit' value='Volver al Listado de Horarios'>
+                </form>";
+?>
     
-    <ul>
-        <li><a href="index.php">volver al inicio</a></li>
-    </ul>
+
 
 </body>
 </html>
