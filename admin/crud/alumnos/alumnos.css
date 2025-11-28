@@ -13,11 +13,18 @@ table{
    
 }
 
-.main_alumnos{
+.main_alumnos {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin:0 80px;
+}
+
+.main_alumnos .pagination {
+    display: flex;
+
+    justify-content: center;
+    margin:10px 20%;
 }
 
 .main_no_visible{
@@ -866,22 +873,36 @@ body{
 }
 
 .pagination{
+    width: 50%;
+    border: 1px solid #7c3aed;
+    background-color: #7c3aed;
+    border-radius: 12px;
     margin-top: 10px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    align-items: center;
 }
 
 .pagination a {
             padding-top:3px ;
             padding-bottom: 3px;
-            padding-left: 6px;
-            padding-right: 6px;
+            padding-left: 10px;
+            padding-right: 10px;
             background: white;
+            border-radius: 12px;
             background-attachment:local;
             color: rgb(183, 0, 255);
             border: 1px solid #ccc;
             text-decoration: none;
             margin: 2px;
+
+            font-size: 1.1rem;
+            
+            
+            
         }
 .pagination a.active {
             background: var(--mi-gradiente);
@@ -893,7 +914,7 @@ body{
 .pagination a:hover{
     transition:transform 0.5s ease;
     transform: translateY(-3px);
-    box-shadow: 0 0 10px #7c3aed;
+    box-shadow: 0 0 10px #e7e7e7;
 }
 
 
