@@ -72,7 +72,7 @@ $conn = conectar();
             }
 
             // Configuración de la paginación
-            $registros_por_pagina = 15; // Número de registros a mostrar por página
+            $registros_por_pagina = 10; // Número de registros a mostrar por página
 
             // Determinar la página actual
             $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
@@ -98,7 +98,7 @@ $conn = conectar();
 
             // texto de la consulta SQL con marcadores de posición
             $sql="SELECT alumnos.*, alumnos.nombre, alumnos.apellido, alumnos.dni, alumnos.telefono FROM alumnos
-                WHERE (alumnos.nombre LIKE :nombre 
+                WHERE `activo`='1' AND (alumnos.nombre LIKE :nombre 
                 OR alumnos.apellido LIKE :apellido 
                 OR alumnos.dni LIKE :dni
                 OR alumnos.telefono LIKE :telefono) ORDER BY id_alumno ASC LIMIT :registros_por_pagina OFFSET :offset";
@@ -228,14 +228,17 @@ $conn = conectar();
                     // Enlace a la primera página 
                     
                     if($pagina_actual == 1){
-                        echo "<a href='?pagina=1' class='active'>Primera</a>";
+                        echo "<a href='?pagina=1' class='active'> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>
+                        </a>";
                     } else {
-                        echo "<a href='?pagina=1' class=''>Primera</a>";
+                        echo "<a href='?pagina=1' class=''> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>   
+                        </a>";
                     }
                     
                     // Enlace a la página anterior 
                     if ($pagina_actual > 1){
-                        echo "<a href='?pagina=".($pagina_actual - 1)."'>Anterior</a>";
+                        echo "<a href='?pagina=".($pagina_actual - 1)."'> <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg' alt='Página Anterior' title='Página Anterior'>
+                        </a>";
                     }
 
                     // Mostrar enlaces para algunas páginas (ej: 5 páginas alrededor de la actual)
@@ -248,11 +251,13 @@ $conn = conectar();
 
                     // Enlace a la página siguiente 
                     if ($pagina_actual < $total_paginas){
-                        echo "<a href='?pagina=".($pagina_actual + 1)."'>Siguiente</a>";
+                        echo "<a href='?pagina=".($pagina_actual + 1)."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg' alt='Página Siguiente' title='Página Siguiente'>
+                        </a>";
                     }
 
                     // Enlace a la última página 
-                    echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'>Última</a>";
+                    echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg' alt='Última Página' title='Última Página'>
+                    </a>";
                 }
         
           
