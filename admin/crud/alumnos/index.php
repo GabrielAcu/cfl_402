@@ -34,7 +34,7 @@ $conn = conectar();
                 </form>
                 
                 <form action="registrar.php" method="post">
-                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='../../../assets/svg/plus_circle.svg' alt=''> Registrar Nuevo Alumno   </button>
+                    <button class='boton_enviar' id="register_button"> <img class='svg_lite' src='/crud-alumnos/assest/svg/plus_circle.svg' alt='Eliminar'> Registrar Nuevo Alumno   </button>
                 </form>
             </div>
 
@@ -58,28 +58,66 @@ $conn = conectar();
     <!-- </div>s -->
         <hr>
         <h2>Listado de Alumnos</h2> <!-- sección para mostrar la lista de alumnos -->
-        <link rel="stylesheet" href="alumnos2.css">
+        <link rel="stylesheet" href="alumnos.css">
         
         <?php
+            
+
+
+
             if (isset($_POST['search'])) {
                $input=$_POST["search"]; 
             } else {
                 $input="";
             }
+
+            // Configuración de la paginación
+            $registros_por_pagina = 15; // Número de registros a mostrar por página
+
+            // Determinar la página actual
+            $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            // Asegurarse de que la página actual sea al menos 1
+            $pagina_actual = max(1, $pagina_actual);
+
+            // Calcular el registro inicial para la consulta (OFFSET)
+            $offset = ($pagina_actual - 1) * $registros_por_pagina;
+
+            // 1. Consultar el total de registros
+            $stmt_total = $conn->prepare("SELECT COUNT(*) FROM alumnos WHERE (alumnos.nombre LIKE :nombre 
+                OR alumnos.apellido LIKE :apellido 
+                OR alumnos.dni LIKE :dni
+                OR alumnos.telefono LIKE :telefono)");
+            $stmt_total->execute([":nombre"=>"%$input%", 
+                ":apellido"=>"%$input%", 
+                ":dni"=>"%$input%", 
+                ":telefono"=>"%$input%"]);
+            $total_registros = $stmt_total->fetchColumn();
+
+            // Calcular el total de páginas
+            $total_paginas = ceil($total_registros / $registros_por_pagina);
+
             // texto de la consulta SQL con marcadores de posición
             $sql="SELECT alumnos.*, alumnos.nombre, alumnos.apellido, alumnos.dni, alumnos.telefono FROM alumnos
                 WHERE (alumnos.nombre LIKE :nombre 
                 OR alumnos.apellido LIKE :apellido 
                 OR alumnos.dni LIKE :dni
-                OR alumnos.telefono LIKE :telefono)";
-            
+                OR alumnos.telefono LIKE :telefono) ORDER BY id_alumno ASC LIMIT :registros_por_pagina OFFSET :offset";
+                
             $consulta=$conn->prepare($sql); 
+            $consulta->bindParam(':registros_por_pagina', $registros_por_pagina, PDO::PARAM_INT);
+
+            $consulta->bindParam(':offset', $offset, PDO::PARAM_INT);
+            
             // $consulta->execute([':nombre'=>$nombre,':apellido'=>$apellido,':dni'=>$dni,':nacimiento' =>$nacimiento, ':correo' =>$correo, ':telefono'=>$telefono, ':direccion' =>$domicilio, ':localidad' => $localidad, ':cp' => $postal, ':activo'=> $activo, ':autos' =>$autos, ':patente' =>$patente, ':observaciones'=>$observaciones]);
             $consulta->execute( [
                 ":nombre"=>"%$input%", 
                 ":apellido"=>"%$input%", 
                 ":dni"=>"%$input%", 
-                ":telefono"=>"%$input%" ]); // consulta para obtener todos los alumnos
+                ":telefono"=>"%$input%",
+                ':registros_por_pagina' => $registros_por_pagina,
+                ':offset' => $offset
+             ]);
+            // consulta para obtener todos los alumnos
                 // $consulta=$conn->query("SELECT * FROM alumnos WHERE activo='1'"); // consulta para obtener todos los alumnos
             if ($consulta->rowCount()>0){ // si la cantidad de filas es mayor a 0, es porque hay alumnos
                 echo "
@@ -98,7 +136,9 @@ $conn = conectar();
                         <th class='table_th'>Teléfono</th>
                         <th class='table_th'>Correo</th>
                         <th class='table_th'>Datos Extra</th>
-                        
+                        <th class='table_th_final' >Acciones</th>
+                       
+
                     </tr>
                     
                 </thead>
@@ -132,7 +172,7 @@ $conn = conectar();
                             </form>
                         
 
-                            <form action='/cfl_402/cruds/crud_alumnos/inscripciones_alumno.php' method='POST' class='enlinea'>
+                            <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                     <button type='submit' class='submit-button'>
                                      <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' alt='Ver contactos' title='Cursos'>
@@ -155,9 +195,7 @@ $conn = conectar();
                                     <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
                                 </button>
                             </form>
-                        </td>
 
-                        <td class='td_actions3' title='Inscribir a un curso'>
                             <form action='../inscripciones/index.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='tipo' value='alumno'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
@@ -167,19 +205,62 @@ $conn = conectar();
                                 </button>
                             </form>
                         </td>
+
                     </tr>
 
                     </a> ";
                 }
-                "<tfoot> <a href='alumnos_eliminados.php'>Mostrar Alumnos Eliminados</a>' </tfoot>";
+                
 
                 echo "</tbody>";
-                echo "<tfoot>
-
-            </table>
+                echo "<tfoot
             
-            </main>"; // cerramos la tabla
+
+            </table>";
+            
+            ?>
+
+            
+
+                
+                <div class='pagination'>
+                <?php if ($total_paginas > 1){
+                    // Enlace a la primera página 
+                    
+                    if($pagina_actual == 1){
+                        echo "<a href='?pagina=1' class='active'>Primera</a>";
+                    } else {
+                        echo "<a href='?pagina=1' class=''>Primera</a>";
+                    }
+                    
+                    // Enlace a la página anterior 
+                    if ($pagina_actual > 1){
+                        echo "<a href='?pagina=".($pagina_actual - 1)."'>Anterior</a>";
+                    }
+
+                    // Mostrar enlaces para algunas páginas (ej: 5 páginas alrededor de la actual)
+                    
+                    $rango = 2; // Número de páginas a mostrar antes y después de la actual
+                    for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++){
+                    
+                        echo "<a href='?pagina=$i' class='". (($i == $pagina_actual) ? 'active':'')."'>$i</a>";
+                    }
+
+                    // Enlace a la página siguiente 
+                    if ($pagina_actual < $total_paginas){
+                        echo "<a href='?pagina=".($pagina_actual + 1)."'>Siguiente</a>";
+                    }
+
+                    // Enlace a la última página 
+                    echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'>Última</a>";
+                }
+        
+          
+            echo"</main>";
+            
+            // cerramos la tabla
             } else {
                 echo "<p>Aún no existen alumnos</p>"; // si no hay alumnos, mostramos este mensaje
             }
-        ?>
+
+            
