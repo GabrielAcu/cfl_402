@@ -7,15 +7,6 @@
 </head>
 <body>
     <?php
-<<<<<<< HEAD
-    require_once "conexion.php";
-    if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $conexion=conectar();
-        $id_horario=$_POST["id_horario"];
-        
-        $texto="SELECT * FROM horarios WHERE id_horario=$id_horario";
-        $consulta=$conexion->prepare($texto);
-=======
     require_once dirname(__DIR__, 3) . '/config/path.php';
 
     // Dependencias
@@ -31,7 +22,6 @@
         
         $texto="SELECT * FROM horarios WHERE id_horario=$id_horario";
         $consulta=$conn->prepare($texto);
->>>>>>> 6dbbbf02e5d31fe234d00729d021a3048be77525
         // $consulta->bindParam(' :id_horario',$id_horario);
         $consulta->execute();
         $horario=$consulta->fetch();
@@ -39,12 +29,12 @@
         // exit();
         $id_curso=$_POST["id_curso"];
         // $id_curso=1;
-          echo "ID_HORARIO:",$id_horario;
         if ($horario){
             $arreglo=["Lunes"=> "", "Martes"=> "", "Miércoles"=> "", "Jueves"=> "", "Viernes"=> "", "Sábado"=> ""];
             $arreglo[$horario["dia_semana"]]="selected";
             echo "<h2>Modificar Horario</h2>
         <form action='procesar_horarios.php' method='POST'>
+            <input type='hidden' name='id_curso' value  ='$id_curso'>
             <input type='hidden' name='id_horario' value  ='$id_horario'>
                 <select name='dia_semana'>
                     <option value='Lunes' $arreglo[Lunes]>Lunes</option>

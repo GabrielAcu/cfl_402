@@ -1,3 +1,15 @@
+<?php
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,7 +20,6 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php"; // incluir el archivo de conexión a la base de datos
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $conexion=conectar(); 
         $id_curso=$_POST["id_curso"]; // obtener el id_curso enviado desde el formulario

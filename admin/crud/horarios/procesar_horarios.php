@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <?php
 // Cargar path.php desde crud/alumnos (2 niveles arriba)
 require_once dirname(__DIR__, 3) . '/config/path.php';
@@ -15,7 +13,6 @@ requireLogin();
 // Conexión
 $conn = conectar();
 ?>
->>>>>>> 6dbbbf02e5d31fe234d00729d021a3048be77525
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,33 +22,32 @@ $conn = conectar();
 </head>
 <body>
     <?php
-<<<<<<< HEAD
-    require_once "conexion.php";
-=======
     
->>>>>>> 6dbbbf02e5d31fe234d00729d021a3048be77525
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $id_horario = $_POST["id_horario"];
-        echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
+        // echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
         $id_curso = $_POST["id_curso"];
         // $id_curso = 1;
         $dia_semana = $_POST["dia_semana"];
         $hora_inicio = $_POST["hora_inicio"];
         $hora_fin = $_POST["hora_fin"];
 
-        $conexion = conectar();
+        
         // echo "ID_HORARIO:",$id_horario,$_POST["id_horario"];
         try{
-<<<<<<< HEAD
-            $consulta = $conexion->prepare("UPDATE horarios SET id_curso = ?, dia_semana = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?");
-=======
             $consulta = $conn->prepare("UPDATE horarios SET id_curso = ?, dia_semana = ?, hora_inicio = ?, hora_fin = ? WHERE id_horario = ?");
->>>>>>> 6dbbbf02e5d31fe234d00729d021a3048be77525
             $consulta->execute([$id_curso, $dia_semana, $hora_inicio, $hora_fin, $id_horario]);
             if($consulta->rowCount()>0){
                 echo"<p>Horario modificado correctamente.</p>";
-                echo"<a href='index.php'>Volver al inicio.</a>";
+
+                // echo"<a href='index.php'>Volver al inicio.</a>";
+            }else {
+                echo "No se modificó ningún horario";
             }
+                echo "<form action='index.php' method='POST'>
+                <input type='hidden' value='$id_curso' name='id_curso'>
+                <input type='submit' value='Volver al Listado de Horarios'>
+                </form>";
         }catch (Exception $e) {
             echo "<p class='error'>Error al modificar el horario: " . $e->getMessage() . "</p>";
         }

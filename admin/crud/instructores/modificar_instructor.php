@@ -1,3 +1,25 @@
+<?php
+
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: cfl_402_ciro/cfl_402/index.php');
+    exit();
+}
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,12 +29,10 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $conexion=conectar();
         $id=$_POST["id"];
         $texto="SELECT * FROM instructores WHERE id_instructor=:id";
-        $consulta=$conexion->prepare($texto);
+        $consulta=$conn->prepare($texto);
         $consulta->bindParam(':id',$id);
         $consulta->execute();
         $instructor=$consulta->fetch();
@@ -20,14 +40,15 @@
             echo "<h2>Modificar Instructor</h2>
             <form action='procesar_modificacion_instructor.php' method='POST'>
         <input type='hidden' name='id_instructor' value='$instructor[id_instructor]'>
-        <input type='text' name='nombre' placeholder='$instructor[nombre]'>
-        <input type='text' name='apellido' placeholder='$instructor[apellido]'>
-        <input type='number' name='dni'placeholder='$instructor[dni]'>
-        <input type='text' name='telefono'placeholder='$instructor[telefono]'>
-        <input type='text' name='correo' placeholder='$instructor[correo]'>
+        <input type='text' name='nombre' value='$instructor[nombre]'>
+        <input type='text' name='apellido' value='$instructor[apellido]'>
+        <input type='number' name='dni'value='$instructor[dni]'>
+        <input type='text' name='telefono'value='$instructor[telefono]'>
+        <input type='text' name='correo' value='$instructor[correo]'>
         <input type='submit'>
     </form>
             ";
+        echo "<a href='index.php'>Volver al listado de instructores</a>";
         } else {
             echo "<p class='error'>El instructor no existe</p>";
         }
