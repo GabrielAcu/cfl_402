@@ -19,7 +19,7 @@ if ($id_contacto == null) {
 }
 
 $conexion = conectar();
-$datos_por_id = "SELECT * FROM contactos WHERE id_contacto = $id_contacto";
+$datos_por_id = "SELECT * FROM contactos WHERE id_contacto_alumno = $id_contacto";
 
 $contacto = $conexion->query($datos_por_id);
 $registro = $contacto->fetch();
@@ -43,7 +43,7 @@ echo "
     <textarea name='observaciones'>{$registro['observaciones']}</textarea>
     <input type='hidden' name='id_entidad' value={$registro['entidad_id']}>
     <input type='hidden' name='tipo' value={$registro['tipo']}>
-    <input type='hidden' name='id_contacto' value={$registro['id_contacto']}>
+    <input type='hidden' name='id_contacto' value={$registro['id_contacto_alumno']}>
     <input type='hidden' name='action' value='modificar'>
 
     <input type='submit' value='Guardar'>

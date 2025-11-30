@@ -1,10 +1,8 @@
 <?php 
-// ini_set('display_errors', 1);
-// error_reporting(E_ALL);
-
-define('BASE_PATH', __DIR__); // Define la ruta absoluta del archivo actual
-
 session_start();
+
+require_once __DIR__ . '/config/path.php';
+require_once BASE_PATH . '/auth/check.php';
 
 ?>
 <!DOCTYPE html>
@@ -14,6 +12,9 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Sistema CFL 402</title>
   <link rel="stylesheet" href="assets/css/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="login-container">
@@ -34,7 +35,7 @@ session_start();
       </div>
 
       <?php if (isset($_SESSION['user'])): ?>
-        <?php var_dump($_SESSION['user']['name']); ?>
+        <?php idAdminOrInstructor(); ?>
       <?php endif; ?>
 
 

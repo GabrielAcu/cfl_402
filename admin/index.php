@@ -10,7 +10,7 @@ require_once BASE_PATH . '/include/header.php';
 // 3. Autenticación
 requireLogin();
 
-if (!isAdmin()) {
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
@@ -48,22 +48,19 @@ $conn = conectar();
       <a href="../admin/crud/cursos/index.php" class="card">
         <h2>📘 Cursos</h2>
         <p>Alta, baja y modificación de cursos disponibles.</p>
-      </a>
+      </a>    
       
-      <!-- <a href="../crud/inscripciones/index.php" class="card">
-        <h2>🧾 Inscripciones</h2>
-        <p>Vincular alumnos con cursos.</p>
-      </a> -->
+      <?php 
+      if (isSuperAdmin()) {
+      ?>
+        <a href="../admin/crud/usuarios/index.php" class="card">
+          <h2>🔐 Usuarios</h2>
+          <p>Gestión de accesos al sistema.</p>
+        </a>
+      <?php
+      }
       
-      <!-- <a href="../crud/horarios/index.php" class="card">
-        <h2>⏰ Horarios</h2>
-        <p>Definir días y horas de cursado.</p>
-      </a> -->
-      
-      <a href="../admin/crud/usuarios/index.php" class="card">
-        <h2>🔐 Usuarios</h2>
-        <p>Gestión de accesos al sistema.</p>
-      </a>
+      ?>
     </section>
   </main>
 

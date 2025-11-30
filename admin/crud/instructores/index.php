@@ -13,7 +13,7 @@ require_once BASE_PATH . '/include/header.php';
 requireLogin();
 
 if (!isAdmin()) {
-    header('Location: cfl_402_ciro/cfl_402/index.php');
+    header('Location: /cfl_402/index.php');
     exit();
 }
 
@@ -25,11 +25,12 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="instructores.css">
     <title>Crud Instructores</title>
 </head>
 <body>
     <h1>Instructor</h1>
-    <h2>Nuevo Instructor +</h2>
+    <h2>Nuevo Instructor</h2>
     <form action="agregar_instructor.php" method="POST">
         <input type="text" name="nombre" placeholder="nombre">
         <input type="text" name="apellido" placeholder="apellido">
@@ -41,14 +42,11 @@ $conn = conectar();
     <hr>Listado de Instructores<hr>
     <td>
         <form action='recuperar_instructor.php' method='POST' class='enlinea'>
-            <!-- <input type='hidden' name='id_instructor' value=$registro[id_instructor]> -->
+            <input type='hidden' name='id' value=$registro[id_instructor]>
             <input type='submit' value='Instructores eliminados 🗑️'>
-            <a href='../../index.php'>Volver</a>
+            
         </form>
-    </td>
     <?php
-    
-    
     $consulta=$conn->query("SELECT * FROM instructores WHERE activo=1");
     if ($consulta->rowCount()>0){
         echo "<table>
@@ -63,6 +61,7 @@ $conn = conectar();
                             <th>acciones</th>
                             <th>contactos</th>
                             <th>cursos</th>
+                            
                         </td>
                     </tr>
                 </thead>
@@ -96,11 +95,12 @@ $conn = conectar();
                             </form>
                         </td>
                         <td>
-                            <form action='../cursos/index.php' method='POST' class='enlinea'>
+                            <form action='listar_cursos_instructor.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
                                 <input type='submit' value='CURSOS 📚'>
                             </form>
                         </td>
+                        
                     </tr>";
         } "</tbody></table>";
     }else {
