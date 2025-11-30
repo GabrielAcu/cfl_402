@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+<?php
+
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: cfl_402_ciro/cfl_402/index.php');
+    exit();
+}
+
+// Conexión
+$conn = conectar();
+?><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,19 +28,15 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $id_instructor=$_POST["id_instructor"];
-
-        $conexion=conectar();
         try {
-            $consulta=$conexion->prepare("UPDATE instructores SET activo=0 WHERE id_instructor=:id_instructor");
+            $consulta=$conn->prepare("UPDATE instructores SET activo=0 WHERE id_instructor=:id_instructor");
             $consulta->execute([':id_instructor'=>$id_instructor]);
             if ($consulta->rowCount()>0){
                 echo "<h1>Instructor eliminado correctamente</h1>";
                 echo "<a href='index.php'>Volver al listado de instructores</a>";
             } else {
-                echo "<p class='error'>El instructor no existe</p>";
                 echo "<a href='index.php'>Volver al listado de instructores</a>";
             }
         } catch (PDOException $e) {

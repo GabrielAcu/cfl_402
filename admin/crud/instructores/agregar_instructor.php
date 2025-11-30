@@ -1,5 +1,27 @@
+<?php
+
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// 3. Autenticación
+requireLogin();
+
+if (!isAdmin()) {
+    header('Location: cfl_402_ciro/cfl_402/index.php');
+    exit();
+}
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +29,8 @@
 </head>
 <body>
     <?php
-    require_once "conexion.php";
+
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
-    $conexion=conectar();
     $nombre=$_POST ["nombre"];
     $apellido=$_POST["apellido"];
     $dni=$_POST["dni"];
@@ -18,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     try{
         $sql="INSERT INTO instructores (nombre, apellido, dni, telefono, correo) 
         VALUES (:nombre, :apellido, :dni, :telefono, :correo)";
-        $consulta=$conexion->prepare($sql);
+        $consulta=$conn->prepare($sql);
         $consulta->execute([':nombre'=>$nombre,':apellido'=>$apellido,':dni'=>$dni,':telefono'=>$telefono, ':correo'=>$correo]);
         echo "<p>Se registró exitosamente</p>";
         echo "<a href='index.php'>volver al listado anterior</a>";

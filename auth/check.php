@@ -14,6 +14,10 @@ function requireLogin() {
     }
 }
 
+function isSuperAdmin() {
+    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 2;
+}
+
 function isAdmin() {
     return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 0;
 }
@@ -23,7 +27,7 @@ function isInstructor() {
 }
 
 function idAdminOrInstructor() {
-    if (isAdmin()) {
+    if (isAdmin() || isSuperAdmin()) {
         header('Location: /cfl_402/admin');
         exit();
     } elseif (isInstructor()) {
