@@ -2,7 +2,7 @@
 // ==========================
 //   CONFIGURACIÓN INICIAL
 // ==========================
-require_once dirname(__DIR__, 2) . '/../config/path.php';
+require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
@@ -10,10 +10,6 @@ require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
 
 // Conexión
 $conn = conectar();
@@ -36,8 +32,8 @@ $conn = conectar();
             <!-- Registrar nuevo alumno -->
             <form action="registrar.php" method="post">
                 <button class="boton_enviar" id="register_button">
-                    <img class="svg_lite" src="/crud-alumnos/assest/svg/plus_circle.svg" alt="Nuevo">
-                    Registrar Nuevo Alumno
+                    <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                    Nuevo Alumno
                 </button>
             </form>
 
@@ -143,12 +139,12 @@ if ($consulta->rowCount() > 0) {
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
-                <th colspan='2'>Dirección</th>
                 <th>Fecha Nac.</th>
                 <th>Teléfono</th>
+                <th>Dirección</th>
                 <th>Correo</th>
                 <th>Datos Extra</th>
-                <th class='table_th_final'>Acciones</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -157,38 +153,35 @@ if ($consulta->rowCount() > 0) {
     while ($registro = $consulta->fetch()) {
 
         echo "
-        <a href='/cfl_402/cruds/crud_alumnos/perfil_alumnos.php'>
-        <tr title='Click para ver Perfil'>
-
-            <td class='td_name'>{$registro['nombre']}</td>
-            <td class='td_name2'>{$registro['apellido']}</td>
-            <td class='td_data'>{$registro['dni']}</td>
-            <td class='td_dir2'>{$registro['direccion']}</td>
-            <td class='td_dir'>{$registro['localidad']}</td>
-            <td class='td_data'>{$registro['fecha_nacimiento']}</td>
-            <td class='td_data'>{$registro['telefono']}</td>
-            <td class='td_data'>{$registro['correo']}</td>
-
-            <!-- DATOS EXTRA -->
+        <tr>
+            <td>{$registro['nombre']}</td>
+            <td>{$registro['apellido']}</td>
+            <td>{$registro['dni']}</td>
+            <td>{$registro['fecha_nacimiento']}</td>
+            <td>{$registro['telefono']}</td>
+            <td>{$registro['direccion']}</td>
+            <td>{$registro['correo']}</td>
+            
             <td class='td_actions'>
-                <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
-                    <input type='hidden' name='id_entidad' value='{$registro['id_alumno']}'>
-                    <input type='hidden' name='tipo' value='alumno'>
-                    <button type='submit' class='submit-button'>
-                        <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' title='Contactos'>
-                    </button>
-                </form>
+                <div class='acciones_wrapper'>
+                    <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
+                        <input type='hidden' name='id_entidad' value='{$registro['id_alumno']}'>
+                        <input type='hidden' name='tipo' value='alumno'>
+                        <button type='submit' class='submit-button'>
+                            <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' title='Contactos'>
+                        </button>
+                    </form>
 
-                <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
-                    <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
-                    <button type='submit' class='submit-button'>
-                        <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' title='Cursos'>
-                    </button>
-                </form>
+                    <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
+                        <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
+                        <button type='submit' class='submit-button'>
+                            <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' title='Cursos'>
+                        </button>
+                    </form>
+                </div>
             </td>
 
-            <!-- ACCIONES -->
-            <td class='td_actions'>
+            <td class='td_actions2'>
                 <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
                     <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
                     <button type='submit' class='submit-button'>
@@ -212,9 +205,8 @@ if ($consulta->rowCount() > 0) {
                     </button>
                 </form>
             </td>
-
         </tr>
-        </a>
+        
         ";
     }
 
