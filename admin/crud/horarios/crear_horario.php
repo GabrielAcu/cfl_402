@@ -18,35 +18,12 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XX</title>
+    <title>Crear Horario</title>
 </head>
 <body>
-    <!-- <h1>Crear horario</h1>
-    <ul>
-        <li><a href="index.php">Volver al inicio</a></li>
-    </ul> -->
 
-    <?php
-    $id_curso=$_POST["id_curso"];
-    // $id_curso=1;
-   
-    ?>
-    <!-- <form action="crear_horario.php" method= "POST">
-        <input type="hidden" name="id_curso" values="id_curso">
-        <select name="dia_semana" id="dias">
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miercoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sábado">Sabado</option>
-        </select>
-        <input type="time" name="hora_inicio" placeholpder="hora_inicio">
-        <input type="time" name="hora_fin" placeholpder="hora_fin">
-        <input type="submit">
-    </form>  -->
-
-    <?php
+   <?php
+   $id_curso=$_POST["id_curso"];
     
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $conn=conectar();
@@ -66,12 +43,10 @@ $conn = conectar();
                 <input type='hidden' value='$id_curso' name='id_curso'>
                 <input type='submit' value='Volver al Listado de Horarios'>
                 </form>";
-            // <a href='index.php?id_curso=$id_curso'>Volver al Listado de Horarios</a>";
         } catch (PDOException $e) {
             echo "Ocurrió un error al insertar los datos: ". $e->getMessage();
         }
     } else {
-        // echo "<h1 class='error'>Aha pillín!!!</h1>";
         "<p>$_SERVER[REQUEST_METHOD]</p>";
     }   
     ?>

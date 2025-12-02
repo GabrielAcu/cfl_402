@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXXX</title>
+    <title>Modificar Horario</title>
 </head>
 <body>
     <?php
@@ -19,16 +19,11 @@
     if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $conn=conectar();
         $id_horario=$_POST["id_horario"];
-        
         $texto="SELECT * FROM horarios WHERE id_horario=$id_horario";
         $consulta=$conn->prepare($texto);
-        // $consulta->bindParam(' :id_horario',$id_horario);
         $consulta->execute();
         $horario=$consulta->fetch();
-        // var_dump($horario['dia_semana']);
-        // exit();
         $id_curso=$_POST["id_curso"];
-        // $id_curso=1;
         if ($horario){
             $arreglo=["Lunes"=> "", "Martes"=> "", "Miércoles"=> "", "Jueves"=> "", "Viernes"=> "", "Sábado"=> ""];
             $arreglo[$horario["dia_semana"]]="selected";
