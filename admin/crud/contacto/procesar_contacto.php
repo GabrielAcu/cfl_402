@@ -101,7 +101,6 @@ try {
             $personaEncontrada = $stmtGlobal->fetch();
 
             if ($personaEncontrada) {
-                // ¡ENCONTRAMOS A ALGUIEN!
                 // Interrumpimos el proceso y mostramos la pantalla de confirmación HTML
                 mostrarPantallaConfirmacion($personaEncontrada, $_POST);
                 exit(); // IMPORTANTE: Detener el script aquí
@@ -176,12 +175,9 @@ try {
     exit();
 }
 
-// =======================================================================
-//   FUNCIÓN PARA GENERAR LA PANTALLA INTERMEDIA (VISTA)
-// =======================================================================
+
 function mostrarPantallaConfirmacion($datosPersona, $datosPost) {
-    // Recuperamos nombre del alumno/instructor para el título (opcional, estético)
-    // No hacemos consulta extra para no sobrecargar, usamos textos genéricos.
+
     ?>
     <!DOCTYPE html>
     <html lang="es">
