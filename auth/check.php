@@ -15,15 +15,15 @@ function requireLogin() {
 }
 
 function isSuperAdmin() {
-    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 2;
-}
-
-function isAdmin() {
     return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 0;
 }
 
-function isInstructor() {
+function isAdmin() {
     return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 1;
+}
+
+function isInstructor() {
+    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 2;
 }
 
 function idAdminOrInstructor() {
