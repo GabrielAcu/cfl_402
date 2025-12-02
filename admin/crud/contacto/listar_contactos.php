@@ -9,7 +9,7 @@ if (!isAdmin()) {
     exit();
 }
 
-// Evitar error de "session already active"
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
