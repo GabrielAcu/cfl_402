@@ -786,6 +786,27 @@ body{
     overflow-y: scroll;
 }
 
+.eliminados_container{
+    max-width: 250px;
+    display: flex;
+    justify-content: space-betweens;
+    border: 1px solid #b32437;
+    border-radius: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.eliminados_titulo{
+    font-family: var(--roboto);
+    color: #b32437;
+    font-weight: 500;
+
+}
+
 
 
 
