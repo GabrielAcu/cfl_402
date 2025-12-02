@@ -12,10 +12,10 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-// if (!isAdmin()) {
-//     header('Location: /cfl_402/index.php');
-//     exit();
-// }
+if (!isAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Conexión
 $conn = conectar();

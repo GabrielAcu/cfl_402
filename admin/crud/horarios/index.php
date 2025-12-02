@@ -105,7 +105,7 @@ $registro = $consulta->fetch();
                 <?php endwhile; ?>
             </tbody>
         </table>
-        <a href="../cursos">Volver al Listado de Cursos</a>
+        <a  class="volverCurso" href="../cursos">Volver al Listado de Cursos</a>
     <?php else: ?>
         <p>No hay horarios registrados.</p>
     <?php endif; ?>
