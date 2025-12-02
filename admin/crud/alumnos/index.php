@@ -72,7 +72,7 @@ $conn = conectar();
             }
 
             // Configuración de la paginación
-            $registros_por_pagina = 10; // Número de registros a mostrar por página
+            $registros_por_pagina = 5; // Número de registros a mostrar por página
 
             // Determinar la página actual
             $pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
@@ -83,10 +83,10 @@ $conn = conectar();
             $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
             // 1. Consultar el total de registros
-            $stmt_total = $conn->prepare("SELECT COUNT(*) FROM alumnos WHERE (alumnos.nombre LIKE :nombre 
+            $stmt_total = $conn->prepare("SELECT COUNT(*) FROM alumnos WHERE `activo`='1' AND (alumnos.nombre LIKE :nombre 
                 OR alumnos.apellido LIKE :apellido 
                 OR alumnos.dni LIKE :dni
-                OR alumnos.telefono LIKE :telefono)");
+                OR alumnos.telefono LIKE :telefono) ");
             $stmt_total->execute([":nombre"=>"%$input%", 
                 ":apellido"=>"%$input%", 
                 ":dni"=>"%$input%", 
@@ -95,6 +95,7 @@ $conn = conectar();
 
             // Calcular el total de páginas
             $total_paginas = ceil($total_registros / $registros_por_pagina);
+            echo"la cantidad de páginas es: $total_paginas";
 
             // texto de la consulta SQL con marcadores de posición
             $sql="SELECT alumnos.*, alumnos.nombre, alumnos.apellido, alumnos.dni, alumnos.telefono FROM alumnos
@@ -213,10 +214,25 @@ $conn = conectar();
                 
 
                 echo "</tbody>";
-                echo "<tfoot
+                echo "<tfoot>
+
+                 
+
+                </tfoot/
             
 
             </table>";
+
+            echo"
+                <div class='eliminados_container'>
+                    <form action='eliminados.php' method='POST' class='enlinea'>
+                        <h3 class='eliminados_titulo'> Ver Alumnos Eliminados </h3>
+                        <button type='submit' class='submit-button'>
+                            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Modificar' title='Ver Eliminados'>
+                        </button>
+                    </form>
+                </div>
+                    ";
             
             ?>
 
@@ -230,6 +246,7 @@ $conn = conectar();
                     if($pagina_actual == 1){
                         echo "<a href='?pagina=1' class='active'> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>
                         </a>";
+
                     } else {
                         echo "<a href='?pagina=1' class=''> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>   
                         </a>";
@@ -247,6 +264,8 @@ $conn = conectar();
                     for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++){
                     
                         echo "<a href='?pagina=$i' class='". (($i == $pagina_actual) ? 'active':'')."'>$i</a>";
+                        // echo"la página actual es: $pagina_actual";
+                        // echo"la suma de página + rango es $pagina_actual + $rango";
                     }
 
                     // Enlace a la página siguiente 
@@ -259,7 +278,7 @@ $conn = conectar();
                     echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg' alt='Última Página' title='Última Página'>
                     </a>";
                 }
-        
+                
           
             echo"</main>";
             
