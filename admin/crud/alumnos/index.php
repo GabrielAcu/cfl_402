@@ -95,14 +95,14 @@ $conn = conectar();
 
             // Calcular el total de páginas
             $total_paginas = ceil($total_registros / $registros_por_pagina);
-            echo"la cantidad de páginas es: $total_paginas";
+            // echo"la cantidad de páginas es: $total_paginas";
 
             // texto de la consulta SQL con marcadores de posición
             $sql="SELECT alumnos.*, alumnos.nombre, alumnos.apellido, alumnos.dni, alumnos.telefono FROM alumnos
                 WHERE `activo`='1' AND (alumnos.nombre LIKE :nombre 
                 OR alumnos.apellido LIKE :apellido 
                 OR alumnos.dni LIKE :dni
-                OR alumnos.telefono LIKE :telefono) ORDER BY id_alumno ASC LIMIT :registros_por_pagina OFFSET :offset";
+                OR alumnos.telefono LIKE :telefono) ORDER BY id_alumno DESC LIMIT :registros_por_pagina OFFSET :offset";
                 
             $consulta=$conn->prepare($sql); 
             $consulta->bindParam(':registros_por_pagina', $registros_por_pagina, PDO::PARAM_INT);
