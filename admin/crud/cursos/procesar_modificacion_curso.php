@@ -9,6 +9,8 @@ require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+// Conexión
+$conn = conectar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,11 +31,10 @@ requireLogin();
         $id_instructor = $_POST["instructor"];
         $id_turno= $_POST["turno"];
 
-        $conexion = conectar(); // establecer la conexión
         try {
         // preparar la consulta de actualización con marcadores de posición
         // en este caso, usamos signos de interrogación como marcadores
-        $consulta = $conexion->prepare("UPDATE cursos SET codigo = ?, nombre_curso = ?, descripcion = ?, cupo = ?, id_instructor=?, id_turno=? WHERE id_curso = ?");
+        $consulta = $conn->prepare("UPDATE cursos SET codigo = ?, nombre_curso = ?, descripcion = ?, cupo = ?, id_instructor=?, id_turno=? WHERE id_curso = ?");
         // ejecutar la consulta pasando un array con los valores a actualizar
         // el orden de los valores en el array debe coincidir con el orden de los marcadores en la consulta
         $consulta->execute([$codigo, $nombre_curso, $descripcion, $cupo, $id_instructor, $id_turno, $id_curso]);

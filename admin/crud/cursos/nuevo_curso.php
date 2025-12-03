@@ -1,3 +1,18 @@
+<?php
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
+requireLogin();
+
+// Conexión
+$conn = conectar();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,10 +42,8 @@
             <input type="text" name="cupo" id="cupo" placeholder="Cupo" required>
         </div>
         <?php
-        require_once "conexion.php";
-        $conexion=conectar();
 
-        $instructores=$conexion->query("SELECT nombre, apellido, id_instructor FROM instructores");
+        $instructores=$conn->query("SELECT nombre, apellido, id_instructor FROM instructores");
         echo "
         <div>
             <label for='instructor'>Instructor</label>
@@ -41,7 +54,7 @@
         }
             echo"</select>
         </div>";
-        $turnos=$conexion->query("SELECT * FROM turnos");
+        $turnos=$conn->query("SELECT * FROM turnos");
         
         echo "<div>
             <label for='turno'>Turno</label>

@@ -4,10 +4,12 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+$conn = conectar();
+
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
 
 // Evitar error de "session already active"
 if (session_status() === PHP_SESSION_NONE) {
@@ -51,16 +53,15 @@ $individuo = $tipo . 's';
 $id_individuo = ($individuo == 'instructors') ? 'id_instructor' : 'id_alumno';
 if ($individuo == 'instructors') $individuo = 'instructores';
 
-$conexion = conectar();
 
 // Traer solo los activos (=1)
 $consulta_contactos = "SELECT * FROM contactos WHERE entidad_id = ? AND tipo = ? AND activo = 1";
-$stmt_contactos = $conexion->prepare($consulta_contactos);
+$stmt_contactos = $conn->prepare($consulta_contactos);
 $stmt_contactos->execute([$id_entidad, $tipo]);
 
 // Traer datos del alumno/instructor para el título
 $consulta_entidad = "SELECT * FROM $individuo WHERE $id_individuo = ?";
-$stmt_entidad = $conexion->prepare($consulta_entidad);
+$stmt_entidad = $conn->prepare($consulta_entidad);
 $stmt_entidad->execute([$id_entidad]);
 $datos_entidad = $stmt_entidad->fetch();
 

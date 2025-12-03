@@ -14,10 +14,10 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $conn=conectar(); 

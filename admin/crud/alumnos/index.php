@@ -12,10 +12,10 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
 
 // Conexión
 $conn = conectar();
@@ -58,7 +58,7 @@ $conn = conectar();
     <!-- </div>s -->
         <hr>
         <h2>Listado de Alumnos</h2> <!-- sección para mostrar la lista de alumnos -->
-        <link rel="stylesheet" href="alumnos.css">
+        <link rel="stylesheet" href="alumnos2.css">
         
         <?php
             
@@ -172,7 +172,7 @@ $conn = conectar();
                             </form>
                         
 
-                            <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
+                            <form action='/cfl_402/admin/crud/cursos/index.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                     <button type='submit' class='submit-button'>
                                      <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' alt='Ver contactos' title='Cursos'>

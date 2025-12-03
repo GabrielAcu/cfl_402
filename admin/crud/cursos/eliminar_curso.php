@@ -9,6 +9,8 @@ require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+// Conexión
+$conn = conectar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,12 +24,10 @@ requireLogin();
     <?php
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $id_curso=$_POST['id_curso']; // obtener el id_curso enviado desde el formulario
-
-        $conexion=conectar(); // establecer la conexión
         try {
         
         
-        $consulta=$conexion->prepare("UPDATE cursos SET activo=0 WHERE id_curso=?");
+        $consulta=$conn->prepare("UPDATE cursos SET activo=0 WHERE id_curso=?");
         
         $consulta->execute([$id_curso]);
 
