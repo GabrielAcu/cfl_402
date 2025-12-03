@@ -19,13 +19,12 @@ $conn = conectar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="cursos.css">
+    <link rel="stylesheet" href="modal.css">
     <title>Cursos</title>
 </head>
 <body>
     <h1>Cursos</h1>
-    <form action="nuevo_curso.php" method="POST">
-        <button type="submit">Nuevo Curso</button>
-    </form>
+    <button id="btnAbrirModal" class="btn-primary">Nuevo Curso</button>
 
     <hr>
     <form action="index.php" method="POST">
@@ -115,6 +114,60 @@ $conn = conectar();
             echo "<p>Aún no existen cursos</p>"; // si no hay cursos, mostramos este mensaje
         }
     ?>
-    
+    <div id="modalCurso" class="modal">
+        <div class="modal-content">
+            <span class="cerrar">&times;</span>
+        <h2>Nuevo Curso</h2>
+
+        <form action="crear_curso.php" method="POST" id="formCurso">
+            <div>
+                <label for="codigo">Código</label>
+                <input type="text" name="codigo" id="codigo" required>
+            </div>
+
+            <div>
+                <label for="nombre_curso">Nombre del Curso</label>
+                <input type="text" name="nombre_curso" id="nombre_curso" required>
+            </div>
+
+            <div>
+                <label for="descripcion">Descripción</label>
+                <input type="text" name="descripcion" id="descripcion" required>
+            </div>
+
+            <div>
+                <label for="cupo">Cupo</label>
+                <input type="text" name="cupo" id="cupo" required>
+            </div>
+
+            <!-- SELECT INSTRUCTORES -->
+            <?php
+                $instructores=$conn->query("SELECT nombre, apellido, id_instructor FROM instructores");
+                echo "<div>
+                        <label for='instructor'>Instructor</label>
+                        <select name='instructor' id='instructor'>";
+                while ($i=$instructores->fetch()){
+                    echo "<option value='$i[id_instructor]'>$i[apellido], $i[nombre]</option>";
+                }
+                echo "</select></div>";
+            ?>
+
+            <!-- SELECT TURNOS -->
+            <?php
+                $turnos=$conn->query("SELECT * FROM turnos");
+                echo "<div>
+                        <label for='turno'>Turno</label>
+                        <select name='turno' id='turno'>";
+                while ($t=$turnos->fetch()){
+                    echo "<option value='$t[id_turno]'>$t[descripcion]</option>";
+                }
+                echo "</select></div>";
+            ?>
+
+            <input type="submit" value="Guardar" class="btn-submit">
+        </form>
+    </div>
+</div>
+<script src="modalCurso.js"></script>
 </body>
 </html>

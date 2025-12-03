@@ -46,8 +46,9 @@ h1 {
 /* ====== PANEL PRINCIPAL ====== */
 .panel-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* más grandes */
-  gap: 20px; /* más separación */
+  /* necesitamos solo 2 columnas */
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 30px; /* más separación */
   width: 90%;
   max-width: 1000px;
 }
