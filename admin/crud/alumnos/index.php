@@ -183,14 +183,14 @@ if ($consulta->rowCount() > 0) {
             </td>
 
             <td class='td_actions2'>
-                <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
+                <form action='../alumnos/modificar.php' method='POST' class='enlinea'>
                     <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
                     <button type='submit' class='submit-button'>
                         <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' title='Modificar'>
                     </button>
                 </form>
 
-                <form action='../../crud/alumnos/bajar.php' method='POST' class='enlinea'>
+                <form action='../alumnos/bajar.php' method='POST' class='enlinea confirm-delete'>
                     <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
                     <button type='submit' class='submit-button'>
                         <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Eliminar'>
@@ -262,3 +262,4 @@ if ($consulta->rowCount() > 0) {
     }
     render_pagination($total_paginas, $pagina_actual);    
 ?>
+<script src="delete.js"></script>
