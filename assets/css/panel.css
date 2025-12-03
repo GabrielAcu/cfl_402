@@ -46,11 +46,20 @@ h1 {
 /* ====== PANEL PRINCIPAL ====== */
 .panel-container {
   display: grid;
-  /* necesitamos solo 2 columnas */
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 30px; /* más separación */
   width: 90%;
   max-width: 1000px;
+}
+/* Superadmin → dos columnas fijas */
+.panel-container.superadmin {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 30px;
+}
+
+/* Admin e Instructor → auto fit */
+.panel-container.admin,
+.panel-container.instructor {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
 
 /* ====== TARJETAS ====== */
@@ -150,4 +159,17 @@ footer {
   .panel-container {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* Superadmin → dos columnas fijas */
+.panel-container.superadmin {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 30px;
+}
+
+/* Admin e Instructor → auto fit */
+.panel-container.admin,
+.panel-container.instructor {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
