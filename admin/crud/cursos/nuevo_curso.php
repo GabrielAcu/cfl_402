@@ -42,7 +42,6 @@ $conn = conectar();
             <input type="text" name="cupo" id="cupo" placeholder="Cupo" required>
         </div>
         <?php
-        
 
         $instructores=$conn->query("SELECT nombre, apellido, id_instructor FROM instructores");
         echo "

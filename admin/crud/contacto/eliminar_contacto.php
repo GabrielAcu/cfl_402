@@ -5,10 +5,12 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+conn = conectar();
+
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
 
 // CORRECCIÓN: Nos aseguramos de iniciar sesión si check.php no lo hizo
 if (session_status() === PHP_SESSION_NONE) {
@@ -26,17 +28,15 @@ if (!$id_contacto) {
     exit();
 }
 
-$conexion = conectar();
-
 // 1. Primero obtenemos los datos para saber a dónde volver
 $datos_por_id = "SELECT * FROM contactos WHERE id_contacto_alumno = $id_contacto";
-$contacto = $conexion->query($datos_por_id);
+$contacto = $conn->query($datos_por_id);
 $registro = $contacto->fetch();
 
 if ($registro && $registro['activo']) {
     // 2. Realizamos el "Soft Delete" (Baja lógica)
     $sentencia = "UPDATE contactos SET activo = ? WHERE id_contacto_alumno = ?";
-    $modificar = $conexion->prepare($sentencia); 
+    $modificar = $conn->prepare($sentencia); 
     $modificar->execute([0, $id_contacto]);
 
     // CORRECCIÓN: Guardamos el ID DE LA ENTIDAD (Alumno/Instructor), no el del contacto.

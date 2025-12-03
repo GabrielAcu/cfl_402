@@ -4,24 +4,21 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+$conn = conectar();
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-require_once BASE_PATH . '/config/conexion.php';
 
 // Validar que entramos por POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../../index.php');
     exit();
 }
-
-$conexion = conectar();
 
 // 2. Recepción de datos (con limpieza y valores por defecto para evitar warnings)
 $nombre        = trim($_POST['nombre'] ?? '');
@@ -61,7 +58,7 @@ try {
                         direccion = ?, localidad = ?, cp = ?, parentesco = ?, observaciones = ? 
                       WHERE id_contacto_alumno = ?";
         
-        $modificar = $conexion->prepare($sentencia); 
+        $modificar = $conn->prepare($sentencia); 
         $modificar->execute([
             $nombre, $apellido, $dni, $telefono, $correo, 
             $direccion, $localidad, $cp, $parentesco, $observaciones, $id_contacto
@@ -80,7 +77,7 @@ try {
                         :parentesco, :observaciones, :entidad_id, :tipo, 1
                     )";
         
-        $contacto = $conexion->prepare($insertar);
+        $contacto = $conn->prepare($insertar);
         $contacto->execute([
             ':nombre' => $nombre, 
             ':apellido' => $apellido, 

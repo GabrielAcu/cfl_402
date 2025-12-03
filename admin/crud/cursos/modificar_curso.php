@@ -9,6 +9,10 @@ require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+
+// Conexión
+$conn = conectar();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,11 +25,10 @@ requireLogin();
 <body>
     <?php
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
-        $conexion=conectar(); 
         $id_curso=$_POST["id_curso"]; // obtener el id_curso enviado desde el formulario
         // texto de la consulta SQL con marcador de posición
         $texto="SELECT * FROM cursos WHERE id_curso=:id_curso"; 
-        $consulta=$conexion->prepare($texto); // preparar la consulta
+        $consulta=$conn->prepare($texto); // preparar la consulta
         $consulta->bindParam(':id_curso',$id_curso); // vincular el parámetro
         $consulta->execute(); // ejecutar la consulta
         $curso=$consulta->fetch(); // obtener el registro del curso
@@ -50,7 +53,7 @@ requireLogin();
             <input type='text' name='cupo' id='cupo' placeholder='Cupo' required value= '$curso[cupo]'>
         </div>";
         
-        $instructores=$conexion->query("SELECT nombre, apellido, id_instructor FROM instructores");
+        $instructores=$conn->query("SELECT nombre, apellido, id_instructor FROM instructores");
         echo "
         <div>
             <label for='instructor'>Instructor</label>
@@ -65,7 +68,7 @@ requireLogin();
         }
             echo"</select>
         </div>";
-        $turnos=$conexion->query("SELECT * FROM turnos");
+        $turnos=$conn->query("SELECT * FROM turnos");
         
         echo "<div>
             <label for='turno'>Turno</label>

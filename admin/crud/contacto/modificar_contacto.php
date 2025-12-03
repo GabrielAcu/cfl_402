@@ -2,15 +2,13 @@
 // Cargar path.php
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
-// Dependencias
-require_once BASE_PATH . '/config/conexion.php';
 // 3. Autenticación
 requireLogin();
-
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
+$conn = conectar();
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
 $id_contacto = $_POST['id_contacto'] ?? null;
 
 if ($id_contacto == null) {    
@@ -18,10 +16,8 @@ if ($id_contacto == null) {
     exit();
 }
 
-$conexion = conectar();
 $datos_por_id = "SELECT * FROM contactos WHERE id_contacto_alumno = $id_contacto";
-
-$contacto = $conexion->query($datos_por_id);
+$contacto = $conn->query($datos_por_id);
 $registro = $contacto->fetch();
 // var_dump($contacto->fetch());
 // exit();
