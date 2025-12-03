@@ -19,3 +19,13 @@ td,th {
     background-color: lightgreen;
     color: green;
 }
+.pagination a  {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    margin: 2px
+}
+.pagination a.active  {
+    background-color: #007bff;
+    color: white;
+}
