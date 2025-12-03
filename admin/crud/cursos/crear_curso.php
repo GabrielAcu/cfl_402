@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitu
         // ejecutar la consulta pasando un array asociativo con los valores a insertar
         $consulta->execute([':codigo'=>$codigo,':nombre_curso'=>$nombre_curso,':descripcion'=>$descripcion,':cupo'=>$cupo,':id_turno'=>$id_turno,':id_instructor'=>$id_instructor]);
         echo "<p class='correcto'>Se registró exitosamente</p>"; // mensaje de éxito
+        header('Location: index.php');
         echo "<a href='index.php'>Volver al Listado de Cursos</a>"; // enlace para volver al listado
     } catch (PDOException $e) {
         if ($e->getCode()==23000){ // código de error para violación de clave única (DNI repetido)

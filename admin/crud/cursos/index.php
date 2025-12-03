@@ -27,7 +27,8 @@ $conn = conectar();
         <input type="submit" value="Buscar">
     </form>
     </div>
-    <h2>Listado de Cursos</h2> <!-- sección para mostrar la lista de cursos -->
+    <!-- sección para mostrar la lista de cursos -->
+    <h2>Listado de Cursos</h2> 
     
     <!-- Contenido principal -->
      <div class="pagination">
