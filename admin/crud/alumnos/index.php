@@ -278,8 +278,19 @@ if ($consulta->rowCount() > 0) {
     render_pagination($total_paginas, $pagina_actual);    
 
     include 'modal.php'; //incluye el modal para crear un nuevo curso 
-    
+
+       
 ?>
+
+<div class="eliminados_block">
+    <form class="eliminados_form" action="eliminados.php" method="post">
+        <button type='submit' class='submit-button'>
+
+        <h3> Ver Alumnos Eliminados</h3>
+            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Contactos'>
+        </button>
+    </form>
+</div>
 <script src="delete.js"></script>
 
 <script src="modal_nuevo.js"></script>

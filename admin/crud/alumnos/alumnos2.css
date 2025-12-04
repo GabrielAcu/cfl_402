@@ -251,3 +251,30 @@ h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+.eliminados_block{
+  border: 1px solid #b92b37;
+  padding: 5 20px;
+
+  border-radius: 8px;
+}
+
+.eliminados_form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eliminados_form h3{
+  color: #b92b37;
+}
+
+.eliminados_form button[type="submit"]{
+  display: flex;
+  align-items: center;
+}
+
+.eliminados_form img{
+  height: 32px;
+  width: 32px;
+}
