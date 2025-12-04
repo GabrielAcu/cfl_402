@@ -7,7 +7,7 @@ require_once BASE_PATH . '/config/conexion.php';
 // 3. Autenticación
 requireLogin();
 
-if (!isAdmin()) {
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }

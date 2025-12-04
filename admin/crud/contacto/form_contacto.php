@@ -5,7 +5,7 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-if (!isAdmin()) {
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
@@ -29,15 +29,15 @@ echo "Agregar contacto<br><br>";
 
 echo "
 <form action='procesar_contacto.php' method='post'>
-    <input type='text' name='nombre' placeholder='Nombre'>
-    <input type='text' name='apellido' placeholder='Apellido' >
-    <input type='number' name='dni' placeholder='DNI' >
-    <input type='number' name='telefono' placeholder='Telefeno' >
-    <input type='email' name='correo' placeholder='Correo' >
-    <input type='adress' name='direccion' placeholder='Dirección' >
-    <input type='text' name='localidad' placeholder='Localidad' >
-    <input type='text' name='cp' placeholder='Código Postal' >
-    <input type='text' name='parentesco' placeholder='Parentesco'>
+    <input type='text' name='nombre' placeholder='Nombre' required>
+    <input type='text' name='apellido' placeholder='Apellido' required>
+    <input type='number' name='dni' placeholder='DNI' required>
+    <input type='number' name='telefono' placeholder='Telefeno' required>
+    <input type='email' name='correo' placeholder='Correo' required>
+    <input type='adress' name='direccion' placeholder='Dirección' required>
+    <input type='text' name='localidad' placeholder='Localidad' required>
+    <input type='text' name='cp' placeholder='Código Postal' required>
+    <input type='text' name='parentesco' placeholder='Parentesco'required>
     <textarea name='observaciones' placeholder='Observaciones'></textarea>
     <input type='number' name='id_entidad' value='{$id_entidad}' readonly>
     <input type='text' name='tipo' value='{$tipo}' readonly>
