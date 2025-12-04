@@ -4,10 +4,11 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-// if (!isAdmin()) {
-//     header('Location: /cfl_402/index.php');
-//     exit();
-// }
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Evitar error de "session already active"
 if (session_status() === PHP_SESSION_NONE) {
