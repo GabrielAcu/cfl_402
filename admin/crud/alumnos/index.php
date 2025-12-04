@@ -10,6 +10,11 @@ require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Conexión
 $conn = conectar();
