@@ -1,7 +1,7 @@
 <?php
 
 // Cargar path.php
-require_once dirname(__DIR__, 2) . '/../config/path.php';
+require_once dirname(__DIR__, 3) . '/config/path.php';
 
 
 // Dependencias
@@ -11,11 +11,6 @@ require_once BASE_PATH . '/include/header.php';
 
 // 3. Autenticación
 requireLogin();
-
-if (!isAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
 
 // Conexión
 $conn = conectar();
@@ -95,7 +90,7 @@ $conn = conectar();
                             </form>
                         </td>
                         <td>
-                            <form action='listar_cursos_instructor.php' method='POST' class='enlinea'>
+                            <form action='../cursos/index.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
                                 <input type='submit' value='CURSOS 📚'>
                             </form>

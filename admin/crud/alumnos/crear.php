@@ -11,14 +11,25 @@
 </body>
 </html>
 <?php
-
-include_once __DIR__ . '/../../../config/conexion.php';
+// ==========================
+//   CONFIGURACIÓN INICIAL
+// ==========================
+require_once dirname(__DIR__, 3) . '/config/path.php';
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
+
+// Autenticación
+requireLogin();
+
+// Conexión
 $conn = conectar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nombre      = $_POST["nombre"] ?? null; 
+    $nombre      = $_POST["nombre"]; 
+    echo $nombre;
     $apellido    = $_POST["apellido"];
     $dni         = $_POST["dni"];
     $telefono    = $_POST["telefono"];
@@ -32,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $observaciones = $_POST["observaciones"];
     $activo      = "1";
 
-    if (!isset($nombre) || $nombre == null || strlen($nombre) > 50) {
+    if (!isset($nombre) || $nombre == '') {
         fallido("Sin Nombre");
         exit();
     } elseif (strlen($nombre) > 50) {
@@ -122,4 +133,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 
 ?>
-
