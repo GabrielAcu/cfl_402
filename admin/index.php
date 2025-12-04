@@ -11,7 +11,7 @@ require_once BASE_PATH . '/include/header.php';
 requireLogin();
 
 // Si no es admin ni superadmin, afuera del panel
-if (!isAdmin() && !isSuperAdmin() && !isInstructor()) {
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
