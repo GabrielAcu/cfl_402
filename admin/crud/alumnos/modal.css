@@ -26,10 +26,6 @@
 
 }
 
-label{
-  width: 100%;
-}
-
 /* Animación */
 @keyframes fadeIn {
   from {
@@ -54,7 +50,7 @@ label{
   color: #007bff;
 }
 
-/* Títulos */
+/* Títulos */f
 .modal-content h2 {
   margin-bottom: 20px;
   color: #007bff;

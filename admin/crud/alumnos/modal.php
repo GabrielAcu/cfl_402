@@ -1,21 +1,22 @@
-<?php
-require_once dirname(__DIR__, 3) . '/config/path.php';
-
-
-require_once 'layouts.php';
-require_once BASE_PATH . '/include/header.php';
-require_once BASE_PATH . '/config/conexion.php';
-$conn = conectar();
-
-?>
-    <main class='modify-alumno'>
-
-    <link rel="stylesheet" href="alumnos.css">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="modal.css">
+</body>
+</html>
 
 <div id="modalCurso" class="modal">
-    <form class="new-form" action="crear.php" method="POST">
+    <div class="modal-content">
+    <span class="cerrar">&times;</span>
+    <h2>Nuevo Alumno</h2>
+
+    <form class="new-form"  id="formCurso" action="crear.php" method="POST">
             
-            <h2>Nuevo Alumno</h2>
 
 
             <h3> Información Personal </h3> 
@@ -103,15 +104,11 @@ $conn = conectar();
         
         <div class='form_bottom'>
 
-            <button class='boton_volver'> <a class='cancel_link' href='index.php'> Cancelar </a> </button>
+            
 
-            <button class='boton_enviar' type='submit'> Registrar </button>
+            <input type="submit" value="Guardar" class="btn-submit">
+        </div>
         </div>
        
-            </form> 
-
-        </main>
-    
+    </form> 
 </div>
-    </body>
-</html>

@@ -16,6 +16,21 @@ $conn = conectar();
 
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="alumnos2.css">
+
+</head>
+<body>
+    
+</body>
+</html>
+
 <h1>Alumnos</h1>
 
 <div class="search_container">
@@ -30,12 +45,12 @@ $conn = conectar();
             </form>
 
             <!-- Registrar nuevo alumno -->
-            <form action="registrar.php" method="post">
-                <button class="boton_enviar" id="register_button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
-                    Nuevo Alumno
-                </button>
-            </form>
+           
+                    <button id="btnAbrirModal" class="btn-primary">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                        Nuevo Alumno
+                    </button>
+            
 
         </div>
 
@@ -261,5 +276,10 @@ if ($consulta->rowCount() > 0) {
         echo "</div>";
     }
     render_pagination($total_paginas, $pagina_actual);    
+
+    include 'modal.php'; //incluye el modal para crear un nuevo curso 
+    
 ?>
 <script src="delete.js"></script>
+
+<script src="modal_nuevo.js"></script>
