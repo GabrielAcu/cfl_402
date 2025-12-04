@@ -171,3 +171,66 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
+/* ----------------------------------------
+   PAGINADO — versión final estética suave
+----------------------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 25px auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Botones generales */
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 10px;
+
+  background: #ffffff;
+  border: 1px solid #d0d4da;
+  color: #007bff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Números */
+.pagination a:not(:has(img)) {
+  padding: 0 12px;
+}
+
+/* Íconos SOLO dentro del paginado */
+.pagination img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+/* Hover suave */
+.pagination a:hover {
+  background: #f1f7ff;
+  border-color: #007bff;
+}
+
+/* Activo */
+.pagination .active {
+  background: #007bff !important;
+  color: #fff !important;
+  border-color: #007bff;
+}
+
+/* Evitar que el icono se vuelva blanco */
+.pagination .active img {
+  filter: brightness(0) invert(1);
+  opacity: 1;
+}
