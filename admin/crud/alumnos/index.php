@@ -562,4 +562,7 @@ if ($consulta->rowCount() > 0) {
 <script src="delete.js"></script>
 </body>
 </html>
+<<<<<<< HEAD
 >>>>>>> e91dd7c (ultimos cambios)
+=======
+>>>>>>> 91c34e6 (cambios)
