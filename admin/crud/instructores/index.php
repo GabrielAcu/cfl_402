@@ -75,7 +75,7 @@ $conn = conectar();
                         <td>$registro[telefono]</td>
                         <td>$registro[correo]</td>
                         <td>
-                            <form action='modificar_instructor.php' method='POST' class='enlinea'>
+                            <form action='modificar_instructor.php' method='POST' class='enlinea' id='formModificar' class='buttonModificar'>
                                 <input type='hidden' name='id' value=$registro[id_instructor]>
                                 <input type='submit' value='MODIFICAR ✏️'>
                             </form>
