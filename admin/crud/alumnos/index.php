@@ -11,14 +11,11 @@ require_once 'layouts.php';
 // Autenticación
 requireLogin();
 
-<<<<<<< HEAD
 // if (!isAdmin()) {
 //     header('Location: /cfl_402/index.php');
 //     exit();
 // }
 
-=======
->>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
 // Conexión
 $conn = conectar();
 
@@ -61,13 +58,11 @@ $conn = conectar();
     </div>
 </div>
 
-<<<<<<< HEAD
     <!-- </div>s -->
-        <hr>
+    <hr>
         <h2>Listado de Alumnos</h2> <!-- sección para mostrar la lista de alumnos -->
         <link rel="stylesheet" href="alumnos2.css">
-=======
-<hr>
+    <hr>
 
 <h2>Listado de Alumnos</h2>
 <link rel="stylesheet" href="alumnos2.css">
@@ -220,9 +215,7 @@ if ($consulta->rowCount() > 0) {
                     </button>
                 </form>
             </td>
-        </tr>
->>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
-        
+        </tr>        
         ";
     }
 
@@ -232,7 +225,6 @@ if ($consulta->rowCount() > 0) {
     </main>
     ";
 
-<<<<<<< HEAD
 
             if (isset($_POST['search'])) {
                $input=$_POST["search"]; 
@@ -379,18 +371,8 @@ if ($consulta->rowCount() > 0) {
 
                     </a> ";
                 }
-                
-
                 echo "</tbody>";
-                echo "</table>";
-            
-           
-
-            
-
-                
-        
-          
+                echo "</table>";    
             echo"</main>";       
             ?>
             
@@ -434,14 +416,10 @@ if ($consulta->rowCount() > 0) {
             } else {
                 echo "<p>Aún no existen alumnos</p>"; // si no hay alumnos, mostramos este mensaje
             }
+        }
         ?>
-        </div>          
-
-</body>
-</html>
-            
-=======
-}
+        </div>            
+<?php
     // ==========================
     //   PAGINACIÓN
     // ==========================
@@ -487,4 +465,5 @@ if ($consulta->rowCount() > 0) {
     render_pagination($total_paginas, $pagina_actual);    
 ?>
 <script src="delete.js"></script>
->>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
+</body>
+</html>
