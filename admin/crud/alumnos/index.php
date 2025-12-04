@@ -74,7 +74,15 @@ $conn = conectar();
 </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <hr>
+=======
+    <!-- </div>s -->
+    <hr>
+        <h2>Listado de Alumnos</h2> <!-- sección para mostrar la lista de alumnos -->
+        <link rel="stylesheet" href="alumnos2.css">
+    <hr>
+>>>>>>> e91dd7c (ultimos cambios)
 
 <h2>Listado de Alumnos</h2>
 <link rel="stylesheet" href="alumnos2.css">
@@ -227,6 +235,7 @@ if ($consulta->rowCount() > 0) {
                     </button>
                 </form>
             </td>
+<<<<<<< HEAD
         </tr>
 =======
     <!-- </div>s -->
@@ -235,6 +244,9 @@ if ($consulta->rowCount() > 0) {
         <link rel="stylesheet" href="alumnos2.css">
 >>>>>>> 9c8cf22 (idente la seguridad porque no me debaja ingresar a nada y agregue las conecciones con conn)
         
+=======
+        </tr>        
+>>>>>>> e91dd7c (ultimos cambios)
         ";
     }
 
@@ -244,6 +256,7 @@ if ($consulta->rowCount() > 0) {
     </main>
     ";
 
+<<<<<<< HEAD
 }
     // ==========================
     //   PAGINACIÓN
@@ -297,6 +310,15 @@ if ($consulta->rowCount() > 0) {
 <<<<<<< HEAD
 <script src="modal_nuevo.js"></script>
 =======
+=======
+
+            if (isset($_POST['search'])) {
+               $input=$_POST["search"]; 
+            } else {
+                $input="";
+            }
+
+>>>>>>> e91dd7c (ultimos cambios)
             // Configuración de la paginación
             $registros_por_pagina = 10; // Número de registros a mostrar por página
 
@@ -436,18 +458,8 @@ if ($consulta->rowCount() > 0) {
 
                     </a> ";
                 }
-                
-
                 echo "</tbody>";
-                echo "</table>";
-            
-           
-
-            
-
-                
-        
-          
+                echo "</table>";    
             echo"</main>";       
             ?>
             
@@ -491,10 +503,63 @@ if ($consulta->rowCount() > 0) {
             } else {
                 echo "<p>Aún no existen alumnos</p>"; // si no hay alumnos, mostramos este mensaje
             }
+        }
         ?>
+<<<<<<< HEAD
         </div>          
 
 </body>
 </html>
             
 >>>>>>> 9c8cf22 (idente la seguridad porque no me debaja ingresar a nada y agregue las conecciones con conn)
+=======
+        </div>            
+<?php
+    // ==========================
+    //   PAGINACIÓN
+    // ==========================
+    function render_pagination($total_paginas, $pagina_actual) {
+        if ($total_paginas <= 1) {
+            return; // No mostrar nada si no hay más páginas
+        }
+    
+        echo "<div class='pagination'>";
+    
+        // 👉 Primera página
+        echo "<a href='?pagina=1' class='" . ($pagina_actual == 1 ? "active" : "") . "'>
+                <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg'>
+              </a>";
+    
+        // 👉 Página anterior
+        if ($pagina_actual > 1) {
+            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'>
+                    <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg'>
+                  </a>";
+        }
+    
+        // 👉 Rango de páginas centrado
+        $rango = 2;
+        for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++) {
+            echo "<a href='?pagina=$i' class='" . (($i == $pagina_actual) ? 'active' : '') . "'>$i</a>";
+        }
+    
+        // 👉 Página siguiente
+        if ($pagina_actual < $total_paginas) {
+            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'>
+                    <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg'>
+                  </a>";
+        }
+    
+        // 👉 Última página
+        echo "<a href='?pagina=$total_paginas' class='" . (($pagina_actual == $total_paginas) ? 'active' : '') . "'>
+                <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg'>
+              </a>";
+    
+        echo "</div>";
+    }
+    render_pagination($total_paginas, $pagina_actual);    
+?>
+<script src="delete.js"></script>
+</body>
+</html>
+>>>>>>> e91dd7c (ultimos cambios)
