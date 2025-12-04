@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="alumnos.css">
+</head>
+<body>
+    
+</body>
+</html>
 <?php
 // ==========================
 //   CONFIGURACIÓN INICIAL
@@ -91,12 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':observaciones' => $observaciones
             ]);
 
-            echo "
-            <div class='exitoso'>
-                <div class='titulo-exitoso'>Registro Exitoso</div>
-                <div class='motivo'></div>
-            </div>
-            <a href='crud_alumnos.php'>Volver al Listado de Alumnos</a>";
+            header("location: index.php ");
 
         } catch (PDOException $e) {
 
@@ -126,4 +133,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 
 ?>
-

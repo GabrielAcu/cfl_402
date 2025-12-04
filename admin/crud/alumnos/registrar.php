@@ -12,6 +12,7 @@ $conn = conectar();
 
     <link rel="stylesheet" href="alumnos.css">
 
+<div id="modalCurso" class="modal">
     <form class="new-form" action="crear.php" method="POST">
             
             <h2>Nuevo Alumno</h2>
@@ -102,7 +103,7 @@ $conn = conectar();
         
         <div class='form_bottom'>
 
-            <button class='boton_volver'> <a class='cancel_link' href='/crud-alumnos/crud_alumnos.php'> Cancelar </a> </button>
+            <button class='boton_volver'> <a class='cancel_link' href='index.php'> Cancelar </a> </button>
 
             <button class='boton_enviar' type='submit'> Registrar </button>
         </div>
@@ -111,5 +112,6 @@ $conn = conectar();
 
         </main>
     
+</div>
     </body>
 </html>

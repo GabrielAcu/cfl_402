@@ -6,6 +6,8 @@ function fallido($motivo){
             <div class='titulo-fallido'> Acción Fallida </div>
 
             <div class='motivo'> $motivo  </div>
+            
+            <a class='add_link2'  href='index.php'> Volver al listado </a>
             </div>";
         }
 
@@ -15,6 +17,9 @@ function exitoso( $motivo){
             <div class='titulo-exitoso'> Acción Exitosa </div>
 
             <div class='motivo'> $motivo  </div>
+            
+            <a class='add_link2'  href='index.php'> Volver al listado </a>
+
             </div>";
         }
 
@@ -23,6 +28,9 @@ function nochange( $motivo){
             <div class='titulo-exitoso'> Sin Cambios </div>
 
             <div class='motivo'> $motivo  </div>
+
+            <a class='add_link2'  href='index.php'> Volver al listado </a>
+
             </div>";
         }
 ?>

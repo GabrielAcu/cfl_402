@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal</title>
+    <link rel="stylesheet" href="modal.css">
+</head>
+<body>
+    
+</body>
+</html>
+
 <?php
 // ==========================
 //   MODAL (SIN CAMBIAR NADA)
@@ -11,14 +24,14 @@
 
 ?>
 <div id="modalCurso" class="modal">
-        <div class="modal-content">
-            <span class="cerrar">&times;</span>
+    <div class="modal-content">
+        <span class="cerrar">&times;</span>
         <h2>Nuevo Curso</h2>
 
-        <form action="crear_curso.php" method="POST" id="formCurso">
+        <form class='new-form' action="crear_curso.php" method="POST" id="formCurso">
             <div>
                 <label for="codigo">Código</label>
-                <input type="text" name="codigo" id="codigo" required>
+                <input class='input-modify' type="text" name="codigo" id="codigo" required>
             </div>
 
             <div>
@@ -33,7 +46,7 @@
 
             <div>
                 <label for="cupo">Cupo</label>
-                <input type="text" name="cupo" id="cupo" required>
+                <input class='input-modify' type="text" name="cupo" id="cupo" required>
             </div>
 
             <!-- SELECT INSTRUCTORES -->
@@ -63,3 +76,7 @@
             <input type="submit" value="Guardar" class="btn-submit">
         </form>
     </div>
+    
+
+        
+</div>

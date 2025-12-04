@@ -17,10 +17,17 @@
   margin: auto;
   padding: 25px 30px;
   border-radius: 14px;
+  height: 90%;
   width: 90%;
-  max-width: 480px;
+  max-width: 700px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.25s ease;
+  overflow-y: scroll;
+
+}
+
+label{
+  width: 100%;
 }
 
 /* Animación */
@@ -59,7 +66,7 @@
 }
 
 .modal-content input,
-.modal-content select {
+.modal-content select, .modal-content textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #bbb;
@@ -103,4 +110,21 @@
 
 .btn-primary:hover {
   background: #005fcc;
+}
+
+/* Botón guardar */
+.btn-cancel {
+  margin-top: 15px;
+  width: 100%;
+  background: #f0f0f0;
+  color: rgb(4, 4, 4);
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add_link{
+
 }
