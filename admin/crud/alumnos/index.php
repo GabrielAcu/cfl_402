@@ -483,10 +483,5 @@ if ($consulta->rowCount() > 0) {
     
 ?>
 <script src="delete.js"></script>
-<<<<<<< HEAD
 </body>
 </html>
-=======
-
-<script src="modal_nuevo.js"></script>
->>>>>>> b306f64d479190182827be6d4d3fce440193803a
