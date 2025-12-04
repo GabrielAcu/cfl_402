@@ -12,6 +12,14 @@ require_once BASE_PATH . '/include/header.php';
 // 3. Autenticación
 requireLogin();
 
+<<<<<<< HEAD
+// if (!isAdmin()) {
+//     header('Location: /cfl_402/index.php');
+//     exit();
+// }
+
+=======
+>>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
 // Conexión
 $conn = conectar();
 ?>

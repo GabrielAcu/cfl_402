@@ -9,6 +9,13 @@ require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
+>>>>>>> 91c34e664ec22601ab74ae2e0d046ef24f7aa0e4
 // Conexión
 $conn = conectar();
 ?>
@@ -22,7 +29,17 @@ $conn = conectar();
 </head>
 <body>
     <?php
+<<<<<<< HEAD
 if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
+=======
+<<<<<<< HEAD
+if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
+=======
+   
+if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
+    
+>>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
+>>>>>>> 91c34e664ec22601ab74ae2e0d046ef24f7aa0e4
     $codigo=$_POST["codigo"]; // obtener los datos enviados desde el formulario
     $nombre_curso=$_POST["nombre_curso"];
     $descripcion=$_POST["descripcion"];

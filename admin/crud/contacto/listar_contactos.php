@@ -12,6 +12,7 @@ requireLogin();
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 // Conexión
@@ -19,6 +20,13 @@ requireLogin();
 $conn = conectar();
 
 >>>>>>> 9c8cf22 (idente la seguridad porque no me debaja ingresar a nada y agregue las conecciones con conn)
+=======
+// Conexión
+$conn = conectar();
+
+=======
+>>>>>>> ca717327ce520a49869d51a6b2c86ec00a66c01d
+>>>>>>> 91c34e664ec22601ab74ae2e0d046ef24f7aa0e4
 // if (!isAdmin()) {
 //     header('Location: /cfl_402/index.php');
 //     exit();
