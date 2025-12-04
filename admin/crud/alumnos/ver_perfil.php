@@ -1,4 +1,4 @@
-  <?php
+ <?php
     include_once __DIR__ . '/../../../config/conexion.php';
 
     // Cargar path.php
@@ -14,10 +14,10 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-// if (!isAdmin()) {
-//     header('Location: /cfl_402/index.php');
-//     exit();
-// }
+if (!isAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"]=="POST"){ // verificar que el método de solicitud sea POST
         $conn=conectar(); 
@@ -37,10 +37,11 @@ requireLogin();
 
             <main class='modify-alumno'>
 
-
-                <h2>Modificar Alumno: $alumno[nombre] $alumno[apellido] </h2>
-                <form class='new-form' action='../../crud/alumnos/procesar_modificacion.php' method='POST'>
-
+                <div class='header_perfil'
+                    
+                    <h2>Alumno: $alumno[nombre] $alumno[apellido] </h2>
+                    
+                </div>
                     
 
                     <h3 class='h3-alumnos'> Información Personal </h3> 
@@ -48,24 +49,24 @@ requireLogin();
                     <input class='input-modify' type='hidden' name='id_alumno' value=$id_alumno'>
 
                    <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='nombre-alumno'> Nombre de Alumno: </label>
                             <input class='input-modify' type='text' name='nombre' id='dni-alumno' placeholder='Nombre' value=$alumno[nombre]>
                         </div>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='apellido-alumno'> Apellido de Alumno: </label>
                             <input class='input-modify' type='text' name='apellido' id='dni-alumno' placeholder='Apellido'  value=$alumno[apellido]>
                         </div>
                     </div>
                     
                     <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='dni-alumno'> DNI de Alumno: </label>
                             <input class='input-modify' type='number'  id='dni-alumno' name='dni' placeholder='DNI'  value=$alumno[dni]>
                         </div>
                     
 
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='email-alumno'> Email de Alumno: </label>
                             <input class='input-modify' type='text' id='email-alumno' name='email' placeholder='Teléfono'  value=$alumno[correo]>
                         </div>
@@ -74,55 +75,55 @@ requireLogin();
 
 
                     <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='telefono-alumno'> Télefono de Alumno: </label>
                             <input class='input-modify' type='text' id='telefono-alumno' name='telefono' placeholder='Teléfono'  value=$alumno[telefono]>
                         </div>
                     
 
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='fecha-alumno'> Fecha De Nacimiento: </label>
                             <input class='input-modify' type='date' id='fecha-alumno' name='nacimiento' placeholder='Teléfono'  value=$alumno[fecha_nacimiento]>
                         </div>
                     </div>
 
                     <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='domicilio-alumno'> Domicilio: </label>
                             <input class='input-modify' type='text' id='domicilio-alumno' name='domicilio' placeholder='Teléfono'  value=$alumno[direccion]>
                         </div>
                     
 
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='localidad-alumno'> Localidad: </label>
                             <input class='input-modify' type='text' id='localidad-alumno' name='localidad' placeholder='Teléfono'  value=$alumno[localidad]>
                         </div>
                     </div>
 
                     <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='postal-alumno'> Código Postal: </label>
                             <input class='input-modify' type='text' id='postal-alumno' name='postal' placeholder='Teléfono'  value=$alumno[cp]>
                         </div>
                     </div>
 
                     <div class='fila'>
-                        <div class'campo'>
+                        <div class'campoo'>
                             <label for='auto-alumno'> Modelo de Auto (si posee): </label>
                             <input class='input-modify' type='text' id='auto-alumno' name='autos' placeholder='Teléfono'  value=$alumno[vehiculo]>
                         </div>
                     
 
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='patente-alumno'> Patente: </label>
                             <input class='input-modify' type='text' id='patente-alumno' name='patente' placeholder='Teléfono'  value=$alumno[patente]>
                         </div>
                     </div>
 
                     <div class='fila'>
-                        <div class='campo'>
+                        <div class='campoo'>
                             <label for='observaciones-alumno'> Observaciones: </label>
-                            <textarea class='input-modify' name='observaciones' id='observaciones-alumno' placeholder='Observacione'> </textarea>
+                            <input class='input-modify' 'type='text' id='observaciones-alumno' name='observaciones' placeholder='Teléfono'  value=$alumno[observaciones]>
                         </div>
                     
 
