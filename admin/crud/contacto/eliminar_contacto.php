@@ -1,11 +1,17 @@
 <?php
-// Cargar path.php
-require_once dirname(__DIR__, 2) . '/../config/path.php';
-// Autenticación
+
+require_once dirname(__DIR__, 3) . '/config/path.php';
+
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/include/header.php';
+
+// Seguridad
 requireLogin();
 
-conn = conectar();
+// Conexión
+$conn = conectar();
 
 // if (!isAdmin()) {
 //     header('Location: /cfl_402/index.php');
@@ -16,9 +22,6 @@ conn = conectar();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
-// Dependencias
-require_once BASE_PATH . '/config/conexion.php';
 
 $id_contacto = $_POST['id_contacto'] ?? null;
 

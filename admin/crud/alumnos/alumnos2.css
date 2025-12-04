@@ -234,6 +234,7 @@ h2 {
   filter: brightness(0) invert(1);
   opacity: 1;
 }
+<<<<<<< HEAD
 
 .svg_lite{
   height: 32px;
@@ -251,3 +252,5 @@ h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+=======
+>>>>>>> b7b4192 (me descargue los cambios)

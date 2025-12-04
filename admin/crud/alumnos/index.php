@@ -407,7 +407,7 @@ if ($consulta->rowCount() > 0) {
                         </td>
 
                         <!-- ACCIONES -->
-                        <td class='td_actions' title='Eliminar Alumno'>
+                        <td class='td_actions2' title='Eliminar Alumno'>
                             <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
@@ -439,16 +439,18 @@ if ($consulta->rowCount() > 0) {
                 
 
                 echo "</tbody>";
-                echo "<tfoot
+                echo "</table>";
             
-
-            </table>";
-            
-            ?>
+           
 
             
 
                 
+        
+          
+            echo"</main>";       
+            ?>
+            
                 <div class='pagination'>
                 <?php if ($total_paginas > 1){
                     // Enlace a la primera página 
@@ -485,14 +487,14 @@ if ($consulta->rowCount() > 0) {
                     echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg' alt='Última Página' title='Última Página'>
                     </a>";
                 }
-        
-          
-            echo"</main>";
-            
             // cerramos la tabla
             } else {
                 echo "<p>Aún no existen alumnos</p>"; // si no hay alumnos, mostramos este mensaje
             }
+        ?>
+        </div>          
 
+</body>
+</html>
             
 >>>>>>> 9c8cf22 (idente la seguridad porque no me debaja ingresar a nada y agregue las conecciones con conn)
