@@ -62,7 +62,7 @@
                             <input type='hidden' name='volver' value='cursos'>
                             <input type='submit' value='📖 Inscripciones'>
                         </form>
-                        <form action='../planillas/exportar_csv.php' method='POST' class='enlinea'>
+                        <form action='../planillas/planillas.php' method='POST' class='enlinea'>
                             <input type='hidden' name='id_curso' value='$registro[id_curso]'>
                             <input type='submit' value='📄 Planilla'>
                         </form>  
