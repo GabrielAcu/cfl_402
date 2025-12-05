@@ -26,12 +26,8 @@ $conn = conectar();
     <link rel="stylesheet" href="alumnos2.css">
 
 </head>
-<body>
-    
-</body>
-</html>
-
-<h1>Alumnos</h1>
+<body class="light">
+    <h1>Alumnos</h1>
 
 <div class="search_container">
     <div class="search_block">

@@ -16,7 +16,7 @@ require_once BASE_PATH . '/auth/check.php';
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light">
   <div class="login-container">
     <h1>Sistema de Gestión CFL 402</h1>
     <form method="POST" action="auth/login.php">

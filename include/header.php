@@ -15,6 +15,8 @@
     <div class="right-section">
       <!-- Botón menú hamburguesa -->
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+      <button id="toggleTheme" class="theme-btn">🌙</button>
+
 
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
@@ -35,8 +37,9 @@
 
   </div>
 </header>
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css">
 
-
+<script src="<?= BASE_URL ?>/assets/js/tema.js" defer></script>
 
 
 

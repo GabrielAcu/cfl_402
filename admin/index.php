@@ -33,7 +33,7 @@ $panelClass = isSuperAdmin() ? 'superadmin' : (isAdmin() ? 'admin' : 'instructor
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
 </head>
 
-<body class="hide-crud-links">
+<body class="hide-crud-links light">
 <h1>Panel de Administración</h1>
 
 <main>

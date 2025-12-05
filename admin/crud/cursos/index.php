@@ -18,7 +18,7 @@ $conn = conectar();
     <link rel="stylesheet" href="modal.css">
     <title>Cursos</title>
 </head>
-<body>
+<body class="light">
     <h1>Cursos</h1>
     <div class="nuevoCurso-buscador">
     <button id="btnAbrirModal" class="btn-primary">Nuevo Curso</button>
