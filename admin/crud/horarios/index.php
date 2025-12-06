@@ -109,6 +109,19 @@ $registro = $consulta->fetch();
     <?php else: ?>
         <p>No hay horarios registrados.</p>
     <?php endif; ?>
+    
+    <?php
+        json_encode([
+            "nombre" => $registro["nombre_curso"],
+            "codigo" => $registro["codigo"],
+            "dias" => $registro["dia_semana"],
+            "hora_inicio" => $registro["hora_inicio"],
+            "hora_fin" => $registro["hora_fin"],
 
+
+
+            
+        ])
+    ?>
 </body>
 </html>
