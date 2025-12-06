@@ -48,7 +48,11 @@ $conn = conectar();
     </div>
     
     <?php include 'modal.php'; //incluye el modal para crear un nuevo curso  ?>
+    <?php include 'modalDetalles.php'; ?>
+
+    
 
 <script src="modalCurso.js"></script>
+<script src="modal_detalles.js"></script>
 </body>
 </html>

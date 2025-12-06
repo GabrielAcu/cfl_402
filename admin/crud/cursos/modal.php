@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<!-- <!DOCTYPE html>
+>>>>>>> origin/toby-nueva-rama
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -5,8 +9,10 @@
     <title>Modal</title>
     <link rel="stylesheet" href="modal.css">
 </head>
-<body></body>
-</html>
+<body>
+    
+</body>
+</html> -->
 
 <?php
 // ===============================================================

@@ -19,6 +19,7 @@
     <table>
         <thead>
             <tr>
+                <th>Ver</th>
                 <th>Código</th>
                 <th>Nombre Curso</th>
                 <th>Turno</th>
@@ -30,8 +31,17 @@
         </thead>
         <tbody>
             <?php while ($registro = $consulta->fetch()): ?>
-                <tr>
-                    <td><?php echo $registro['codigo']; ?></td>
+                <tr class="fila_curso">
+
+                    <td class="td_action">
+                            <button class="btnVerCurso" <?php echo "data-id=$registro[id_curso]"?> >
+                                <img class="svg_lite" src="/cfl_402/assets/svg/blue_search.svg" alt="">
+                            </button> 
+                            
+                    </td> 
+                        
+                    
+                    <td>  <?php echo $registro['codigo']; ?></td>
                     <td><?php echo $registro['nombre_curso']; ?></td>
                     <td><?php echo $registro['descripcion']; ?></td>
                     <td><?php echo $registro['cupo']; ?></td>
@@ -75,3 +85,4 @@
 <?php else: ?>
     <p>Aún no existen cursos</p>
 <?php endif; ?>
+
