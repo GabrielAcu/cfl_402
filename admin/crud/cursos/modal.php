@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 <!-- <!DOCTYPE html>
->>>>>>> origin/toby-nueva-rama
 <html lang="es">
 <head>
     <meta charset="UTF-8">
