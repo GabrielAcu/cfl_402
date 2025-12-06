@@ -27,7 +27,7 @@ $conn = conectar();
     <link rel="stylesheet" href="instructores.css">
     <title>Crud Instructores</title>
 </head>
-<body>
+<body class="light">
     <h1>Instructor</h1>
     <h2>Nuevo Instructor</h2>
     <form action="agregar_instructor.php" method="POST">
