@@ -1,16 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal</title>
-    <link rel="stylesheet" href="modal.css">
-</head>
-<body>
-    
-</body>
-</html> -->
-
 <?php
 // ===============================================================
 //                    MODAL DE CREACIÓN DE CURSO
