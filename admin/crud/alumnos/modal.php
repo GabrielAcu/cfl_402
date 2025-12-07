@@ -10,7 +10,7 @@
 </body>
 </html>
 
-<div id="modalCurso" class="modal">
+<div id="modalAlumno" class="modal">
     <div class="modal-content">
     <span class="cerrar">&times;</span>
     <h2>Nuevo Alumno</h2>
