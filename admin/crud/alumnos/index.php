@@ -166,72 +166,70 @@ if ($consulta->rowCount() > 0) {
         <tbody>
     ";
 
-    while ($registro = $consulta->fetch()) {
+    while ($registro = $consulta->fetch()) : ?>
+    <tr>
+        <td><?= $registro['nombre'] ?></td>
+        <td><?= $registro['apellido'] ?></td>
+        <td><?= $registro['dni'] ?></td>
+        <td><?= $registro['fecha_nacimiento'] ?></td>
+        <td><?= $registro['telefono'] ?></td>
+        <td><?= $registro['direccion'] ?></td>
+        <td><?= $registro['correo'] ?></td>
 
-        echo "
-        <tr>
-            <td>{$registro['nombre']}</td>
-            <td>{$registro['apellido']}</td>
-            <td>{$registro['dni']}</td>
-            <td>{$registro['fecha_nacimiento']}</td>
-            <td>{$registro['telefono']}</td>
-            <td>{$registro['direccion']}</td>
-            <td>{$registro['correo']}</td>
+        <td class="td_actions">
+            <div class="acciones_wrapper">
+
+                <form action="../contacto/listar_contactos.php" method="POST" class="enlinea">
+                    <input type="hidden" name="id_entidad" value="<?= $registro['id_alumno'] ?>">
+                    <input type="hidden" name="tipo" value="alumno">
+                    <button type="submit" class="submit-button">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/contact.svg" title="Contactos">
+                    </button>
+                </form>
+
+                <form action="/cfl_402/admin/crud/cursos/index.php" method="POST" class="enlinea">
+                    <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
+                    <button type="submit" class="submit-button">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/book.svg" title="Cursos">
+                    </button>
+                </form>
+
+            </div>
+        </td>
+
+        <td class="td_actions2">
+
             
-            <td class='td_actions'>
-                <div class='acciones_wrapper'>
-                    <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
-                        <input type='hidden' name='id_entidad' value='{$registro['id_alumno']}'>
-                        <input type='hidden' name='tipo' value='alumno'>
-                        <button type='submit' class='submit-button'>
-                            <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' title='Contactos'>
-                        </button>
-                    </form>
+            <button class="btnModificarAlumno" data-id="<?= $registro['id_alumno'] ?>">
+                <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
+            </button>
 
-                    <form action='/cfl_402/admin/crud/cursos/index.php' method='POST' class='enlinea'>
-                        <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
-                        <button type='submit' class='submit-button'>
-                            <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' title='Cursos'>
-                        </button>
-                    </form>
-                </div>
-            </td>
+            <form action="../alumnos/bajar.php" method="POST" class="enlinea confirm-delete">
+                <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
+                <button type="submit" class="submit-button">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">
+                </button>
+            </form>
 
-            <td class='td_actions2'>
-                <form action='../alumnos/modificar.php' method='POST' class='enlinea'>
-                    <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
-                    <button type='submit' class='submit-button'>
-                        <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' title='Modificar'>
-                    </button>
-                </form>
+            <form action="../inscripciones/index.php" method="POST" class="enlinea">
+                <input type="hidden" name="tipo" value="alumno">
+                <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
+                <input type="hidden" name="volver" value="alumnos">
+                <button type="submit" class="submit-button">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/plus.svg" title="Inscribir a un curso">
+                </button>
+            </form>
 
-                <form action='../alumnos/bajar.php' method='POST' class='enlinea confirm-delete'>
-                    <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
-                    <button type='submit' class='submit-button'>
-                        <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Eliminar'>
-                    </button>
-                </form>
-
-                <form action='../inscripciones/index.php' method='POST' class='enlinea'>
-                    <input type='hidden' name='tipo' value='alumno'>
-                    <input type='hidden' name='id_alumno' value='{$registro['id_alumno']}'>
-                    <input type='hidden' name='volver' value='alumnos'>
-                    <button type='submit' class='submit-button'>
-                        <img class='svg_lite' src='/cfl_402/assets/svg/plus.svg' title='Inscribir a un curso'>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        
-        ";
-    }
-
-    echo "
+        </td>
+    </tr>
+    
+    
+<?php endwhile; 
+echo"
         </tbody>
     </table>
-    </main>
-    ";
-
+    </main>";
+    
 }
     // ==========================
     //   PAGINACIÓN
@@ -278,7 +276,7 @@ if ($consulta->rowCount() > 0) {
     render_pagination($total_paginas, $pagina_actual);    
 
     include 'modal.php'; //incluye el modal para crear un nuevo curso 
-
+    include 'modal_modificar.php';
        
 ?>
 
@@ -294,3 +292,4 @@ if ($consulta->rowCount() > 0) {
 <script src="delete.js"></script>
 
 <script src="modal_nuevo.js"></script>
+<script src="modal_detalles.js"> </script>
