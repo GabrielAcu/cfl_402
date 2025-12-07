@@ -252,6 +252,26 @@ h2 {
   margin-bottom: 10px;
 }
 
+
+.btnModificarAlumno{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btnModificarAlumno .svg_lite{
+    width: 22px;
+  height: 22px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.btnModificarAlumno:hover .svg_lite{
+  opacity: 1;
+}
+
+
+
 .eliminados_block{
   border: 1px solid #b92b37;
   padding: 5 20px;
