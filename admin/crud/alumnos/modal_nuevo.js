@@ -1,4 +1,4 @@
-const modal = document.getElementById("modalCurso");
+const modal = document.getElementById("modalAlumno");
 const cocodrilo = document.getElementById("btnAbrirModal");
 const cerrar = document.querySelector(".cerrar");
 
