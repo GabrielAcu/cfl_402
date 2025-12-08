@@ -150,3 +150,141 @@ tr:hover {
   }
 }
 /* fin boton modificar */
+
+/* --------------------------
+     MENSAJES
+  --------------------------- */
+.mensaje-exito {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
+  text-align: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.mensaje-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  text-align: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* --------------------------
+     ACCIONES SUPERIORES
+  --------------------------- */
+.acciones-superiores {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.btn-secondary {
+  padding: 12px 20px;
+  border: none;
+  background: #6c757d;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+a.btn-secondary {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+/* --------------------------
+     MODAL - FILAS
+  --------------------------- */
+.fila {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.fila .campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fila .campo label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-cancel:hover {
+  background: #5a6268;
+}
+
+/* Botón modificar instructor */
+.btnModificarInstructor {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-right: 5px;
+}
+
+.btnModificarInstructor:hover {
+  background: rgba(0, 123, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.submit-button {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.submit-button:hover {
+  background: rgba(0, 123, 255, 0.1);
+}
