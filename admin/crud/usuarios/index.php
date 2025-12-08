@@ -10,19 +10,10 @@ require_once BASE_PATH . '/include/header.php';
 
 // Autenticación
 requireLogin();
-<<<<<<< HEAD
-// Si no es admin ni superadmin, afuera del panel
-=======
-
->>>>>>> 03503e50ebb548daccddf8d9fc823e0316739da4
 if (!isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 03503e50ebb548daccddf8d9fc823e0316739da4
 // Conexión
 $conn = conectar();
 
@@ -126,7 +117,7 @@ $sql = "
     SELECT usuarios.*, usuarios.nombre, usuarios.contrasenia, CASE usuarios.rol
     WHEN 0 THEN 'SuperAdmin'
     WHEN 1 THEN 'Administrador'
-    WHEN 2 THEN 'instructor'
+    WHEN 2 THEN 'Instructor'
     ELSE 'Rol Desconocido'
     END AS rol_text
     FROM usuarios
