@@ -68,7 +68,7 @@ table {
   background: white;
   margin-top: 20px;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -100,7 +100,7 @@ tr:hover {
   color: white;
   border: none;
   padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 6px !important;
   cursor: pointer;
   transition: 0.2s;
   font-size: 14px;
@@ -109,3 +109,44 @@ tr:hover {
 .enlinea input[type="submit"]:hover {
   background: #0056c1;
 }
+
+/* Boton modificar */
+/* Tamaño del ícono */
+.svg_lite {
+  width: 22px;
+  height: 22px;
+  display: block; /* Evita espacios extra */
+  pointer-events: none; /* Evita problemas al hacer clic */
+}
+
+/* Botón estilo icon-button moderno */
+.submit-buttom {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 10px !important; /* Suave, moderno */
+  display: flex; /* Centra el SVG */
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* Hover moderno */
+.submit-buttom:hover {
+  background: rgba(0, 0, 0, 0.08); /* Fondo suave */
+  transform: translateY(-1px); /* Micro-animación */
+}
+
+/* Activo (click) */
+.submit-buttom:active {
+  transform: scale(0.95);
+}
+
+/* Si quieres que combine con dark mode */
+@media (prefers-color-scheme: dark) {
+  .submit-buttom:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+/* fin boton modificar */
