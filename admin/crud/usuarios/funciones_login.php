@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 
+if (!isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+
 /**
  * Verifica usuario y contraseña en la base de datos.
  * Retorna:
