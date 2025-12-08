@@ -1,65 +1,43 @@
 <?php
-// ==========================
-//   CONFIGURACIÓN INICIAL
-// ==========================
-require_once dirname(__DIR__, 3) . '/config/path.php';
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+
+// Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
-// require_once 'layouts.php';
+require_once 'layouts.php';
 
-// Autenticación
+
+// 3. Autenticación
 requireLogin();
-<<<<<<< HEAD
-// Si no es admin ni superadmin, afuera del panel
-=======
 
->>>>>>> 03503e50ebb548daccddf8d9fc823e0316739da4
-if (!isSuperAdmin()) {
+
+if (!isSuperAdmin() ) {
     header('Location: /cfl_402/index.php');
     exit();
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 03503e50ebb548daccddf8d9fc823e0316739da4
 // Conexión
 $conn = conectar();
 
-?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="modal.css">
-    <link rel="stylesheet" href="usuarios.css">
-
-</head>
-<body>
+?> 
+<h1> Usuarios </h1>
     
-
-<h1>Usuarios</h1>
-
-<div class="search_container">
+        
+ <div class="search_container">
     <div class="search_block">
 
         <div class="search_row">
 
             <!-- Buscador -->
             <form class="search_form" action="/cfl_402/admin/crud/usuarios/index.php" method="post">
-                <input class="search_bar" type="search" name="search" placeholder="Buscar Usuario..">
+                <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno..">
                 <button class="boton_enviar" type="submit">Buscar</button>
             </form>
 
             <!-- Registrar nuevo alumno -->
            
-                    <button id="btnAbrirModal" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
-                        Nuevo Usuario
-                    </button>
             
 
         </div>
@@ -81,7 +59,7 @@ $conn = conectar();
 <hr>
 
 <h2>Listado de Usuarios</h2>
-<link rel="stylesheet" href="alumnos2.css">
+<link rel="stylesheet" href="usuarios.css">
 
 <?php
 
@@ -130,7 +108,7 @@ $sql = "
     ELSE 'Rol Desconocido'
     END AS rol_text
     FROM usuarios
-    WHERE activo = '1'
+    WHERE activo = '0'
         AND (usuarios.nombre LIKE :nombre
             OR usuarios.contrasenia LIKE :contrasenia)
     ORDER BY rol ASC
@@ -185,15 +163,10 @@ if ($consulta->rowCount() > 0) {
 
         <td class="td_actions2">
 
-            
-            <button class="btnModificarAlumno" <?php echo "data-id=$registro[id]"?> >
-                <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
-            </button>
-
-            <form action="bajar.php" method="POST" class="enlinea confirm-delete">
+            <form action="restaurar.php" method="POST" class="enlinea">
                 <input type="hidden" name="id" value="<?= $registro['id'] ?>">
                 <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/restore.svg" title="Restaurar">
                 </button>
             </form>
 
@@ -267,10 +240,10 @@ echo"
 ?>
 
 <div class="eliminados_block">
-    <form class="eliminados_form" action="eliminados.php" method="post">
+    <form class="eliminados_form" action="index.php" method="post">
         <button type='submit' class='submit-button'>
 
-        <h3> Ver Usuarios Eliminados</h3>
+        <h3> Volver a Gestión</h3>
             <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Contactos'>
         </button>
     </form>

@@ -39,3 +39,4 @@ cerrarVer.onclick = () => modalVer.style.display = "none";
 window.onclick = (e) => {
     if (e.target === modalVer) modalVer.style.display = "none";
 };
+    
