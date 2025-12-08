@@ -1,14 +1,10 @@
 <?php
-
 // Cargar path.php
 require_once dirname(__DIR__, 3) . '/config/path.php';
-
-
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
-
 // 3. Autenticación
 requireLogin();
 // Si no es admin ni superadmin, afuera del panel
@@ -56,12 +52,10 @@ $conn = conectar();
                         <th>dni</th>
                         <th>telefono</th>
                         <th>correo</th>
-                        <td>
-                            <th>acciones</th>
-                            <th>contactos</th>
-                            <th>cursos</th>
-                            
-                        </td>
+                        <th>acciones</th>
+                        <th>contactos</th>
+                        <th>cursos</th>   
+                  
                     </tr>
                 </thead>
                 <tbody>";
@@ -74,23 +68,28 @@ $conn = conectar();
                         <td>$registro[telefono]</td>
                         <td>$registro[correo]</td>
                         <td>
-                            <form action='modificar_instructor.php' method='POST' class='enlinea'>
+                            <form action='modal_editar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id' value=$registro[id_instructor]>
-                                <input type='submit' value='MODIFICAR ✏️'>
+                                <button type='submit' class='submit-buttom' title='Editar'>
+                                    <img src='/cfl_402/assets/svg/pencil.svg' alt='Editar' class='svg_lite'>
+                                </button>
                             </form>
-                        </td>
-                        <td>
+        
                             <form action='eliminar_instructor.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id'value=$registro[id_instructor]>
                                 <input type='hidden' name='id_instructor' value=$registro[id_instructor]>
-                                <input type='submit' value='ELIMINAR ❌'>
+                                <button type='submit' class='submit-buttom' title='Eliminar'>
+                                    <img src='/cfl_402/assets/svg/trash.svg' class='svg_lite'>
+                                </button>
                             </form>
                         </td>
                         <td>
                             <form action='../contacto/listar_contactos.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_entidad' value=$registro[id_instructor]>
                                 <input type='hidden' name='tipo' value='instructor'>
-                                <input type='submit' value='CONTACTOS 📇'>
+                                <button type='submit' class='submit-button' title='Contactos'>
+                                    <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' title='Contactos'>
+                                </button>
                             </form>
                         </td>
                         <td>
