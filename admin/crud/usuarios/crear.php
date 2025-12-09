@@ -24,20 +24,11 @@ require_once 'layouts.php';
 // Autenticación
 requireLogin();
 
-<<<<<<< HEAD
-if (!isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
-    exit();
-}
-
-
-=======
 // Validar CSRF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireCSRFToken();
 }
 
->>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 // Conexión
 $conn = conectar();
 
@@ -45,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nombre      = $_POST["nombre"]; 
     $contrasenia    = $_POST["contrasenia"];
+    $confcontrasenia    = $_POST["contrasenia-conf"];
+
     $rol = $_POST["rol"];
     $activo      = "1";
     $roles =[0,1,2];
@@ -67,7 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         fallido("La contraseña debe tener al menos 6 caracteres");
     } elseif (strlen($contrasenia) > 72) {
         fallido("La contraseña es demasiado larga (máximo 72 caracteres)");
-    } elseif (empty($rol)) {
+    }
+    elseif(!isset($confcontrasenia) || $confcontrasenia == '') {
+        fallido("No hay 2  contraseñas");
+        exit();
+    }
+    else if(($confcontrasenia != $contrasenia)){
+        fallido("Las Contraseñas no coinciden");
+    }
+    elseif (empty($rol)) {
         fallido("Sin Rol Designado");
     } else {
 
