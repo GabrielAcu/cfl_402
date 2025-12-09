@@ -173,7 +173,7 @@ if ($consulta->rowCount() > 0) {
         <td class="td_actions2">
 
             
-            <button class="btnModificarAlumno" <?php echo "data-id=$registro[id]"?> >
+            <button class="btnModificarAlumno" data-id="<?= $registro['id'] ?>">
                 <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
             </button>
 
