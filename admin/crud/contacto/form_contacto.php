@@ -5,11 +5,7 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
 requireLogin();
 
-<<<<<<< HEAD
-if (!isAdmin() || !isSuperAdmin()) {
-=======
 if (!isAdmin() && !isSuperAdmin()) {
->>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
     header('Location: /cfl_402/index.php');
     exit();
 }
