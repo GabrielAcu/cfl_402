@@ -39,6 +39,14 @@ if (!isSuperAdmin()) {
             if (strlen($contrasenia) > 72) {
                 die("La contraseña es demasiado larga (máximo 72 caracteres)");
             }
+            elseif(!isset($confcontrasenia) || $confcontrasenia == '') {
+            fallido("No hay 2  contraseñas");
+            exit();
+            }
+            else if(($confcontrasenia != $contrasenia)){
+                fallido("Las Contraseñas no coinciden");
+            exit();
+    }
         }
         
         try {
