@@ -17,13 +17,10 @@ if (!isSuperAdmin()) {
     exit();
 }
 
-<<<<<<< HEAD
-=======
 // Validar CSRF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireCSRFToken();
 }
->>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 
 // Conexión
 $conn = conectar();
