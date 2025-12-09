@@ -33,6 +33,10 @@
                 <label for="contrasena-usuario"> Contraseña De Usuario: </label>
                 <input class="input-modify" type="password" name="contrasenia" id="contrasena-usuario" placeholder="Contraseña.." required>
             </div>
+            <div class="campo">
+                <label for="contrasena-confirmar"> Confirmar Contraseña </label>
+                <input class="input-modify" type="password" name="contrasenia-conf" id="contrasena-confirmar" placeholder="Confirmar.." required>
+            </div>
 
             <div class="campo">
                 <label for="rol-usuario"> Rol De Usuario: </label>
