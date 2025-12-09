@@ -23,6 +23,12 @@ require_once 'layouts.php';
 // Autenticación
 requireLogin();
 
+if (!isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+
+
 // Conexión
 $conn = conectar();
 
