@@ -37,6 +37,11 @@ document.querySelectorAll(".btnModificarAlumno").forEach(btn => {
                         </div>
 
                         <div class="campo">
+                            <label for="contrasena-confirmar"> Confirmar Contraseña </label>
+                <input class="input-modify" type="password" name="contrasenia-conf" id="contrasena-confirmar" placeholder="Confirmar.." required>
+                        </div>
+
+                        <div class="campo">
                             <label for="rol-usuario"> Rol De Usuario: </label>
                             <select name="rol" id="rol-usuario" required>
                                 <option value="0" ${a.rol == 0 ? 'selected' : ''}>SuperAdministrador</option>
