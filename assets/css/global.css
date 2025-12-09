@@ -12,6 +12,32 @@ body.dark {
   --text: #e5e5e5;
   --card-bg: #1e1e1e;
   --border: #333333;
+
+  table tr{
+    background-color: #121212;
+    color: aliceblue;
+    border: 1px solid white;
+  }
+  table tr:hover{
+    color: #121212;
+  }
+
+  .search_block{
+    background-color:#121212 ;
+    border: 1px solid #ffffff;
+    
+  }
+
+  .eliminados_form{
+    
+  }
+
+  .submit-button{
+    background-color: none !important;
+    border-color: none;
+  }
+
+
 }
 
 /* APLICACIÓN GLOBAL */
@@ -19,6 +45,10 @@ body {
   background-color: var(--bg) !important;
   color: var(--text) !important;
   transition: background 0.3s, color 0.3s;
+}
+
+.main_alumnos{
+  background: none;
 }
 
 /* Esto afecta tarjetas, tablas, contenedores, etc */
