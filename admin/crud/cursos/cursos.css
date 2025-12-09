@@ -206,3 +206,19 @@ tr:hover {
 .nuevoCurso-buscador input[type="submit"]:hover {
   background: #1e7e34;
 }
+
+.svg_lite{
+  height: 32px;
+  width: 32px;
+  background:none;
+}
+
+.svg_boton{
+  background-color: rgba(255, 0, 0, 0);
+  border: 0;
+}
+
+.svg_boton:hover{
+  cursor:pointer;
+  opacity: 50%;
+}

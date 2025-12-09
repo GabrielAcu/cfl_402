@@ -5,6 +5,7 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+<<<<<<< HEAD
 require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
@@ -17,12 +18,32 @@ $conn = conectar();
 //     header('Location: /cfl_402/index.php');
 //     exit();
 // }
+=======
+require_once BASE_PATH . '/config/csrf.php';
+requireLogin();
+
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 
 // CORRECCIÓN: Nos aseguramos de iniciar sesión si check.php no lo hizo
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+<<<<<<< HEAD
+=======
+// Dependencias
+require_once BASE_PATH . '/config/conexion.php';
+
+// Validar CSRF
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    requireCSRFToken();
+}
+
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 $id_contacto = $_POST['id_contacto'] ?? null;
 
 // Validación básica

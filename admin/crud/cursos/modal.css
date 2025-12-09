@@ -10,6 +10,17 @@
   background: rgba(0, 0, 0, 0.6);
   padding-top: 60px;
 }
+.modal2 {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  padding-top: 60px;
+}
 
 /* Caja del modal */
 .modal-content {
@@ -23,10 +34,9 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.25s ease;
   overflow-y: scroll;
-
 }
 
-label{
+label {
   width: 100%;
 }
 
@@ -66,7 +76,8 @@ label{
 }
 
 .modal-content input,
-.modal-content select, .modal-content textarea {
+.modal-content select,
+.modal-content textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #bbb;
@@ -123,8 +134,4 @@ label{
   border: none;
   cursor: pointer;
   font-size: 16px;
-}
-
-.add_link{
-
 }

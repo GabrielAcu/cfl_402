@@ -19,6 +19,7 @@
     <table>
         <thead>
             <tr>
+                <th>Ver</th>
                 <th>Código</th>
                 <th>Nombre Curso</th>
                 <th>Turno</th>
@@ -30,8 +31,17 @@
         </thead>
         <tbody>
             <?php while ($registro = $consulta->fetch()): ?>
-                <tr>
-                    <td><?php echo $registro['codigo']; ?></td>
+                <tr class="fila_curso">
+
+                    <td class="td_action">
+                            <button class="btnVerCurso" <?php echo "data-id=$registro[id_curso]"?> >
+                                <img class="svg_lite" src="/cfl_402/assets/svg/blue_search.svg" alt="">
+                            </button> 
+                            
+                    </td> 
+                        
+                    
+                    <td>  <?php echo $registro['codigo']; ?></td>
                     <td><?php echo $registro['nombre_curso']; ?></td>
                     <td><?php echo $registro['descripcion']; ?></td>
                     <td><?php echo $registro['cupo']; ?></td>
@@ -40,11 +50,21 @@
 
                     <td>
                         <form action='modificar_curso.php' method='POST' class='enlinea'>
+                            <?php
+                            require_once dirname(__DIR__, 3) . '/config/path.php';
+                            require_once BASE_PATH . '/config/csrf.php';
+                            echo getCSRFTokenField();
+                            ?>
                             <input type='hidden' name='id_curso' value='<?php echo $registro['id_curso']; ?>'>
                             <input type='submit' value='✏️ Modificar'>
                         </form>
 
                         <form action='eliminar_curso.php' method='POST' class='enlinea' onsubmit='return confirm("Está seguro que desea eliminar el curso?")'>
+                            <?php
+                            require_once dirname(__DIR__, 3) . '/config/path.php';
+                            require_once BASE_PATH . '/config/csrf.php';
+                            echo getCSRFTokenField();
+                            ?>
                             <input type='hidden' name='id_curso' value='<?php echo $registro['id_curso']; ?>'>
                             <input type='submit' value='❌ Eliminar'>
                         </form>
@@ -62,7 +82,7 @@
                             <input type='hidden' name='volver' value='cursos'>
                             <input type='submit' value='📖 Inscripciones'>
                         </form>
-                        <form action='../planillas/exportar_csv.php' method='POST' class='enlinea'>
+                        <form action='../planillas/planillas.php' method='POST' class='enlinea'>
                             <input type='hidden' name='id_curso' value='$registro[id_curso]'>
                             <input type='submit' value='📄 Planilla'>
                         </form>  
@@ -75,3 +95,4 @@
 <?php else: ?>
     <p>Aún no existen cursos</p>
 <?php endif; ?>
+

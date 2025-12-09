@@ -5,6 +5,11 @@ require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
 
 requireLogin();
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 $conn = conectar();
 
 // Validar que venga id_curso REAL
@@ -96,6 +101,7 @@ $registro = $consulta->fetch();
                             </form>
 
                             <form action="eliminar_horario.php" method="POST" class="enlinea">
+                                <?= getCSRFTokenField() ?>
                                 <input type="hidden" name="id_curso" value="<?= $reg["id_curso"] ?>">
                                 <input type="hidden" name="id_horario" value="<?= $reg["id_horario"] ?>">
                                 <input type="submit" value="❌ Eliminar">
@@ -109,6 +115,19 @@ $registro = $consulta->fetch();
     <?php else: ?>
         <p>No hay horarios registrados.</p>
     <?php endif; ?>
+    
+    <?php
+        json_encode([
+            "nombre" => $registro["nombre_curso"],
+            "codigo" => $registro["codigo"],
+            "dias" => $registro["dia_semana"],
+            "hora_inicio" => $registro["hora_inicio"],
+            "hora_fin" => $registro["hora_fin"],
 
+
+
+            
+        ])
+    ?>
 </body>
 </html>

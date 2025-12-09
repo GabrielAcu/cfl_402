@@ -1,7 +1,14 @@
 <?php
+<<<<<<< HEAD
 
 require_once dirname(__DIR__, 3) . '/config/path.php';
 
+=======
+// Cargar path.php
+require_once dirname(__DIR__, 2) . '/../config/path.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
@@ -10,6 +17,7 @@ require_once BASE_PATH . '/include/header.php';
 // Seguridad
 requireLogin();
 
+<<<<<<< HEAD
 // Conexión
 $conn = conectar();
 
@@ -17,6 +25,12 @@ $conn = conectar();
 //     header('Location: /cfl_402/index.php');
 //     exit();
 // }
+=======
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 $id_contacto = $_POST['id_contacto'] ?? null;
 
 if ($id_contacto == null) {    
@@ -33,8 +47,11 @@ $registro = $contacto->fetch();
 
 echo "Modificar contacto<br><br>";
 
+require_once BASE_PATH . '/config/csrf.php';
+
 echo "
 <form action='procesar_contacto.php' method='post'>
+    " . getCSRFTokenField() . "
     <input type='text' name='nombre' value={$registro['nombre']}>
     <input type='text' name='apellido' value={$registro['apellido']}>
     <input type='number' name='dni' value={$registro['dni']}>

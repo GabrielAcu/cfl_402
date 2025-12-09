@@ -9,10 +9,30 @@ function isLogin() {
 
 function requireLogin() {
     if (!isLogin()) {
+
+        // Detectar si es request AJAX/fetch
+        $isAjax = false;
+
+        if (
+            !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
+        ) {
+            $isAjax = true;
+        }
+
+        if ($isAjax) {
+            // Respuesta JSON limpia (no redireccionar)
+            header('Content-Type: application/json');
+            echo json_encode(["error" => "NO_AUTH"]);
+            exit();
+        }
+
+        // Request normal → redirección
         header('Location: /cfl_402/index.php');
         exit();
     }
 }
+
 
 function isSuperAdmin() {
     return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 0;

@@ -252,5 +252,55 @@ h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> b7b4192 (me descargue los cambios)
+=======
+
+
+.btnModificarAlumno{
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btnModificarAlumno .svg_lite{
+    width: 22px;
+  height: 22px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+.btnModificarAlumno:hover .svg_lite{
+  opacity: 1;
+}
+
+
+
+.eliminados_block{
+  border: 1px solid #b92b37;
+  padding: 5 20px;
+
+  border-radius: 8px;
+}
+
+.eliminados_form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eliminados_form h3{
+  color: #b92b37;
+}
+
+.eliminados_form button[type="submit"]{
+  display: flex;
+  align-items: center;
+}
+
+.eliminados_form img{
+  height: 32px;
+  width: 32px;
+}
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0

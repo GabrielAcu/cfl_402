@@ -1,8 +1,9 @@
 /* ====== ESTILOS GENERALES ====== */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
 }
 
 /* ====== HEADER ====== */
@@ -20,7 +21,7 @@ header h1 {
 
 /* ====== ESPACIADO Y ESTRUCTURA ====== */
 body.hide-crud-links {
-  padding-top: 80px; /* espacio para el header fijo */
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -32,13 +33,13 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px 20px;
+  padding: 20px;
 }
 
 /* ====== TÍTULO PRINCIPAL ====== */
 h1 {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   font-size: 2rem;
   color: #004b8d;
 }
@@ -49,13 +50,12 @@ h1 {
   width: 90%;
   max-width: 1000px;
 }
-/* Superadmin → dos columnas fijas */
+
 .panel-container.superadmin {
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 30px;
 }
 
-/* Admin e Instructor → auto fit */
 .panel-container.admin,
 .panel-container.instructor {
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -66,15 +66,15 @@ h1 {
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* mantiene proporciones */
-  background: #fff;
+  justify-content: space-between;
+  background: var(--card-bg);
   border-radius: 16px;
   padding: 36px;
   text-decoration: none;
-  color: #222;
+  color: var(--text);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-  transition: all 0.25s ease;
-  min-height: 220px; /* asegura altura uniforme */
+  transition: all 0.25s ease, background 0.3s, color 0.3s;
+  min-height: 220px;
 }
 
 .card:hover {
@@ -89,7 +89,8 @@ h1 {
 }
 
 .card p {
-  color: #555;
+  color: var(--text);
+  opacity: 0.8;
   font-size: 16px;
   line-height: 1.5;
   margin: 0;
@@ -99,13 +100,15 @@ h1 {
 /* ====== FOOTER ====== */
 footer {
   text-align: center;
-  background: #f0f0f0;
-  color: #555;
+  background: var(--card-bg);
+  color: var(--text);
   padding: 1rem;
   font-size: 0.9rem;
   width: 100%;
   position: relative;
   bottom: 0;
+  border-top: 1px solid var(--border);
+  transition: background 0.3s, color 0.3s;
 }
 
 /* ====== RESPONSIVE ====== */
@@ -125,7 +128,7 @@ footer {
   .card {
     padding: 32px 24px;
     border-radius: 18px;
-    background: linear-gradient(145deg, #ffffff, #f0f4f8);
+    background: linear-gradient(145deg, var(--card-bg), var(--bg));
     text-align: center;
     min-height: 200px;
   }

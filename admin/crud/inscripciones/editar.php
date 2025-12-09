@@ -1,5 +1,16 @@
 <?php
-include_once __DIR__ . '/../../config/conexion.php';
+require_once dirname(__DIR__, 3) . '/config/path.php';
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
+
+requireLogin();
+
+// Validar CSRF en POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
+}
+
 $conn = conectar();
 
 $id = $_GET['id'] ?? null;
@@ -24,10 +35,14 @@ $cursos = $conn->query("SELECT id_curso, nombre_curso FROM cursos WHERE activo =
                ->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_alumno = $_POST['id_alumno'];
-    $id_curso = $_POST['id_curso'];
-    $fecha_inscripcion = $_POST['fecha_inscripcion'];
-    $observaciones = $_POST['observaciones'];
+    $id_alumno = filter_var($_POST['id_alumno'] ?? 0, FILTER_VALIDATE_INT);
+    $id_curso = filter_var($_POST['id_curso'] ?? 0, FILTER_VALIDATE_INT);
+    $fecha_inscripcion = $_POST['fecha_inscripcion'] ?? '';
+    $observaciones = trim($_POST['observaciones'] ?? '');
+
+    if (!$id_alumno || !$id_curso || !$fecha_inscripcion) {
+        die("Datos inválidos.");
+    }
 
     $sql = "UPDATE inscripciones 
             SET id_alumno = :id_alumno, 
@@ -60,6 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <h2>Editar Inscripción</h2>
   <form method="POST">
+    <?= getCSRFTokenField() ?>
+    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
     <label>Alumno:</label>
     <select name="id_alumno" required>
       <?php foreach ($alumnos as $a): ?>
@@ -89,4 +106,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </form>
 </body>
 </html>
-

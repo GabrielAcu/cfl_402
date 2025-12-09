@@ -1,0 +1,38 @@
+/* ===== TEMAS ===== */
+
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --card-bg: #f5f5f5;
+  --border: #dcdcdc;
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #e5e5e5;
+  --card-bg: #1e1e1e;
+  --border: #333333;
+}
+
+/* APLICACIÓN GLOBAL */
+body {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Esto afecta tarjetas, tablas, contenedores, etc */
+.container,
+.card,
+.table,
+section,
+main,
+form,
+input,
+select,
+textarea,
+button {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+}

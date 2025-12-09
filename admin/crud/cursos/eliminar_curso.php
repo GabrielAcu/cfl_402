@@ -5,12 +5,21 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+<<<<<<< HEAD
 // Conexión
 $conn = conectar();
+=======
+
+// Validar CSRF
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    requireCSRFToken();
+}
+>>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 ?>
 <!DOCTYPE html>
 <html lang="es">
