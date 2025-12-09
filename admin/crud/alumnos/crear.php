@@ -17,11 +17,17 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
+
+// Validar CSRF en POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
+}
 
 // Conexión
 $conn = conectar();

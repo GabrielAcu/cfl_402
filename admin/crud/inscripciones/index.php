@@ -2,6 +2,7 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 
 requireLogin();
@@ -149,6 +150,7 @@ switch ($tipo) {
     <h3>Alumno: <?= $origen["apellido"] . ", " . $origen["nombre"] ?></h3>
 
     <form action="crear.php" method="POST">
+        <?= getCSRFTokenField() ?>
         <input type="hidden" name="tipo" value="alumno">
         <input type="hidden" name="id_alumno" value="<?= $id ?>">
 
@@ -168,6 +170,7 @@ switch ($tipo) {
     <h3>Curso: <?= $origen["nombre_curso"] ?></h3>
 
     <form action="crear.php" method="POST">
+        <?= getCSRFTokenField() ?>
         <input type="hidden" name="tipo" value="curso">
         <input type="hidden" name="id_curso" value="<?= $id ?>">
 
@@ -197,6 +200,7 @@ switch ($tipo) {
     <h4>Asignar nuevo curso:</h4>
 
     <form action="crear.php" method="POST">
+        <?= getCSRFTokenField() ?>
         <input type="hidden" name="tipo" value="instructor">
         <input type="hidden" name="id_instructor" value="<?= $id ?>">
 

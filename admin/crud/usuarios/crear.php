@@ -17,11 +17,17 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
+
+// Validar CSRF
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
+}
 
 // Conexión
 $conn = conectar();
@@ -48,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         fallido("El nombre solo puede tener letras y espacios");
     } elseif (empty($contrasenia)) {
         fallido("Sin contraseña");
-    } elseif (strlen($contrasenia) > 50) {
-        fallido("La Contraseña supera el límite de caractéres");
-    } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $contrasenia)) { 
-        fallido("El apellido solo puede tener letras y espacios");
+    } elseif (strlen($contrasenia) < 6) {
+        fallido("La contraseña debe tener al menos 6 caracteres");
+    } elseif (strlen($contrasenia) > 72) {
+        fallido("La contraseña es demasiado larga (máximo 72 caracteres)");
     } elseif (empty($rol)) {
         fallido("Sin Rol Designado");
     } else {
@@ -68,9 +74,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $consulta = $conn->prepare($sql);
 
+            // Hashear la contraseña antes de guardarla
+            $contrasenia_hash = password_hash($contrasenia, PASSWORD_BCRYPT);
+            
+            if ($contrasenia_hash === false) {
+                fallido("Error al procesar la contraseña");
+                exit();
+            }
+
             $consulta->execute([
                 ':nombre'        => $nombre,
-                ':contrasenia'      => $contrasenia,
+                ':contrasenia'   => $contrasenia_hash,
                 ':rol'           => $rol,
                 ':activo'        => $activo,
 

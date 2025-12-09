@@ -4,6 +4,7 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 
 // Autenticación
 requireLogin();
@@ -11,6 +12,11 @@ requireLogin();
 if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
+}
+
+// Validar CSRF
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    requireCSRFToken();
 }
 
 // Conexión

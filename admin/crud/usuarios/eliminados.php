@@ -83,13 +83,11 @@ $offset = ($pagina_actual - 1) * $registros_por_pagina;
 // ==========================
 $stmt_total = $conn->prepare("
     SELECT COUNT(*) FROM usuarios
-    WHERE activo='1' AND (usuarios.nombre LIKE :nombre
-        OR usuarios.contrasenia LIKE :contrasenia)
+    WHERE activo='0' AND usuarios.nombre LIKE :nombre
 ");
 
 $stmt_total->execute([
     ":nombre" => "%$input%",
-    ":contrasenia" => "%$input%",
 
 ]);
 
@@ -101,7 +99,7 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 //   CONSULTA PRINCIPAL
 // ==========================
 $sql = "
-    SELECT usuarios.*, usuarios.nombre, usuarios.contrasenia, CASE usuarios.rol
+    SELECT usuarios.*, usuarios.nombre, CASE usuarios.rol
     WHEN 0 THEN 'SuperAdmin'
     WHEN 1 THEN 'Administrador'
     WHEN 2 THEN 'instructor'
@@ -109,8 +107,7 @@ $sql = "
     END AS rol_text
     FROM usuarios
     WHERE activo = '0'
-        AND (usuarios.nombre LIKE :nombre
-            OR usuarios.contrasenia LIKE :contrasenia)
+        AND usuarios.nombre LIKE :nombre
     ORDER BY rol ASC
     LIMIT :registros_por_pagina OFFSET :offset
 ";
@@ -121,7 +118,6 @@ $consulta = $conn->prepare($sql);
 
 $consulta->execute([
     ":nombre" => "%$input%",
-    ":contrasenia" => "%$input%",
     ":registros_por_pagina" => $registros_por_pagina,
     ":offset" => $offset
 ]);
@@ -149,9 +145,9 @@ if ($consulta->rowCount() > 0) {
 
     while ($registro = $consulta->fetch()) : ?>
     <tr>
-        <td><?= $registro['nombre'] ?></td>
-        <td><?= $registro['contrasenia'] ?></td>
-        <td><?= $registro['rol_text'] ?></td>
+        <td><?= htmlspecialchars($registro['nombre']) ?></td>
+        <td>••••••••</td>
+        <td><?= htmlspecialchars($registro['rol_text']) ?></td>
 
 
     

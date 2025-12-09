@@ -50,11 +50,21 @@
 
                     <td>
                         <form action='modificar_curso.php' method='POST' class='enlinea'>
+                            <?php
+                            require_once dirname(__DIR__, 3) . '/config/path.php';
+                            require_once BASE_PATH . '/config/csrf.php';
+                            echo getCSRFTokenField();
+                            ?>
                             <input type='hidden' name='id_curso' value='<?php echo $registro['id_curso']; ?>'>
                             <input type='submit' value='✏️ Modificar'>
                         </form>
 
                         <form action='eliminar_curso.php' method='POST' class='enlinea' onsubmit='return confirm("Está seguro que desea eliminar el curso?")'>
+                            <?php
+                            require_once dirname(__DIR__, 3) . '/config/path.php';
+                            require_once BASE_PATH . '/config/csrf.php';
+                            echo getCSRFTokenField();
+                            ?>
                             <input type='hidden' name='id_curso' value='<?php echo $registro['id_curso']; ?>'>
                             <input type='submit' value='❌ Eliminar'>
                         </form>

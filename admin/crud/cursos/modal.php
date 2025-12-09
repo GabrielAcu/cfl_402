@@ -13,6 +13,11 @@
                         FORMULARIO DE CREACIÓN DE CURSO          
              ====================================================== -->
         <form class="new-form" action="crear_curso.php" method="POST" id="formCurso">
+            <?php
+            require_once dirname(__DIR__, 3) . '/config/path.php';
+            require_once BASE_PATH . '/config/csrf.php';
+            echo getCSRFTokenField();
+            ?>
 
             <!-- Código del curso -->
             <div>

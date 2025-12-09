@@ -5,6 +5,11 @@
         <h2 id="modalTitulo">Nuevo Instructor</h2>
 
         <form class="new-form" action="agregar_instructor.php" method="POST" id="formInstructor">
+            <?php
+            require_once dirname(__DIR__, 3) . '/config/path.php';
+            require_once BASE_PATH . '/config/csrf.php';
+            echo getCSRFTokenField();
+            ?>
             <input type="hidden" name="id_instructor" id="id_instructor_edit">
 
             <h3>Información Personal</h3>

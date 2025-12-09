@@ -5,9 +5,14 @@
     // Dependencias
     require_once BASE_PATH . '/config/conexion.php';
     require_once BASE_PATH . '/auth/check.php';
+    require_once BASE_PATH . '/config/csrf.php';
     require_once BASE_PATH . '/include/header.php';
     require_once 'layouts.php';
 
+    // Validar CSRF
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        requireCSRFToken();
+    }
 
     $conn = conectar();
     if ($_SERVER["REQUEST_METHOD"] == "POST") { // verificar que el método de solicitud sea POST

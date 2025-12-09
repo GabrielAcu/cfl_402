@@ -2,6 +2,7 @@
 // Cargar path.php
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 // 3. Autenticación
@@ -29,8 +30,11 @@ $registro = $contacto->fetch();
 
 echo "Modificar contacto<br><br>";
 
+require_once BASE_PATH . '/config/csrf.php';
+
 echo "
 <form action='procesar_contacto.php' method='post'>
+    " . getCSRFTokenField() . "
     <input type='text' name='nombre' value={$registro['nombre']}>
     <input type='text' name='apellido' value={$registro['apellido']}>
     <input type='number' name='dni' value={$registro['dni']}>

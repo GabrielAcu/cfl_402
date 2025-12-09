@@ -2,6 +2,7 @@
 // 1. Configuración y Auth
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
 if (!isAdmin() && !isSuperAdmin()) {
@@ -15,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../../index.php');
     exit();
 }
+
+// Validar CSRF
+requireCSRFToken();
 
 $conexion = conectar();
 

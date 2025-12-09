@@ -107,6 +107,7 @@ $conn = conectar();
                             </button>
         
                             <form action='eliminar_instructor.php' method='POST' class='enlinea' onsubmit='return confirm(\"¿Está seguro de eliminar este instructor?\");'>
+                                " . getCSRFTokenField() . "
                                 <input type='hidden' name='id_instructor' value='" . htmlspecialchars($registro['id_instructor']) . "'>
                                 <button type='submit' class='submit-buttom' title='Eliminar'>
                                     <img src='/cfl_402/assets/svg/trash.svg' class='svg_lite'>

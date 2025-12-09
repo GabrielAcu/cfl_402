@@ -2,6 +2,7 @@
 // 1. Configuración y Auth
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
 // Si no es admin ni superadmin, afuera del panel
@@ -104,11 +105,13 @@ if ($stmt_contactos->rowCount() > 0) {
                 <td>
                     <div style='display:flex; gap:5px;'>
                         <form action='modificar_contacto.php' method='post'>
+                            " . getCSRFTokenField() . "
                             <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                            
                             <input type='submit' value='Modificar'>
                         </form>
                         
                         <form action='eliminar_contacto.php' method='post'>
+                            " . getCSRFTokenField() . "
                             <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                      
                             <input type='submit' value='Eliminar' onclick='return confirm(\"¿Estás seguro de eliminar este contacto?\");'>
                         </form>

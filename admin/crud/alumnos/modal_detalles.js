@@ -15,11 +15,17 @@ document.querySelectorAll(".btnModificarAlumno").forEach(btn => {
                 const a = data.alumno;   // ← IMPORTANTE
                 console.log("ALUMNO:", a);
 
-                // Construimos el formulario
-                let html = `
-                    <form action="procesar_modificacion.php" method="POST">
-
-                        <input type="hidden" name="id_alumno" value="${a.id_alumno}">
+                // Obtener token CSRF y construir formulario
+                Promise.all([
+                    fetch('../get_csrf_token.php').then(r => r.json())
+                ]).then(([csrfData]) => {
+                    const csrfToken = csrfData.token;
+                    
+                    // Construimos el formulario
+                    let html = `
+                        <form action="procesar_modificacion.php" method="POST">
+                            <input type="hidden" name="csrf_token" value="${csrfToken}">
+                            <input type="hidden" name="id_alumno" value="${a.id_alumno}">
 
                             <h2>Modificar Alumno: ${a.nombre} ${a.apellido} </h2>
 
@@ -101,13 +107,14 @@ document.querySelectorAll(".btnModificarAlumno").forEach(btn => {
                             <button class="boton_enviar" type="submit">Guardar Cambios</button>
                         </div>
 
-                    </form>
-                `;
+                        </form>
+                    `;
 
-                contenido.innerHTML = html;
-                modalVer.style.display = "block"; // ← AQUÍ SE ABRE EL MODAL
+                    contenido.innerHTML = html;
+                    modalVer.style.display = "block"; // ← AQUÍ SE ABRE EL MODAL
+                })
+                .catch(e => console.error("ERROR CSRF:", e));
             })
-
             .catch(e => console.error("ERROR FETCH:", e));
     });
 });

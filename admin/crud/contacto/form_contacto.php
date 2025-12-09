@@ -27,8 +27,11 @@ if ($tipo == null || $id_entidad == null) {
 
 echo "Agregar contacto<br><br>";
 
+require_once BASE_PATH . '/config/csrf.php';
+
 echo "
 <form action='procesar_contacto.php' method='post'>
+    " . getCSRFTokenField() . "
     <input type='text' name='nombre' placeholder='Nombre' required>
     <input type='text' name='apellido' placeholder='Apellido' required>
     <input type='number' name='dni' placeholder='DNI' required>

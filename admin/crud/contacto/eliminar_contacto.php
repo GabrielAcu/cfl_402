@@ -3,6 +3,7 @@
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 // Autenticación
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
 if (!isAdmin() && !isSuperAdmin()) {
@@ -17,6 +18,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
+
+// Validar CSRF
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    requireCSRFToken();
+}
 
 $id_contacto = $_POST['id_contacto'] ?? null;
 

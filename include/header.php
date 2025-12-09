@@ -1,6 +1,11 @@
 <?php
 // header.php — Header general del sistema CFL_402
 // Se incluye en todos los index de los CRUD y admin
+
+// Asegurar que los headers de seguridad estén establecidos
+if (!headers_sent()) {
+    require_once __DIR__ . '/../config/security_headers.php';
+}
 ?>
 
 <header class="main-header">

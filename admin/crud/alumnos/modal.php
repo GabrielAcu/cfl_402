@@ -16,8 +16,11 @@
     <h2>Nuevo Alumno</h2>
 
     <form class="new-form"  id="formCurso" action="crear.php" method="POST">
-            
-
+            <?php
+            require_once dirname(__DIR__, 3) . '/config/path.php';
+            require_once BASE_PATH . '/config/csrf.php';
+            echo getCSRFTokenField();
+            ?>
 
             <h3> Información Personal </h3> 
         <div class='fila'>

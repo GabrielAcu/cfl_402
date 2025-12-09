@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="alumnos.css">
-</head>
-<body>
-    
-</body>
-</html>
 <?php
 // ==========================
 //   CONFIGURACIÓN INICIAL
@@ -17,63 +5,51 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
 
+if (!isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+
+// Validar CSRF
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
+}
+
 // Conexión
 $conn = conectar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
-    $id_usuario = $_POST["id"];
-    $activo      = "0";
-     
-
-        try {
-
-            // consulta SQL
-            $sql = ("UPDATE `usuarios` SET `activo`='0' WHERE `id` = :id;");
-
-            $consulta = $conn->prepare($sql);
-
-            $consulta->execute([
-                ':id' => $id_usuario
-                
-            ]);
-
-            // header("location: index.php ");
-
-        } catch (PDOException $e) {
-
-            if ($e->getCode() == 23000) {
-                fallido("El DNI ya existe");
-            } elseif ($e->getCode() == '42S22') {
-                fallido("El campo 'autos' no existe en tu tabla");
-            } else {
-                echo "Ocurrió un error al insertar los datos: " . $e->getMessage();
-            }
-        }
+    $id_usuario = filter_var($_POST["id"] ?? 0, FILTER_VALIDATE_INT);
+    
+    if (!$id_usuario) {
+        header('Location: index.php?error=id_invalido');
+        exit();
     }
-     
-    else { 
-    echo "<h1 class='error'>Aha pillín!!!</h1>"; 
-    echo "<p>{$_SERVER['REQUEST_METHOD']}</p>";
+
+    try {
+        $sql = "UPDATE usuarios SET activo = 0 WHERE id = :id";
+        $consulta = $conn->prepare($sql);
+        $consulta->execute([':id' => $id_usuario]);
+
+        if ($consulta->rowCount() > 0) {
+            header("Location: index.php?ok=eliminado");
+        } else {
+            header("Location: index.php?error=no_encontrado");
+        }
+        exit();
+
+    } catch (PDOException $e) {
+        header("Location: index.php?error=error_db");
+        exit();
+    }
+} else {
+    header("Location: index.php");
+    exit();
 }
-
-?>
-
-
-
-<?php
-
-    // ':id_instructor' => $_POST['id_instructor']
-    header('Location: index.php');
-
-    exit;
-
-?>
-
