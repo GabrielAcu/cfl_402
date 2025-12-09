@@ -5,6 +5,7 @@ require_once dirname(__DIR__, 2) . '/../config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
@@ -190,6 +191,7 @@ $conn = conectar();
                             </form>
 
                             <form action='../../crud/alumnos/bajar.php' method='POST' class='enlinea'>
+                                " . getCSRFTokenField() . "
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
                                     <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>

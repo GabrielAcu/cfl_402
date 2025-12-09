@@ -5,6 +5,11 @@ require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/include/header.php';
 
 requireLogin();
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 $conn = conectar();
 
 // Validar que venga id_curso REAL
@@ -96,6 +101,7 @@ $registro = $consulta->fetch();
                             </form>
 
                             <form action="eliminar_horario.php" method="POST" class="enlinea">
+                                <?= getCSRFTokenField() ?>
                                 <input type="hidden" name="id_curso" value="<?= $reg["id_curso"] ?>">
                                 <input type="hidden" name="id_horario" value="<?= $reg["id_horario"] ?>">
                                 <input type="submit" value="❌ Eliminar">

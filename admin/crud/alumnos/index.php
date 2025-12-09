@@ -5,11 +5,17 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Conexión
 $conn = conectar();
@@ -26,12 +32,8 @@ $conn = conectar();
     <link rel="stylesheet" href="alumnos2.css">
 
 </head>
-<body>
-    
-</body>
-</html>
-
-<h1>Alumnos</h1>
+<body class="light">
+    <h1>Alumnos</h1>
 
 <div class="search_container">
     <div class="search_block">
@@ -205,6 +207,7 @@ if ($consulta->rowCount() > 0) {
             </button>
 
             <form action="../alumnos/bajar.php" method="POST" class="enlinea confirm-delete">
+                <?= getCSRFTokenField() ?>
                 <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
                 <button type="submit" class="submit-button">
                     <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">

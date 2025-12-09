@@ -15,12 +15,14 @@
 // 1. Configuración y Auth
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
-// if (!isAdmin()) {
-//     header('Location: /cfl_402/index.php');
-//     exit();
-// }
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 
 // Evitar error de "session already active"
 if (session_status() === PHP_SESSION_NONE) {
@@ -119,11 +121,13 @@ if ($stmt_contactos->rowCount() > 0) {
                 <td class='td_actions'>
                     <div style='display:flex; gap:5px;'>
                         <form action='modificar_contacto.php' method='post'>
+                            " . getCSRFTokenField() . "
                             <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                            
                             <input type='submit' value='Modificar'>
                         </form>
                         
                         <form action='eliminar_contacto.php' method='post'>
+                            " . getCSRFTokenField() . "
                             <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                      
                             <input type='submit' value='Eliminar' onclick='return confirm(\"¿Estás seguro de eliminar este contacto?\");'>
                         </form>

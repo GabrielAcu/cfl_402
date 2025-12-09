@@ -5,17 +5,16 @@
 require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 // require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
-
 if (!isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
-
 // Conexión
 $conn = conectar();
 
@@ -98,14 +97,11 @@ $offset = ($pagina_actual - 1) * $registros_por_pagina;
 // ==========================
 $stmt_total = $conn->prepare("
     SELECT COUNT(*) FROM usuarios
-    WHERE activo='1' AND (usuarios.nombre LIKE :nombre
-        OR usuarios.contrasenia LIKE :contrasenia)
+    WHERE activo='1' AND usuarios.nombre LIKE :nombre
 ");
 
 $stmt_total->execute([
-    ":nombre" => "%$input%",
-    ":contrasenia" => "%$input%",
-
+    ":nombre" => "%$input%"
 ]);
 
 $total_registros = $stmt_total->fetchColumn();
@@ -116,16 +112,15 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 //   CONSULTA PRINCIPAL
 // ==========================
 $sql = "
-    SELECT usuarios.*, usuarios.nombre, usuarios.contrasenia, CASE usuarios.rol
+    SELECT usuarios.*, usuarios.nombre, CASE usuarios.rol
     WHEN 0 THEN 'SuperAdmin'
     WHEN 1 THEN 'Administrador'
-    WHEN 2 THEN 'instructor'
+    WHEN 2 THEN 'Instructor'
     ELSE 'Rol Desconocido'
     END AS rol_text
     FROM usuarios
     WHERE activo = '1'
-        AND (usuarios.nombre LIKE :nombre
-            OR usuarios.contrasenia LIKE :contrasenia)
+        AND usuarios.nombre LIKE :nombre
     ORDER BY rol ASC
     LIMIT :registros_por_pagina OFFSET :offset
 ";
@@ -136,7 +131,6 @@ $consulta = $conn->prepare($sql);
 
 $consulta->execute([
     ":nombre" => "%$input%",
-    ":contrasenia" => "%$input%",
     ":registros_por_pagina" => $registros_por_pagina,
     ":offset" => $offset
 ]);
@@ -164,9 +158,9 @@ if ($consulta->rowCount() > 0) {
 
     while ($registro = $consulta->fetch()) : ?>
     <tr>
-        <td><?= $registro['nombre'] ?></td>
-        <td><?= $registro['contrasenia'] ?></td>
-        <td><?= $registro['rol_text'] ?></td>
+        <td><?= htmlspecialchars($registro['nombre']) ?></td>
+        <td>••••••••</td>
+        <td><?= htmlspecialchars($registro['rol_text']) ?></td>
 
 
     
@@ -179,11 +173,12 @@ if ($consulta->rowCount() > 0) {
         <td class="td_actions2">
 
             
-            <button class="btnModificarAlumno" <?php echo "data-id=$registro[id]"?> >
+            <button class="btnModificarAlumno" data-id="<?= $registro['id'] ?>">
                 <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
             </button>
 
             <form action="bajar.php" method="POST" class="enlinea confirm-delete">
+                <?= getCSRFTokenField() ?>
                 <input type="hidden" name="id" value="<?= $registro['id'] ?>">
                 <button type="submit" class="submit-button">
                     <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">

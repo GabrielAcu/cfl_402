@@ -1,5 +1,5 @@
 <?php
-    require_once dirname(__DIR__, 3) . '/config/path.php';
+require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 
 $conn = conectar();

@@ -3,9 +3,15 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 // Seguridad
 requireLogin();
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
 // Conexión
 $conn = conectar();
 ?>
@@ -18,7 +24,7 @@ $conn = conectar();
     <link rel="stylesheet" href="modal.css">
     <title>Cursos</title>
 </head>
-<body>
+<body class="light">
     <h1>Cursos</h1>
     <div class="nuevoCurso-buscador">
     <button id="btnAbrirModal" class="btn-primary">Nuevo Curso</button>

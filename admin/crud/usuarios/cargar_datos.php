@@ -1,6 +1,8 @@
 <?php
-    require_once dirname(__DIR__, 3) . '/config/path.php';
+require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 
 // ==========================
 //   CONFIGURACIÓN INICIAL

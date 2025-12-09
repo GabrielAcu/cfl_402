@@ -11,7 +11,7 @@ require_once BASE_PATH . '/include/header.php';
 requireLogin();
 
 // Si no es admin ni superadmin, afuera del panel
-if (!isAdmin() && !isSuperAdmin() && !isInstructor()) {
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
@@ -33,7 +33,7 @@ $panelClass = isSuperAdmin() ? 'superadmin' : (isAdmin() ? 'admin' : 'instructor
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
 </head>
 
-<body class="hide-crud-links">
+<body class="hide-crud-links light">
 <h1>Panel de Administración</h1>
 
 <main>
