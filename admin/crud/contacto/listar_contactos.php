@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="contactos.css">
+</head>
+<body>
+    
+
+
+
 <?php
 // 1. Configuración y Auth
 require_once dirname(__DIR__, 2) . '/../config/path.php';
@@ -73,16 +86,19 @@ echo "
 <form action='form_contacto.php' method='post'>
     <input type='hidden' name='id_entidad' value='{$id_entidad}'>
     <input type='hidden' name='tipo' value='{$tipo}'>
-    <input type='submit' value='Agregar Contacto Nuevo'>
+    <button id='btnAbrirModal' class='btn-primary'>
+        <img class='svg_lite' src='/cfl_402/assets/svg/plus_circle.svg' alt='Nuevo'>
+        Nuevo Contacto
+    </button>
 </form>
 <br>
 ";
 
 // 6. Listado de Contactos
 if ($stmt_contactos->rowCount() > 0) {
-    echo "<table border='1' cellpadding='10' style='border-collapse: collapse; width: 100%;'>
+    echo "<table class='info_table'>
             <thead>
-                <tr>
+                <tr class='table_header'>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Parentesco</th>
@@ -100,7 +116,7 @@ if ($stmt_contactos->rowCount() > 0) {
                 <td>{$registro['parentesco']}</td>
                 <td>{$registro['telefono']}</td>            
                 <td>{$registro['dni']}</td>            
-                <td>
+                <td class='td_actions'>
                     <div style='display:flex; gap:5px;'>
                         <form action='modificar_contacto.php' method='post'>
                             <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                            
@@ -122,3 +138,6 @@ if ($stmt_contactos->rowCount() > 0) {
 
 echo "<br><br><a href='../{$individuo}/index.php'>&larr; Volver a la lista general</a><br><br>";
 ?>
+
+</body>
+</html>
