@@ -21,12 +21,12 @@
         $apellido = $_POST['apellido'];
         $dni = $_POST['dni'];
         $telefono = $_POST['telefono'];
-        $correo=$_POST["email"];
-        $nacimiento=$_POST["nacimiento"];
-        $domicilio=$_POST["domicilio"];
+        $correo=$_POST["correo"];
+        $nacimiento=$_POST["fecha_nacimiento"];
+        $domicilio=$_POST["direccion"];
         $localidad=$_POST["localidad"];
-        $postal=$_POST["postal"];
-        $autos=$_POST["autos"];
+        $postal=$_POST["cp"];
+        $autos=$_POST["vehiculo"];
         $patente=$_POST["patente"];
         $observaciones=$_POST["observaciones"];
         // $activo= "1";
