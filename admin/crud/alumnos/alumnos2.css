@@ -129,7 +129,7 @@ h2 {
 
 .td_actions,
 .td_actions3 {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   gap: 8px;
 }
