@@ -5,26 +5,6 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
-<<<<<<< HEAD
-require_once BASE_PATH . '/include/header.php';
-
-// Seguridad
-requireLogin();
-
-// Conexión
-$conn = conectar();
-
-// if (!isAdmin()) {
-//     header('Location: /cfl_402/index.php');
-//     exit();
-// }
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Validar que entramos por POST
-=======
 require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
@@ -35,22 +15,17 @@ if (!isAdmin() && !isSuperAdmin()) {
 if (session_status() === PHP_SESSION_NONE) session_start();
 require_once BASE_PATH . '/config/conexion.php';
 
->>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../../index.php');
     exit();
 }
 
-<<<<<<< HEAD
-// 2. Recepción de datos (con limpieza y valores por defecto para evitar warnings)
-=======
 // Validar CSRF
 requireCSRFToken();
 
 $conexion = conectar();
 
 // 2. Recepción de variables
->>>>>>> 27ce5aef1313346b8e4f895e4860920b8f71e2e0
 $nombre        = trim($_POST['nombre'] ?? '');
 $apellido      = trim($_POST['apellido'] ?? '');
 $dni           = trim($_POST['dni'] ?? '');
