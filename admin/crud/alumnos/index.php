@@ -154,6 +154,7 @@ if ($consulta->rowCount() > 0) {
     <table class='info_table'>
         <thead>
             <tr class='table_header'>
+                <th>Ver</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
@@ -170,6 +171,11 @@ if ($consulta->rowCount() > 0) {
 
     while ($registro = $consulta->fetch()) : ?>
     <tr>
+        <td> 
+            <button class="btnVerCurso" data-id="<?= $registro['id_alumno'] ?>">
+                <img class="svg_lite" src="/cfl_402/assets/svg/blue_search.svg" title="Modificar">
+            </button>
+        </td>
         <td><?= $registro['nombre'] ?></td>
         <td><?= $registro['apellido'] ?></td>
         <td><?= $registro['dni'] ?></td>
@@ -280,6 +286,7 @@ echo"
 
     include 'modal.php'; //incluye el modal para crear un nuevo curso 
     include 'modal_modificar.php';
+    include 'modalDetalles.php';
        
 ?>
 
@@ -296,3 +303,4 @@ echo"
 
 <script src="modal_nuevo.js"></script>
 <script src="modal_detalles.js"> </script>
+<script src="modal_ver.js"></script>
