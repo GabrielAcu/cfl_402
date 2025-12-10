@@ -1,6 +1,5 @@
 <?php 
 session_start();
-
 require_once __DIR__ . '/config/path.php';
 require_once BASE_PATH . '/config/security_headers.php';
 require_once BASE_PATH . '/auth/check.php';
