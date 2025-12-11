@@ -238,6 +238,8 @@ h2 {
 .svg_lite{
   height: 32px;
   width: 22px;
+  background: none;
+  border: none;
 }
 
 .btn-primary {
@@ -252,6 +254,14 @@ h2 {
   margin-bottom: 10px;
 }
 
+.btnVerCurso{
+  background-color: rgba(240, 248, 255, 0);
+  border: none;
+}
+
+.btnVerCurso:hover{
+  cursor: pointer;
+}
 
 .btnModificarAlumno{
   background: none;
