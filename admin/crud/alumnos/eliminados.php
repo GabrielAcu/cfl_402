@@ -13,7 +13,7 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-if (!isAdmin() || isSuperAdmin()) {
+if (!isSuperAdmin() && !isAdmin() ) {
     header('Location: /cfl_402/index.php');
     exit();
 }
@@ -59,7 +59,7 @@ $conn = conectar();
     <!-- </div>s -->
         <hr>
         <h2>Listado de Alumnos Eliminados</h2> <!-- sección para mostrar la lista de alumnos -->
-        <link rel="stylesheet" href="alumnos.css">
+        <link rel="stylesheet" href="alumnos2.css">
         
         <?php
             
