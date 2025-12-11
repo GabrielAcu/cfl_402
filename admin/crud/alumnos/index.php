@@ -59,13 +59,13 @@ $conn = conectar();
         <hr class="search_line">
 
         <!-- Filtro -->
-        <form action="filtrar_alumnos.php">
+        <!-- <form action="filtrar_alumnos.php">
             <select name="filtros" id="filtros">
                 <option value="nombre_filtro">Nombre</option>
                 <option value="nombre_filtro">Apellido</option>
                 <option value="nombre_filtro">DNI</option>
             </select>
-        </form>
+        </form> -->
 
     </div>
 </div>
