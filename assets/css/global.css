@@ -19,7 +19,8 @@ body.dark {
     border: 1px solid white;
   }
   table tr:hover{
-    color: #121212;
+    /* color: #121212; */
+    color: #dcdcdc;
   }
 
   .search_block{
@@ -37,6 +38,9 @@ body.dark {
     border-color: none;
   }
 
+  .modal-content{
+    background-color: #121212;
+  }
 
 }
 
@@ -62,7 +66,7 @@ input,
 select,
 textarea,
 button {
-  background-color: var(--card-bg);
-  color: var(--text);
-  border-color: var(--border);
+  /* background-color: var(--card-bg); */
+  /* color: var(--text); */
+  /* border-color: var(--border); */
 }
