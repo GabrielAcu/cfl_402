@@ -30,51 +30,29 @@ $conn = conectar();
     <title>Document</title>
     <link rel="stylesheet" href="modal.css">
     <link rel="stylesheet" href="alumnos2.css">
-
 </head>
 <body class="light">
     <h1>Alumnos</h1>
 
-<div class="search_container">
-    <div class="search_block">
+    <div class="search_container">
+        <div class="search_block">
+            <div class="search_row">
+                            <!-- Buscador -->
+                <form class="search_form" action="#" method="post">
+                    <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno..">
+                    <button class="boton_enviar" type="submit">Buscar</button>
+                </form>
 
-        <div class="search_row">
-
-            <!-- Buscador -->
-            <form class="search_form" action="/cfl_402/admin/crud/alumnos/index.php" method="post">
-                <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno..">
-                <button class="boton_enviar" type="submit">Buscar</button>
-            </form>
-
-            <!-- Registrar nuevo alumno -->
-           
-                    <button id="btnAbrirModal" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
-                        Nuevo Alumno
-                    </button>
-            
-
+                    <!-- Registrar nuevo alumno -->
+                <button id="btnAbrirModal" class="btn-primary">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">Alumno
+                </button>
+            </div>
         </div>
-
-        <hr class="search_line">
-
-        <!-- Filtro -->
-        <form action="filtrar_alumnos.php">
-            <select name="filtros" id="filtros">
-                <option value="nombre_filtro">Nombre</option>
-                <option value="nombre_filtro">Apellido</option>
-                <option value="nombre_filtro">DNI</option>
-            </select>
-        </form>
-
     </div>
-</div>
 
-<hr>
 
-<h2>Listado de Alumnos</h2>
-<link rel="stylesheet" href="alumnos2.css">
-
+    <h2>Listado de Alumnos</h2>
 <?php
 
 // ==========================
@@ -201,13 +179,11 @@ if ($consulta->rowCount() > 0) {
                         <img class="svg_lite" src="/cfl_402/assets/svg/book.svg" title="Cursos">
                     </button>
                 </form>
-
             </div>
         </td>
 
         <td class="td_actions2">
 
-            
             <button class="btnModificarAlumno" data-id="<?= $registro['id_alumno'] ?>">
                 <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
             </button>
@@ -228,7 +204,6 @@ if ($consulta->rowCount() > 0) {
                     <img class="svg_lite" src="/cfl_402/assets/svg/plus.svg" title="Inscribir a un curso">
                 </button>
             </form>
-
         </td>
     </tr>
     
@@ -238,7 +213,6 @@ echo"
         </tbody>
     </table>
     </main>";
-    
 }
     // ==========================
     //   PAGINACIÓN
@@ -304,3 +278,7 @@ echo"
 <script src="modal_nuevo.js"></script>
 <script src="modal_detalles.js"> </script>
 <script src="modal_ver.js"></script>
+
+    
+    </body>
+</html>
