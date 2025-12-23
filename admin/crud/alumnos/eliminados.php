@@ -13,11 +13,7 @@ require_once 'layouts.php';
 // 3. Autenticación
 requireLogin();
 
-<<<<<<< HEAD
-if (!isSuperAdmin() && !isAdmin() ) {
-=======
 if (!isAdmin() && !isSuperAdmin()) {
->>>>>>> 5fdfec23059b1cb44d00ec7886327299eaaba310
     header('Location: /cfl_402/index.php');
     exit();
 }
