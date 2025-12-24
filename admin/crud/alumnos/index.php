@@ -55,6 +55,9 @@ $conn = conectar();
 
 
     <h2>Listado de Alumnos</h2>
+    <button class="btn-faq" id="btnAbrirFaq">
+        <img class="svg_faq" src="/cfl_402/assets/svg/faq.svg" alt="FAQ">
+    </button>
 
     <!-- Contenido principal -->
     <div class="pagination">
@@ -77,6 +80,7 @@ $conn = conectar();
     include 'modal.php'; //incluye el modal para crear un nuevo curso 
     include 'modal_modificar.php';
     include 'modalDetalles.php';
+    include 'modal_faq.php';
        
 ?>
 
@@ -94,7 +98,7 @@ $conn = conectar();
 <script src="modal_nuevo.js"></script>
 <script src="modal_detalles.js"> </script>
 <script src="modal_ver.js"></script>
-
+<script src="modal_faq.js"></script>
     
     </body>
 </html>
