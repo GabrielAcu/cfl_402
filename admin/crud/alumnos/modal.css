@@ -38,6 +38,17 @@
   }
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
 /* Botón cerrar */
 .cerrar {
   float: right;
@@ -123,4 +134,37 @@
 
 .add_link{
 
+}
+
+/* FAQ */
+
+.faq-content {
+  background: #fff;
+  margin: auto;
+  padding: 25px 30px;
+  border-radius: 14px;
+  height: 50%;
+  width: 90%;
+  max-width: 700px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease;
+  overflow-y: scroll;
+
+}
+
+.fila_faq{
+  display: flex !important;
+  flex-direction: column;
+}
+
+.campo_faq{
+  display: flex !important;
+  align-items: center;
+  justify-content: start;
+  
+}
+
+.faq_text{
+  margin-left: 5px;
+  font-weight: 600;
 }
