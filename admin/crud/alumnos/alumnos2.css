@@ -242,6 +242,13 @@ h2 {
   border: none;
 }
 
+.svg_faq{
+  height: 64px;
+  width: 64px;
+  background: none;
+  border: none;
+}
+
 .btn-primary {
   background-color: #007bff;
   color: white;
@@ -253,6 +260,27 @@ h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+.btn-faq {
+  background-color: none;
+  background: none;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.btn-faq:hover {
+  cursor: pointer;
+  opacity: 1.1;
+
+}
+
 
 .btnVerCurso{
   background-color: rgba(240, 248, 255, 0);
