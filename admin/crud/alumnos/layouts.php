@@ -33,4 +33,18 @@ function nochange( $motivo){
 
             </div>";
         }
+
+        // EJEMPLO
+function ejemplo( $motivo){
+        echo"<div class='no-change'>
+            <div class='titulo-exitoso'> Sin Cambios </div>
+
+            <div class='motivo'> $motivo  </div>
+
+            <a class='add_link2'  href='index.php'> Volver al listado </a>
+
+            </div>";
+        }
 ?>
+
+
