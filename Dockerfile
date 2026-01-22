@@ -13,10 +13,11 @@ RUN apt-get update && apt-get install -y \
 # Habilitar mod_rewrite de Apache (útil para rutas amigables)
 RUN a2enmod rewrite
 
-# FIX: Deshabilitar MPMs conflictivos y habilitar solo mpm_prefork
-# Apache solo puede tener un MPM activo a la vez
-RUN a2dismod mpm_event mpm_worker || true
-RUN a2enmod mpm_prefork
+# FIX: Resolver conflicto de MPM (Multi-Processing Module)
+# Apache solo puede tener UN MPM activo. La imagen base tiene mpm_event habilitado,
+# pero necesitamos mpm_prefork para PHP. Removemos físicamente los enlaces simbólicos.
+RUN rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* && \
+    a2enmod mpm_prefork
 
 # Copiar el código fuente al contenedor
 COPY . /var/www/html/
