@@ -11,6 +11,25 @@ function conectar(){
     $usuario = getenv("DB_USER");
     $contrasena = getenv("DB_PASS");
 
+    // Intentar leer variables individuales primero
+    $servidor = getenv("DB_HOST");
+    $nombreBaseDeDatos = getenv("DB_NAME");
+    $usuario = getenv("DB_USER");
+    $contrasena = getenv("DB_PASS");
+
+    // Si no están, buscar una URL de conexión (Típico de Railway/Heroku)
+    // Ejemplo: mysql://usuario:pass@host:port/nombre_db
+    if (!$servidor && ($url = getenv("MYSQL_URL") ?: getenv("DATABASE_URL"))) {
+        $parsed = parse_url($url);
+        $servidor = $parsed['host'];
+        if (isset($parsed['port'])) {
+            $servidor .= ":" . $parsed['port']; // Añadir puerto si existe
+        }
+        $nombreBaseDeDatos = ltrim($parsed['path'], '/');
+        $usuario = $parsed['user'];
+        $contrasena = $parsed['pass'];
+    }
+
     try {
         $dsn = "mysql:host=$servidor;dbname=$nombreBaseDeDatos;charset=utf8";
         $opciones = [
@@ -21,8 +40,9 @@ function conectar(){
         $conexion = new PDO($dsn, $usuario, $contrasena, $opciones);
         return $conexion;
     } catch (PDOException $e) {
-        echo "Error de conexión: " . $e->getMessage();
-        exit;
+        // En producción no mostrar errores detallados, pero para debug inicial puede servir
+        // echo "Error de conexión: " . $e->getMessage();
+        die("Error de conexión a la Base de Datos. Verifique sus variables de entorno.");
     }
 }
 ?>
