@@ -31,6 +31,7 @@ if (!headers_sent()) {
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/alumnos/index.php">Alumnos</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/instructores/index.php">Instructores</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/cursos/index.php">Cursos</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/planillas/index.php">Planillas</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/usuarios/index.php">Usuarios</a></li>
           <li><a href="<?= BASE_URL ?>/auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
         </ul>

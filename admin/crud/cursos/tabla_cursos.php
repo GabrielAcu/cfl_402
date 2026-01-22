@@ -69,7 +69,7 @@
                                 </button>
                             </form>
                             
-                            <form action='../planillas/planillas.php' method='POST' class='enlinea'>
+                            <form action='../planillas/index.php' method='GET' class='enlinea'>
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <button type="submit" class="submit-button">
                                     <img class="svg_lite" src="/cfl_402/assets/svg/file-text.svg" title="Planilla">
