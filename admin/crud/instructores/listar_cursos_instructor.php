@@ -5,13 +5,13 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
-require_once BASE_PATH . '/include/header.php';
+require_once BASE_PATH . '/config/csrf.php';
 
 // Autenticación
 requireLogin();
 
 if (!isAdmin() && !isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 
@@ -65,20 +65,27 @@ $cursos = $stmt_cursos->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="instructores.css">
-    <title>Cursos del Instructor</title>
+    <title>Cursos del Instructor - CFL 402</title>
+    <!-- CSS Global y Alumnos (reutilizado) -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.2">
+    <link rel="stylesheet" href="../alumnos/alumnos2.css?v=3.2">
+
 </head>
-<body class="light">
-    <h1>Cursos de <?= htmlspecialchars($instructor['apellido'] . ', ' . $instructor['nombre']) ?></h1>
+<body class="main_alumnos_body">
+
+    <?php require_once BASE_PATH . '/include/header.php'; ?>
     
-    <div class="acciones-superiores">
-        <a href="index.php" class="btn-secondary">← Volver al Listado de Instructores</a>
+    <div class="header-section">
+        <h1 class="instructor-title">
+            Cursos de <span style="color:var(--primary)"><?= htmlspecialchars($instructor['apellido'] . ', ' . $instructor['nombre']) ?></span>
+        </h1>
+        <a href="index.php" class="btn-back">
+            <img class="svg_lite" src="/cfl_402/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);" > Volver
+        </a>
     </div>
 
-    <hr>
-    
     <?php if (count($cursos) > 0): ?>
-        <table>
+        <table class="info_table">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -86,8 +93,6 @@ $cursos = $stmt_cursos->fetchAll();
                     <th>Descripción</th>
                     <th>Turno</th>
                     <th>Cupo</th>
-                    <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -95,16 +100,23 @@ $cursos = $stmt_cursos->fetchAll();
                 <?php foreach ($cursos as $curso): ?>
                     <tr>
                         <td><?= htmlspecialchars($curso['codigo']) ?></td>
-                        <td><?= htmlspecialchars($curso['nombre_curso']) ?></td>
-                        <td><?= htmlspecialchars($curso['descripcion'] ?? 'Sin descripción') ?></td>
-                        <td><?= htmlspecialchars($curso['turno'] ?? 'N/A') ?></td>
+                        <td class="text-left"><strong><?= htmlspecialchars($curso['nombre_curso']) ?></strong></td>
+                        <td class="text-left"><?= htmlspecialchars($curso['descripcion'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($curso['turno'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($curso['cupo']) ?></td>
-                        <td><?= htmlspecialchars($curso['fecha_inicio'] ?? 'N/A') ?></td>
-                        <td><?= htmlspecialchars($curso['fecha_fin'] ?? 'N/A') ?></td>
-                        <td>
-                            <form action="../cursos/index.php" method="POST" class="enlinea">
+                        <td class="td_actions">
+                            <form action="../horarios/index.php" method="POST" class="enlinea" title="Ver Horarios">
                                 <input type="hidden" name="id_curso" value="<?= htmlspecialchars($curso['id_curso']) ?>">
-                                <button type="submit" class="btn-primary">Ver Detalles</button>
+                                <button type="submit" class="submit-button">
+                                    <img class="svg_lite" src="/cfl_402/assets/svg/clock.svg" alt="Horarios">
+                                </button>
+                            </form>
+                            
+                            <form action="../planillas/planillas.php" method="POST" class="enlinea" title="Ver Planilla">
+                                <input type="hidden" name="id_curso" value="<?= htmlspecialchars($curso['id_curso']) ?>">
+                                <button type="submit" class="submit-button">
+                                    <img class="svg_lite" src="/cfl_402/assets/svg/file-text.svg" alt="Planilla">
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -112,7 +124,10 @@ $cursos = $stmt_cursos->fetchAll();
             </tbody>
         </table>
     <?php else: ?>
-        <p>Este instructor no tiene cursos asignados actualmente.</p>
+        <div class="form-card" style="text-align: center;">
+            <p>Este instructor no tiene cursos asignados actualmente.</p>
+        </div>
     <?php endif; ?>
+
 </body>
 </html> 

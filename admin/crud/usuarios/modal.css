@@ -1,6 +1,7 @@
 /* Fondo oscuro */
 .modal {
   display: none;
+  /* Hidden by default */
   position: fixed;
   z-index: 9999;
   left: 0;
@@ -8,119 +9,157 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  /* Modern blur effect */
   padding-top: 60px;
 }
 
 /* Caja del modal */
 .modal-content {
-  background: #fff;
+  background: var(--card-bg, #fff);
+  color: var(--text, #333);
   margin: auto;
-  padding: 25px 30px;
-  border-radius: 14px;
-  height: 90%;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--border, #ddd);
   width: 90%;
-  max-width: 700px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.25s ease;
-  overflow-y: scroll;
-
+  position: relative;
 }
 
 /* Animación */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.95) translateY(-20px);
   }
+
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 /* Botón cerrar */
 .cerrar {
-  float: right;
-  font-size: 26px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #888;
+  font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
+  line-height: 1;
 }
 
 .cerrar:hover {
-  color: #007bff;
+  color: var(--danger, #dc3545);
 }
 
-/* Títulos */f
+/* Títulos */
 .modal-content h2 {
-  margin-bottom: 20px;
-  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: var(--primary, #007bff);
+  text-align: center;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border, #eee);
+  padding-bottom: 15px;
 }
 
-/* Inputs */
-.modal-content form div {
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* Inputs y filas */
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   margin-bottom: 15px;
 }
 
+.campo {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.input-modify,
 .modal-content input,
-.modal-content select, .modal-content textarea {
+.modal-content select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #bbb;
-  border-radius: 8px;
-  font-size: 15px;
+  padding: 10px 12px;
+  border: 1px solid var(--border, #ccc);
+  border-radius: 6px;
+  background: var(--bg, #f9f9f9);
+  color: var(--text, #333);
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .modal-content input:focus,
 .modal-content select:focus {
-  border-color: #007bff;
+  border-color: var(--primary, #007bff);
   outline: none;
+  background: var(--card-bg);
 }
 
-/* Botón guardar */
+/* Botones */
+.form_bottom,
+.modal-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--border, #eee);
+  padding-top: 20px;
+}
+
 .btn-submit {
-  margin-top: 15px;
-  width: 100%;
-  background: #007bff;
+  background: var(--primary, #007bff);
   color: white;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 10px 24px;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s;
 }
 
 .btn-submit:hover {
-  background: #005fcc;
+  background: var(--primary-dark, #0056b3);
 }
 
-/* Botón principal */
-.btn-primary {
-  padding: 12px 20px;
-  border: none;
-  background: #007bff;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: #005fcc;
-}
-
-/* Botón guardar */
 .btn-cancel {
-  margin-top: 15px;
-  width: 100%;
-  background: #f0f0f0;
-  color: rgb(4, 4, 4);
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
+  background: var(--surface, #e2e6ea);
+  color: var(--text, #333);
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border, #ced4da);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.2s;
 }
 
-.add_link{
-
+.btn-cancel:hover {
+  background: var(--bg-hover, #dbe2e8);
 }

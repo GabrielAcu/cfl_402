@@ -22,7 +22,7 @@ $conn = conectar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.5">
-    <link rel="stylesheet" href="instructores.css?v=3.5">
+    <link rel="stylesheet" href="instructores.css?v=<?php echo time() + 1; ?>">
     <link rel="stylesheet" href="modal.css?v=3.5">
     <title>Instructores - CFL 402</title>
 </head>
@@ -80,8 +80,32 @@ $conn = conectar();
     <!-- <hr> Eliminado HR para limpieza visual -->
     <h2>Listado de Instructores</h2>
     
+
     <?php
-    $consulta = $conn->query("SELECT * FROM instructores WHERE activo=1 ORDER BY apellido, nombre");
+    // ==========================
+    //   PAGINACIÓN
+    // ==========================
+    $registros_por_pagina = 10;
+    $pagina_actual = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
+    $offset = ($pagina_actual - 1) * $registros_por_pagina;
+
+    // ==========================
+    //   TOTAL REGISTROS
+    // ==========================
+    $stmt_total = $conn->prepare("SELECT COUNT(*) FROM instructores WHERE activo=1");
+    $stmt_total->execute();
+    $total_registros = $stmt_total->fetchColumn();
+    $total_paginas = ceil($total_registros / $registros_por_pagina);
+
+    // ==========================
+    //   CONSULTA PRINCIPAL
+    // ==========================
+    $sql = "SELECT * FROM instructores WHERE activo=1 ORDER BY apellido, nombre LIMIT :limit OFFSET :offset";
+    $consulta = $conn->prepare($sql);
+    $consulta->bindValue(':limit', (int)$registros_por_pagina, PDO::PARAM_INT);
+    $consulta->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+    $consulta->execute();
+
     if ($consulta->rowCount() > 0) {
         echo "<main class='main_instructores'>
                 <table class='info_table'>
@@ -147,8 +171,38 @@ $conn = conectar();
         }
         
         echo "</tbody></table></main>";
+
+        // Paginación HTML
+        if ($total_paginas > 1) {
+            echo "<div class='pagination'>";
+            
+            // Primera
+            echo "<a href='?pagina=1'><img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' title='Primera'></a>";
+            
+            // Anterior
+            if ($pagina_actual > 1) {
+                echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg' title='Anterior'></a>";
+            }
+
+            // Números
+            $rango = 2;
+            for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++) {
+                $active = ($i == $pagina_actual) ? 'active' : '';
+                echo "<a href='?pagina=$i' class='$active'>$i</a>";
+            }
+
+            // Siguiente
+            if ($pagina_actual < $total_paginas) {
+                echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg' title='Siguiente'></a>";
+            }
+
+            // Última
+            echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg' title='Última'></a>";
+            echo "</div>";
+        }
+
     } else {
-        echo "<p>Aún no existen Instructores</p>";
+        echo "<div class='form-card' style='text-align: center;'><p>Aún no existen Instructores</p></div>";
     }
     ?>
     

@@ -305,9 +305,130 @@ form {
   background: rgba(185, 43, 55, 0.05);
 }
 
-.eliminados_form h3 {
-  color: #ef4444;
-  /* Rojo más brillante para dark mode */
+
+/* --------------------------
+   FORMULARIOS (Card Style)
+--------------------------- */
+.form-card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 90%;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: var(--text);
+}
+
+.form-row select,
+.form-row input,
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+}
+
+
+/* --------------------------
+   TEXTOS Y TITULOS EXTRA
+--------------------------- */
+h2.subtitle {
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.course-info {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.course-info strong {
+  color: var(--primary, #007bff);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn-cancel {
+  background: var(--surface);
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: 0.2s;
+}
+
+.btn-cancel:hover {
+  background: var(--bg);
+}
+
+
+/* --------------------------
+   HEADERS CON VOLVER
+--------------------------- */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 950px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.instructor-title {
+  color: var(--text);
+  font-size: 1.5rem;
   margin: 0;
-  font-size: 1rem;
+}
+
+.btn-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.95rem;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
 }

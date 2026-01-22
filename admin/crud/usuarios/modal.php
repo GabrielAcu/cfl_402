@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <link rel="stylesheet" href="modal.css">
-</body>
-</html>
+
 
 <div id="modalAlumno" class="modal">
     <div class="modal-content">
@@ -50,10 +40,8 @@
         </div>
         
         
-        <div class='form_bottom'>
-
-            
-
+        <div class='modal-buttons'>
+            <button type="button" class="btn-cancel" onclick="document.getElementById('modalAlumno').style.display='none'">Cancelar</button>
             <input type="submit" value="Guardar" class="btn-submit">
         </div>
         </div>

@@ -154,3 +154,45 @@
     transform: translateY(0);
   }
 }
+
+/* ===============================
+     DETALLES VER INSTRUCTOR
+     =============================== */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.detalle-item {
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-item.full-width {
+  grid-column: span 2;
+}
+
+.detalle-label {
+  font-size: 0.8rem;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.detalle-valor {
+  font-size: 1rem;
+  color: var(--text, #e2e8f0);
+  font-weight: 500;
+}
+
+.modal-header h2 {
+  margin-top: 0;
+  color: var(--accent, #3b82f6);
+}

@@ -1,11 +1,4 @@
-const modalInstructor = document.getElementById("modalVerAlumno"); // Reusamos el mismo ID de modal si es generico, o debemos revisar modal.php
-// Revisando modal.php de instructores, el ID suele ser modalNuevo o similar.
-// Vamos a asumir que usamos el mismo modal.php generico o uno especifico.
-// Verificaremos modal.php en el siguiente paso, por ahora escribo el codigo logico.
-
-// Ajuste: El modal en instructores/modal.php tiene ID "modalInstructor"? Lo verificare.
-// Si no, creare uno dinamico.
-// Por seguridad, usaré la clase .modal si es único, o ids especificos.
+// Modal para ver detalles del Instructor
 
 document.addEventListener("DOMContentLoaded", () => {
     const modalVer = document.getElementById("modalVerInstructor");
@@ -22,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = btn.dataset.id;
             console.log("Ver Instructor ID:", id);
 
-            fetch(`cargar_instructor.php?id_instructor=${id}`)
+            fetch(`cargar_instructor.php?id=${id}`)
                 .then(r => r.json())
                 .then(data => {
                     const i = data; // Asumimos que cargar_instructor devuelve el objeto directo o {instructor: ...}
@@ -59,8 +52,31 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <span class="detalle-valor">${instructor.correo || '-'}</span>
                             </div>
                             
-                            <!-- Agregar más campos si existen en la DB (direccion, fecha_nac, etc) -->
-                            <!-- Por defecto en instructores solemos tener menos datos que en alumnos -->
+                            <!-- Fila 2: Ubicación -->
+                            <div class="detalle-item">
+                                <span class="detalle-label">Dirección</span>
+                                <span class="detalle-valor">${instructor.direccion || '-'}</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Localidad</span>
+                                <span class="detalle-valor">${instructor.localidad || '-'} (CP: ${instructor.cp || '-'})</span>
+                            </div>
+
+                            <!-- Fila 3: Vehículo -->
+                             <div class="detalle-item">
+                                <span class="detalle-label">Vehículo</span>
+                                <span class="detalle-valor">${instructor.vehiculo || 'No asignado'}</span>
+                            </div>
+                             <div class="detalle-item">
+                                <span class="detalle-label">Patente</span>
+                                <span class="detalle-valor">${instructor.patente || '-'}</span>
+                            </div>
+
+                            <!-- Fila 4: Observaciones -->
+                            <div class="detalle-item full-width">
+                                <span class="detalle-label">Observaciones</span>
+                                <span class="detalle-valor">${instructor.observaciones || '-'}</span>
+                            </div>
                         </div>
                     `;
 

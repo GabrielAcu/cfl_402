@@ -1,20 +1,18 @@
 <?php
-// Cargar path.php
-require_once dirname(__DIR__, 2) . '/../config/path.php';
-
-// Dependencias
+// ==========================
+//   CONFIGURACIÓN INICIAL
+// ==========================
+require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
-require_once 'layouts.php';
 
-
-// 3. Autenticación
+// Autenticación
 requireLogin();
 
-
-if (!isSuperAdmin() ) {
-    header('Location: /cfl_402/index.php');
+if (!isSuperAdmin()) {
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 
@@ -22,74 +20,52 @@ if (!isSuperAdmin() ) {
 $conn = conectar();
 
 ?> 
-<h1> Usuarios </h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios Eliminados - CFL 402</title>
+    <!-- CSS Global y Alumnos -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.2">
+    <link rel="stylesheet" href="../alumnos/alumnos2.css?v=3.2">
+</head>
+<body class="main_alumnos_body">
+
+<?php require_once BASE_PATH . '/include/header.php'; ?>
     
-        
- <div class="search_container">
+<h1>Usuarios Eliminados</h1>
+    
+<div class="search_container">
     <div class="search_block">
-
         <div class="search_row">
-
-            <!-- Buscador -->
-            <form class="search_form" action="/cfl_402/admin/crud/usuarios/index.php" method="post">
-                <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno..">
-                <button class="boton_enviar" type="submit">Buscar</button>
+            <!-- Volver -->
+            <form action="index.php" method="get">
+                 <button class="btn-primary" type="submit">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);">
+                    Volver al Listado
+                 </button>
             </form>
-
-            <!-- Registrar nuevo alumno -->
-           
-            
-
         </div>
-
-        <hr class="search_line">
-
-        <!-- Filtro -->
-        <form action="filtrar_alumnos.php">
-            <select name="filtros" id="filtros">
-                <option value="nombre_filtro">Nombre</option>
-                <option value="nombre_filtro">Apellido</option>
-                <option value="nombre_filtro">DNI</option>
-            </select>
-        </form>
-
     </div>
 </div>
 
-<hr>
-
-<h2>Listado de Usuarios</h2>
-<link rel="stylesheet" href="usuarios.css">
+<div class="main_alumnos" style="flex-direction: column; align-items: center;">
 
 <?php
-
-// ==========================
-//   BÚSQUEDA
-// ==========================
-$input = isset($_POST["search"]) ? $_POST["search"] : "";
-
-
 // ==========================
 //   PAGINACIÓN
 // ==========================
 $registros_por_pagina = 10;
-$pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$pagina_actual = max(1, $pagina_actual);
+$pagina_actual = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
 $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
 
 // ==========================
 //   TOTAL REGISTROS
 // ==========================
-$stmt_total = $conn->prepare("
-    SELECT COUNT(*) FROM usuarios
-    WHERE activo='0' AND usuarios.nombre LIKE :nombre
-");
-
-$stmt_total->execute([
-    ":nombre" => "%$input%",
-
-]);
+$stmt_total = $conn->prepare("SELECT COUNT(*) FROM usuarios WHERE activo='0'");
+$stmt_total->execute();
 
 $total_registros = $stmt_total->fetchColumn();
 $total_paginas = ceil($total_registros / $registros_por_pagina);
@@ -99,147 +75,87 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 //   CONSULTA PRINCIPAL
 // ==========================
 $sql = "
-    SELECT usuarios.*, usuarios.nombre, CASE usuarios.rol
-    WHEN 0 THEN 'SuperAdmin'
-    WHEN 1 THEN 'Administrador'
-    WHEN 2 THEN 'instructor'
-    ELSE 'Rol Desconocido'
+    SELECT usuarios.*, 
+    CASE usuarios.rol
+        WHEN 0 THEN 'SuperAdmin'
+        WHEN 1 THEN 'Administrador'
+        WHEN 2 THEN 'Instructor'
+        ELSE 'Rol Desconocido'
     END AS rol_text
     FROM usuarios
     WHERE activo = '0'
-        AND usuarios.nombre LIKE :nombre
     ORDER BY rol ASC
-    LIMIT :registros_por_pagina OFFSET :offset
+    LIMIT :limit OFFSET :offset
 ";
 
 $consulta = $conn->prepare($sql);
+$consulta->bindValue(':limit', (int)$registros_por_pagina, PDO::PARAM_INT);
+$consulta->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+$consulta->execute();
 
-// IMPORTANTE → NO usamos bindParam duplicado, solo execute([])
+?>
 
-$consulta->execute([
-    ":nombre" => "%$input%",
-    ":registros_por_pagina" => $registros_por_pagina,
-    ":offset" => $offset
-]);
-
-render_pagination($total_paginas, $pagina_actual); 
-
-// ==========================
-//   MOSTRAR TABLA
-// ==========================
-if ($consulta->rowCount() > 0) {
-
-    echo "
-    <main class='main_alumnos'>
-    <table class='info_table'>
+<?php if ($consulta->rowCount() > 0): ?>
+    <table class="info_table">
         <thead>
-            <tr class='table_header'>
+            <tr class="table_header">
                 <th>Nombre</th>
-                <th>Contraseña</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-    ";
+        <?php while ($registro = $consulta->fetch()): ?>
+            <tr>
+                <td><?= htmlspecialchars($registro['nombre']) ?></td>
+                <td><?= htmlspecialchars($registro['rol_text']) ?></td>
 
-    while ($registro = $consulta->fetch()) : ?>
-    <tr>
-        <td><?= htmlspecialchars($registro['nombre']) ?></td>
-        <td>••••••••</td>
-        <td><?= htmlspecialchars($registro['rol_text']) ?></td>
-
-
-    
-            <div class="acciones_wrapper">
-
-       
-            </div>
-      
-
-        <td class="td_actions2">
-
-            <form action="restaurar.php" method="POST" class="enlinea">
-                <?= getCSRFTokenField() ?>
-                <input type="hidden" name="id" value="<?= $registro['id'] ?>">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/restore.svg" title="Restaurar">
-                </button>
-            </form>
-
-
-
-        </td>
-    </tr>
-    
-    
-<?php endwhile; 
-echo"
+                <td class="td_actions">
+                    <form action="restaurar.php" method="POST" class="enlinea confirm-restore">
+                        <?= getCSRFTokenField() ?>
+                        <input type="hidden" name="id" value="<?= $registro['id'] ?>">
+                        <button type="submit" class="submit-button" title="Restaurar Usuario" onclick="return confirm('¿Restaurar este usuario?');">
+                            <img class="svg_lite" src="/cfl_402/assets/svg/restore.svg" alt="Restaurar">
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <?php endwhile; ?>
         </tbody>
     </table>
-    </main>";
-    
-}
-    // ==========================
-    //   PAGINACIÓN
-    // ==========================
-    function render_pagination($total_paginas, $pagina_actual) {
-        if ($total_paginas <= 1) {
-            return; // No mostrar nada si no hay más páginas
-        }
-    
+<?php else: ?>
+    <div class="form-card" style="text-align: center;">
+        <p>No hay usuarios eliminados.</p>
+    </div>
+<?php endif; ?>
+
+<?php
+    // Paginación
+    if ($total_paginas > 1) {
         echo "<div class='pagination'>";
-    
-        // 👉 Primera página
-        echo "<a href='?pagina=1' class='" . ($pagina_actual == 1 ? "active" : "") . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg'>
-              </a>";
-    
-        // 👉 Página anterior
+        
+        echo "<a href='?pagina=1'><img class='svg_lite' src='/cfl_402/assets/svg/first_page.svg'></a>";
+        
         if ($pagina_actual > 1) {
-            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg'>
-                  </a>";
+            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-left.svg'></a>";
         }
-    
-        // 👉 Rango de páginas centrado
+
         $rango = 2;
         for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++) {
-            echo "<a href='?pagina=$i' class='" . (($i == $pagina_actual) ? 'active' : '') . "'>$i</a>";
+            $active = ($i == $pagina_actual) ? 'active' : '';
+            echo "<a href='?pagina=$i' class='$active'>$i</a>";
         }
-    
-        // 👉 Página siguiente
+
         if ($pagina_actual < $total_paginas) {
-            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg'>
-                  </a>";
+            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-right.svg'></a>";
         }
-    
-        // 👉 Última página
-        echo "<a href='?pagina=$total_paginas' class='" . (($pagina_actual == $total_paginas) ? 'active' : '') . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg'>
-              </a>";
-    
+
+        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='/cfl_402/assets/svg/last_page.svg'></a>";
         echo "</div>";
     }
-    render_pagination($total_paginas, $pagina_actual);    
-
-    include 'modal.php'; //incluye el modal para crear un nuevo curso 
-    include 'modal_modificar.php';
-       
 ?>
 
-<div class="eliminados_block">
-    <form class="eliminados_form" action="index.php" method="post">
-        <button type='submit' class='submit-button'>
+</div> <!-- Fin Main -->
 
-        <h3> Volver a Gestión</h3>
-            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Contactos'>
-        </button>
-    </form>
-</div>
-<script src="delete.js"></script>
-
-<script src="modal_nuevo.js"></script>
-<script src="modal_detalles.js"> </script>
-<script src="carteles.js"></script>
+</body>
+</html>

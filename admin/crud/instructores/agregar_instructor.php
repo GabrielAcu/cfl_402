@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido = trim($_POST["apellido"]);
     $dni = trim($_POST["dni"]);
     $telefono = trim($_POST["telefono"]);
-    $nacimiento = $_POST["nacimiento"];
-    $email = trim($_POST["email"]);
-    $domicilio = trim($_POST["domicilio"]);
+    $nacimiento = $_POST["fecha_nacimiento"];
+    $email = trim($_POST["correo"]);
+    $domicilio = trim($_POST["direccion"]);
     $localidad = trim($_POST["localidad"]);
-    $postal = trim($_POST["postal"]);
+    $postal = trim($_POST["cp"]);
     $vehiculo = trim($_POST["vehiculo"]);
     $patente = trim($_POST["patente"]);
     $observaciones = htmlspecialchars(trim($_POST["observaciones"]));

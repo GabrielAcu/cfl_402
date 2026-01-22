@@ -54,9 +54,8 @@ h1 {
 }
 
 .info_table {
-  width: fit-content;
-  /* Shrink exactly to content */
-  max-width: 100%;
+  width: 100%;
+  max-width: 950px;
   margin: 0 auto;
   /* Ensure centering */
   /* Compacto */
@@ -143,6 +142,16 @@ h1 {
   width: 100%;
 }
 
+/* Acciones en tabla */
+.acciones_wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 /* --------------------------
      ACCIONES SUPERIORES
   --------------------------- */
@@ -210,8 +219,46 @@ h1 {
   flex-direction: column;
 }
 
-.fila .campo label {
-  margin-bottom: 5px;
-  font-weight: 500;
+/* ACCIONES WRAPPER YA AÑADIDO ANTES */
+
+/* --------------------------
+     PAGINACIÓN
+  --------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 30px auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.pagination a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
   color: var(--text);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.pagination .active {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent);
+  font-weight: bold;
 }

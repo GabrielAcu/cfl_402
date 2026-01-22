@@ -32,6 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     try {
+        // 1. Desasignar cursos (Set to NULL)
+        $conn->prepare("UPDATE cursos SET id_instructor = NULL WHERE id_instructor = :id")->execute([':id' => $id_instructor]);
+
+        // 2. Soft Delete Instructor
         $consulta = $conn->prepare("UPDATE instructores SET activo = 0 WHERE id_instructor = :id_instructor");
         $consulta->execute([':id_instructor' => $id_instructor]);
         

@@ -7,12 +7,11 @@ require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
-// require_once 'layouts.php';
 
 // Autenticación
 requireLogin();
 if (!isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 // Conexión
@@ -25,15 +24,17 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="modal.css">
-    <link rel="stylesheet" href="usuarios.css">
-
+    <title>Usuarios - CFL 402</title>
+    <!-- CSS Global, Alumnos (reutilizado) y Modal -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.2">
+    <link rel="stylesheet" href="../alumnos/alumnos2.css?v=3.2">
+    <link rel="stylesheet" href="modal.css?v=<?php echo time(); ?>"> 
 </head>
-<body>
+<body class="main_alumnos_body">
     
+<?php require_once BASE_PATH . '/include/header.php'; ?>
 
-<h1>Usuarios</h1>
+<h1>Gestión de Usuarios</h1>
 
 <div class="search_container">
     <div class="search_block">
@@ -41,54 +42,35 @@ $conn = conectar();
         <div class="search_row">
 
             <!-- Buscador -->
-            <form class="search_form" action="/cfl_402/admin/crud/usuarios/index.php" method="post">
-                <input class="search_bar" type="search" name="search" placeholder="Buscar Usuario..">
+            <form class="search_form" action="index.php" method="post">
+                <input class="search_bar" type="search" name="search" placeholder="Buscar Usuario..." value="<?= htmlspecialchars($_POST['search'] ?? '') ?>">
                 <button class="boton_enviar" type="submit">Buscar</button>
             </form>
 
             <!-- Registrar nuevo alumno -->
-           
-                    <button id="btnAbrirModal" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
-                        Nuevo Usuario
-                    </button>
-            
+            <button id="btnAbrirModal" class="btn-primary">
+                <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                Nuevo Usuario
+            </button>
 
         </div>
-
-        <hr class="search_line">
-
-        <!-- Filtro -->
-        <form action="filtrar_alumnos.php">
-            <select name="filtros" id="filtros">
-                <option value="nombre_filtro">Nombre</option>
-                <option value="nombre_filtro">Apellido</option>
-                <option value="nombre_filtro">DNI</option>
-            </select>
-        </form>
 
     </div>
 </div>
 
-<hr>
-
-<h2>Listado de Usuarios</h2>
-<link rel="stylesheet" href="alumnos2.css">
+<div class="main_alumnos" style="flex-direction: column; align-items: center;">
 
 <?php
-
 // ==========================
 //   BÚSQUEDA
 // ==========================
-$input = isset($_POST["search"]) ? $_POST["search"] : "";
-
+$input = $_POST["search"] ?? "";
 
 // ==========================
 //   PAGINACIÓN
 // ==========================
 $registros_por_pagina = 10;
-$pagina_actual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-$pagina_actual = max(1, $pagina_actual);
+$pagina_actual = isset($_GET['pagina']) ? max(1, (int)$_GET['pagina']) : 1;
 $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
 
@@ -112,158 +94,119 @@ $total_paginas = ceil($total_registros / $registros_por_pagina);
 //   CONSULTA PRINCIPAL
 // ==========================
 $sql = "
-    SELECT usuarios.*, usuarios.nombre, CASE usuarios.rol
-    WHEN 0 THEN 'SuperAdmin'
-    WHEN 1 THEN 'Administrador'
-    WHEN 2 THEN 'Instructor'
-    ELSE 'Rol Desconocido'
+    SELECT usuarios.*, 
+    CASE usuarios.rol
+        WHEN 0 THEN 'SuperAdmin'
+        WHEN 1 THEN 'Administrador'
+        WHEN 2 THEN 'Instructor'
+        ELSE 'Rol Desconocido'
     END AS rol_text
     FROM usuarios
     WHERE activo = '1'
         AND usuarios.nombre LIKE :nombre
     ORDER BY rol ASC
-    LIMIT :registros_por_pagina OFFSET :offset
+    LIMIT :limit OFFSET :offset
 ";
 
+// Use bindValue for limit/offset to ensure they are integers (PDO restriction in emulation mode sometimes)
 $consulta = $conn->prepare($sql);
+$consulta->bindValue(':nombre', "%$input%", PDO::PARAM_STR);
+$consulta->bindValue(':limit', (int)$registros_por_pagina, PDO::PARAM_INT);
+$consulta->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+$consulta->execute();
 
-// IMPORTANTE → NO usamos bindParam duplicado, solo execute([])
+?>
 
-$consulta->execute([
-    ":nombre" => "%$input%",
-    ":registros_por_pagina" => $registros_por_pagina,
-    ":offset" => $offset
-]);
-
-render_pagination($total_paginas, $pagina_actual); 
-
-// ==========================
-//   MOSTRAR TABLA
-// ==========================
-if ($consulta->rowCount() > 0) {
-
-    echo "
-    <main class='main_alumnos'>
-    <table class='info_table'>
+<?php if ($consulta->rowCount() > 0): ?>
+    <table class="info_table">
         <thead>
-            <tr class='table_header'>
+            <tr class="table_header">
                 <th>Nombre</th>
-                <th>Contraseña</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-    ";
+        <?php while ($registro = $consulta->fetch()): ?>
+            <tr>
+                <td><?= htmlspecialchars($registro['nombre']) ?></td>
+                <td><?= htmlspecialchars($registro['rol_text']) ?></td>
 
-    while ($registro = $consulta->fetch()) : ?>
-    <tr>
-        <td><?= htmlspecialchars($registro['nombre']) ?></td>
-        <td>••••••••</td>
-        <td><?= htmlspecialchars($registro['rol_text']) ?></td>
+                <td class="td_actions">
+                    <div class="acciones_wrapper" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <button class="submit-button btnModificarAlumno" data-id="<?= $registro['id'] ?>" title="Modificar">
+                             <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" alt="Modificar">
+                        </button>
 
-
-    
-            <div class="acciones_wrapper">
-
-       
-            </div>
-      
-
-        <td class="td_actions2">
-
-            
-            <button class="btnModificarAlumno" data-id="<?= $registro['id'] ?>">
-                <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
-            </button>
-
-            <form action="bajar.php" method="POST" class="enlinea confirm-delete">
-                <?= getCSRFTokenField() ?>
-                <input type="hidden" name="id" value="<?= $registro['id'] ?>">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">
-                </button>
-            </form>
-
-            <!-- <form action="../inscripciones/index.php" method="POST" class="enlinea">
-                <input type="hidden" name="tipo" value="alumno">
-                <input type="hidden" name="id_alumno" value=" $registro['id_alumno'] ">
-                <input type="hidden" name="volver" value="alumnos">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus.svg" title="Inscribir a un curso">
-                </button>
-            </form> -->
-
-        </td>
-    </tr>
-    
-    
-<?php endwhile; 
-echo"
+                        <form action="bajar.php" method="POST" class="enlinea confirm-delete">
+                            <?= getCSRFTokenField() ?>
+                            <input type="hidden" name="id" value="<?= $registro['id'] ?>">
+                            <button type="submit" class="submit-button" onclick="return confirm('¿Está seguro de eliminar este usuario?');">
+                                <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        <?php endwhile; ?>
         </tbody>
     </table>
-    </main>";
-    
-}
-    // ==========================
-    //   PAGINACIÓN
-    // ==========================
-    function render_pagination($total_paginas, $pagina_actual) {
-        if ($total_paginas <= 1) {
-            return; // No mostrar nada si no hay más páginas
-        }
-    
+<?php else: ?>
+    <div class="form-card" style="text-align: center;">
+        <p>No se encontraron usuarios activos.</p>
+    </div>
+<?php endif; ?>
+
+<?php
+    // Función de paginación simple inline
+    if ($total_paginas > 1) {
         echo "<div class='pagination'>";
-    
-        // 👉 Primera página
-        echo "<a href='?pagina=1' class='" . ($pagina_actual == 1 ? "active" : "") . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg'>
-              </a>";
-    
-        // 👉 Página anterior
+        
+        // Primera página
+        echo "<a href='?pagina=1'><img class='svg_lite' src='/cfl_402/assets/svg/first_page.svg' alt='<<'></a>"; // Ajustar path SVG si es necesario
+        
+        // Anterior
         if ($pagina_actual > 1) {
-            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg'>
-                  </a>";
+            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-left.svg' alt='<'></a>";
         }
-    
-        // 👉 Rango de páginas centrado
+
+        // Rango
         $rango = 2;
         for ($i = max(1, $pagina_actual - $rango); $i <= min($total_paginas, $pagina_actual + $rango); $i++) {
-            echo "<a href='?pagina=$i' class='" . (($i == $pagina_actual) ? 'active' : '') . "'>$i</a>";
+            $active = ($i == $pagina_actual) ? 'active' : '';
+            echo "<a href='?pagina=$i' class='$active'>$i</a>";
         }
-    
-        // 👉 Página siguiente
+
+        // Siguiente
         if ($pagina_actual < $total_paginas) {
-            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg'>
-                  </a>";
+            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-right.svg' alt='>'></a>";
         }
-    
-        // 👉 Última página
-        echo "<a href='?pagina=$total_paginas' class='" . (($pagina_actual == $total_paginas) ? 'active' : '') . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg'>
-              </a>";
-    
+
+        // Última
+        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='/cfl_402/assets/svg/last_page.svg' alt='>>'></a>";
+
         echo "</div>";
     }
-    render_pagination($total_paginas, $pagina_actual);    
-
-    include 'modal.php'; //incluye el modal para crear un nuevo curso 
-    include 'modal_modificar.php';
-       
 ?>
 
-<div class="eliminados_block">
-    <form class="eliminados_form" action="eliminados.php" method="post">
+<div class="eliminados_block" style="margin-top: 40px;">
+    <form class="eliminados_form" action="eliminados.php" method="post" style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+        <h3 style="margin: 0;">Ver Usuarios Eliminados</h3>
         <button type='submit' class='submit-button'>
-
-        <h3> Ver Usuarios Eliminados</h3>
-            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Contactos'>
+            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Ver Eliminados' style="width: 24px; height: 24px;">
         </button>
     </form>
 </div>
-<script src="delete.js"></script>
 
+</div> <!-- Fin main content -->
+
+<!-- Inclusión de Modales -->
+<?php include 'modal.php'; ?>
+<?php include 'modal_modificar.php'; ?>
+
+<!-- Scripts -->
 <script src="modal_nuevo.js"></script>
 <script src="modal_editar.js"></script>
+
+</body>
+</html>
