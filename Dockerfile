@@ -25,8 +25,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Ejecutar composer install si existe composer.json
 # (Esto es opcional en dev, pero crítico en prod si no subimos vendor)
 RUN if [ -f composer.json ]; then \
-        composer install --no-dev --optimize-autoloader; \
+    composer install --no-dev --optimize-autoloader; \
     fi
 
-# Exponer el puerto 80 (Railway lo detecta automáticamente via PORT env var, pero Apache escucha en 80 por defecto)
+# Copiar script de inicio personalizado
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Exponer el puerto (Railway usa la variable $PORT dinámicamente)
 EXPOSE 80
+
+# Usar el script personalizado como punto de entrada
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
