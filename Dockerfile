@@ -10,14 +10,17 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && docker-php-ext-install pdo_mysql zip gd mbstring
 
+# SOLUCIÓN DEFINITIVA AL PROBLEMA DE MPM:
+# La imagen php:8.2-apache viene con mpm_event por defecto
+# Necesitamos cambiarlo a mpm_prefork ANTES de que Apache intente iniciarse
+RUN a2dismod mpm_event && a2enmod mpm_prefork
+
 # Habilitar mod_rewrite de Apache (útil para rutas amigables)
 RUN a2enmod rewrite
 
-# FIX: Resolver conflicto de MPM (Multi-Processing Module)
-# Apache solo puede tener UN MPM activo. La imagen base tiene mpm_event habilitado,
-# pero necesitamos mpm_prefork para PHP. Removemos físicamente los enlaces simbólicos.
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* && \
-    a2enmod mpm_prefork
+# Copiar script de inicio personalizado PRIMERO (antes del código)
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Copiar el código fuente al contenedor
 COPY . /var/www/html/
@@ -29,14 +32,9 @@ RUN chown -R www-data:www-data /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Ejecutar composer install si existe composer.json
-# (Esto es opcional en dev, pero crítico en prod si no subimos vendor)
 RUN if [ -f composer.json ]; then \
     composer install --no-dev --optimize-autoloader; \
     fi
-
-# Copiar script de inicio personalizado
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Exponer el puerto (Railway usa la variable $PORT dinámicamente)
 EXPOSE 80
