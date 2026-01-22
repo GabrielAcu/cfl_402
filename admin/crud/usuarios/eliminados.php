@@ -160,20 +160,14 @@ if ($consulta->rowCount() > 0) {
         <td class="td_actions2">
 
             <form action="restaurar.php" method="POST" class="enlinea">
+                <?= getCSRFTokenField() ?>
                 <input type="hidden" name="id" value="<?= $registro['id'] ?>">
                 <button type="submit" class="submit-button">
                     <img class="svg_lite" src="/cfl_402/assets/svg/restore.svg" title="Restaurar">
                 </button>
             </form>
 
-            <!-- <form action="../inscripciones/index.php" method="POST" class="enlinea">
-                <input type="hidden" name="tipo" value="alumno">
-                <input type="hidden" name="id_alumno" value=" $registro['id_alumno'] ">
-                <input type="hidden" name="volver" value="alumnos">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus.svg" title="Inscribir a un curso">
-                </button>
-            </form> -->
+
 
         </td>
     </tr>

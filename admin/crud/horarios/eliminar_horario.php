@@ -40,7 +40,8 @@ $conn = conectar();
             
         } catch (Exception $e) {
             echo "Ocurrio un error, no se elimino el registro.";
-            echo $e->getMessage();
+            error_log("Error DB: " . $e->getMessage());
+            echo "Error al eliminar el horario.";
 
         }
     }

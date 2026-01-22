@@ -66,7 +66,10 @@ $conn = conectar();
             <label for='instructor'>Instructor</label>
             <select name='instructor' id='instructor'>";
         while ($instructor = $instructores->fetch()) {
-            echo "<option value='{$instructor['id_instructor']}'>{$instructor['apellido']}, {$instructor['nombre']}</option>";
+            $nombre = htmlspecialchars($instructor['nombre']);
+            $apellido = htmlspecialchars($instructor['apellido']);
+            $id = htmlspecialchars($instructor['id_instructor']);
+            echo "<option value='{$id}'>{$apellido}, {$nombre}</option>";
         }
         echo "</select>
         </div>";
@@ -78,7 +81,9 @@ $conn = conectar();
             <label for='turno'>Turno</label>
             <select name='turno' id='turno'>";
         while ($turno = $turnos->fetch()) {
-            echo "<option value='{$turno['id_turno']}'>{$turno['descripcion']}</option>";
+            $desc = htmlspecialchars($turno['descripcion']);
+            $id = htmlspecialchars($turno['id_turno']);
+            echo "<option value='{$id}'>{$desc}</option>";
         }
         echo "</select>
         </div>";

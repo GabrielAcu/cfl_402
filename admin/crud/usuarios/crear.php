@@ -24,6 +24,11 @@ require_once 'layouts.php';
 // Autenticación
 requireLogin();
 
+if (!isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+
 // Validar CSRF
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireCSRFToken();
@@ -109,7 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($e->getCode() == '42S22') {
                 fallido("El campo 'autos' no existe en tu tabla");
             } else {
-                echo "Ocurrió un error al insertar los datos: " . $e->getMessage();
+                error_log("Error DB: " . $e->getMessage());
+                echo "Ocurrió un error al insertar los datos. Por favor contacte al administrador.";
             }
         }
     }

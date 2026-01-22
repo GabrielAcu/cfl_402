@@ -21,85 +21,74 @@ document.querySelectorAll(".btnVerCurso").forEach(btn => {
                     fetch('../get_csrf_token.php').then(r => r.json())
                 ]).then(([csrfData]) => {
                     const csrfToken = csrfData.token;
-                    
+
                     // Construimos el formulario
+                    // Construimos el HTML Estructurado y Profesional
                     let html = `
-                        
-                            <input type="hidden" name="csrf_token" value="${csrfToken}">
-                            <input type="hidden" name="id_alumno" value="${a.id_alumno}">
-
-                            <h2>Información Del Alumno: ${a.nombre} ${a.apellido} </h2>
-
-                        <div class="fila">
-                            <div class="campo">
-                                Nombre: ${a.nombre}
-                            </div>
-
-                            <div class="campo">
-                                Apellido: ${a.apellido}
-                            </div>
+                        <div class="modal-header">
+                            <h2>${a.nombre} ${a.apellido}</h2>
+                            <!-- Cerrar movido al header por CSS o mantenido fuera -->
                         </div>
 
-                        <div class="fila">
-                            <div class="campo">
-                               DNI: ${a.dni}
+                        <div class="detalle-grid">
+                            
+                            <div class="detalle-item">
+                                <span class="detalle-label">DNI</span>
+                                <span class="detalle-valor">${a.dni || '-'}</span>
                             </div>
 
-                            <div class="campo">
-                               Correo: ${a.nombre}
+                            <div class="detalle-item">
+                                <span class="detalle-label">Fecha de Nacimiento</span>
+                                <span class="detalle-valor">${a.fecha_nacimiento || '-'}</span>
                             </div>
+
+                            <div class="detalle-item">
+                                <span class="detalle-label">Teléfono</span>
+                                <span class="detalle-valor">${a.telefono || '-'}</span>
+                            </div>
+
+                             <div class="detalle-item">
+                                <span class="detalle-label">Correo</span>
+                                <span class="detalle-valor">${a.correo || '-'}</span>
+                            </div>
+
+                            <div class="detalle-item full-width">
+                                <span class="detalle-label">Dirección</span>
+                                <span class="detalle-valor">${a.direccion || '-'}</span>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="detalle-label">Localidad</span>
+                                <span class="detalle-valor">${a.localidad || '-'}</span>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="detalle-label">Código Postal</span>
+                                <span class="detalle-valor">${a.cp || '-'}</span>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="detalle-label">Vehículo</span>
+                                <span class="detalle-valor">${a.vehiculo || 'No'}</span>
+                            </div>
+
+                            <div class="detalle-item">
+                                <span class="detalle-label">Patente</span>
+                                <span class="detalle-valor">${a.patente || '-'}</span>
+                            </div>
+
+                            <div class="detalle-item full-width">
+                                <span class="detalle-label">Observaciones</span>
+                                <span class="detalle-valor">${a.observaciones || 'Sin observaciones'}</span>
+                            </div>
+
                         </div>
-
-                        <div class="fila">
-                            <div class="campo">
-                                Télefono: ${a.telefono}
-                            </div>
-
-                            <div class="campo">
-                               Fecha de Nacimiento: ${a.fecha_nacimiento}
-                            </div>
-                        </div>
-
-                        <div class="fila">
-                            <div class="campo">
-                               Dirección: ${a.direccion}
-                            </div>
-
-                            <div class="campo">
-                                Localidad: ${a.localidad}
-                            </div>
-                        </div>
-
-                        <div class="fila">
-                            <div class="campo">
-                                Código Postal: ${a.cp}
-                            </div>
-                        </div>
-
-                        <div class="fila">
-                            <div class="campo">
-                                Vehículo: ${a.vehiculo}
-                            </div>
-
-                            <div class="campo">
-                                Patente: ${a.patente}
-                            </div>
-                        </div>
-
-                        <div class="fila">
-                            <div class="campo">
-                                Observaciones: ${a.observaciones}
-                            </div>
-                        </div>
-
-                    
-                       
                     `;
 
                     contenidoAlumno.innerHTML = html;
-                    modalAlumno.style.display = "block"; // ← AQUÍ SE ABRE EL MODAL
+                    modalAlumno.style.display = "block";
                 })
-                .catch(e => console.error("ERROR CSRF:", e));
+                    .catch(e => console.error("ERROR CSRF:", e));
             })
             .catch(e => console.error("ERROR FETCH:", e));
     });

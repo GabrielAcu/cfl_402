@@ -7,13 +7,15 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
+body.main_cursos_body {
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 100px 30px 30px 30px !important;
+  min-height: 100vh;
 }
 
 /* --------------------------
@@ -22,82 +24,145 @@ body {
 h1,
 h2 {
   text-align: center;
+  color: var(--accent, #007bff);
+}
+
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 /* --------------------------
-     FORMULARIOS SUPERIORES
-     (Nuevo curso + Buscador)
+     CONTENEDOR DEL BUSCADOR
   --------------------------- */
-.nuevoCurso-buscador {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.search_container {
   width: 100%;
-  max-width: 1200px;
-  margin-bottom: 20px;
-  gap: 50px;
-}
-/* form {
-  margin-bottom: 20px;
+  max-width: 900px;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
   justify-content: center;
-} */
-
-form input[type="search"],
-form input[type="text"],
-form input[type="number"],
-form input[type="email"] {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  margin-bottom: 30px;
 }
 
-form input[type="submit"],
-form button {
-  padding: 10px 16px;
-  background: #007bff;
+.search_block {
+  width: 100%;
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.search_form {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+}
+
+.search_bar {
+  flex: 1;
+  padding: 12px;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.search_bar:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.boton_enviar {
+  padding: 10px 18px;
+  background: var(--accent, #007bff);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
   transition: 0.2s;
+  font-weight: 500;
 }
 
-form input[type="submit"]:hover,
-form button:hover {
-  background: #0056c1;
+.boton_enviar:hover {
+  background-color: #0056c1;
+  opacity: 0.9;
 }
 
 /* --------------------------
      TABLA DE CURSOS
   --------------------------- */
-table {
+.pagination {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 1200px;
-  border-collapse: collapse;
-  background: white;
-  margin-top: 20px;
-  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: fit-content;
+  max-width: 100%;
+  min-width: 800px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card-bg);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
 }
 
 table th,
 table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
   text-align: center;
+  color: var(--text);
+  vertical-align: middle;
 }
 
 thead {
-  background: #007bff;
+  background: var(--accent, #007bff);
   color: white;
 }
 
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
 tr:hover {
-  background: #f1f7ff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.text-left {
+  text-align: left !important;
+  padding-left: 15px !important;
 }
 
 /* --------------------------
@@ -105,120 +170,96 @@ tr:hover {
   --------------------------- */
 .enlinea {
   display: inline-block;
-}
-
-.enlinea input[type="submit"] {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 14px;
-}
-
-.enlinea input[type="submit"]:hover {
-  background: #0056c1;
-}
-.pagination {
-  text-align: center;
-  margin-top: 20px;
-}
-.pagination a {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  margin: 2px;
-  border-radius: 5px;
-}
-.pagination a.active {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-/* 🔷 CONTENEDOR SUPERIOR */
-.nuevoCurso-buscador {
-  display: flex;
-  justify-content: space-between; /* Botón izquierda — Buscador derecha */
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 20px auto;
-  padding: 10px 0;
-}
-
-/* 🔷 BOTÓN NUEVO CURSO */
-.nuevoCurso-buscador #btnAbrirModal {
-  padding: 10px 18px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.nuevoCurso-buscador #btnAbrirModal:hover {
-  background: #0056c1;
-}
-
-/* 🔷 FORMULARIO (a la derecha y compacto) */
-.nuevoCurso-buscador form {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin: 0;
 }
 
-.nuevoCurso-buscador input[type="search"] {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.acciones_wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  align-items: center;
+  white-space: nowrap;
 }
 
-.nuevoCurso-buscador input[type="submit"] {
-  padding: 8px 14px;
-  background: #28a745;
+/* Estilo unificado botones */
+.btn-primary {
+  background-color: var(--accent, #007bff);
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
   transition: 0.2s;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
 }
 
-.nuevoCurso-buscador input[type="submit"]:hover {
-  background: #1e7e34;
+.btn-primary:hover {
+  background-color: #0056c1;
+  transform: translateY(-1px);
 }
 
-.svg_lite{
-  height: 32px;
-  width: 32px;
-  background:none;
+.btn-primary img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
 }
 
-.svg_boton{
-  background-color: rgba(255, 0, 0, 0);
-  border: 0;
+/* Botones Icono (Ver, Eliminar, Modificar) */
+.submit-button,
+.btnVerCurso,
+.btnModificarCurso
+
+/* Asumamos clase si existe */
+  {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
 }
 
-.svg_boton:hover{
-  cursor:pointer;
-  opacity: 50%;
+.submit-button:hover,
+.btnVerCurso:hover,
+.btnModificarCurso:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.submit-button img,
+.btnVerCurso img,
+.btnModificarCurso img,
+.svg_lite {
+  width: 18px;
+  height: 18px;
+  filter: invert(1) brightness(2);
+}
+
+/* Paginacion links */
+.pagination a {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  text-decoration: none;
+  margin: 2px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.pagination a:hover {
+  background: var(--border);
+}
+
+.pagination a.active {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }

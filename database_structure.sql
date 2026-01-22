@@ -217,7 +217,7 @@ INSERT INTO `turnos` (`id_turno`, `descripcion`) VALUES
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `contrasenia` varchar(50) NOT NULL,
+  `contrasenia` varchar(255) NOT NULL,
   `rol` tinyint(3) UNSIGNED NOT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -227,9 +227,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `contrasenia`, `rol`, `activo`) VALUES
-(1, 'superAdmin', 'superadmin', 0, 1),
-(2, 'admin', 'admin', 1, 1),
-(3, 'instructor', 'instructor', 2, 1);
+(1, 'superAdmin', '$2y$10$j9fEhuJof7D9pV7wBpN6N.TCPBM5kR3CnyQ0IGqV3cEaEvnOiXBle', 0, 1),
+(2, 'admin', '$2y$10$jRC2Q3INg69X763l3dduJ.eNlXfqNyG1wwYfG9Gkkwf./r5mll8ri', 1, 1),
+(3, 'instructor', '$2y$10$DGW0dpQQ1rwqQWWR6MK.9.XRMH2C.8WH/SVvXGq0rNTJUId7Bs6Vm', 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -240,7 +240,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `contrasenia`, `rol`, `activo`) VALUES
 --
 ALTER TABLE `alumnos`
   ADD PRIMARY KEY (`id_alumno`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD INDEX `idx_nombre_apellido` (`nombre`, `apellido`);
 
 --
 -- Indices de la tabla `contactos`
@@ -248,7 +249,8 @@ ALTER TABLE `alumnos`
 ALTER TABLE `contactos`
   ADD PRIMARY KEY (`id_contacto_alumno`),
   ADD UNIQUE KEY `unico_por_alumno` (`dni`,`entidad_id`,`tipo`),
-  ADD KEY `fk_contacto_entidad` (`entidad_id`);
+  ADD KEY `fk_contacto_entidad` (`entidad_id`),
+  ADD INDEX `idx_nombre_apellido` (`nombre`, `apellido`);
 
 --
 -- Indices de la tabla `cursos`
@@ -278,7 +280,8 @@ ALTER TABLE `inscripciones`
 --
 ALTER TABLE `instructores`
   ADD PRIMARY KEY (`id_instructor`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD UNIQUE KEY `dni` (`dni`),
+  ADD INDEX `idx_nombre_apellido` (`nombre`, `apellido`);
 
 --
 -- Indices de la tabla `turnos`
@@ -290,7 +293,8 @@ ALTER TABLE `turnos`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD INDEX `idx_nombre` (`nombre`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

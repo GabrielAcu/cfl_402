@@ -19,9 +19,21 @@
         $id_alumno = $_POST['id_alumno']; // obtener el id_alumno enviado desde el formulario
         $nombre = $_POST['nombre']; // obtener los demás datos enviados desde el formulario
         $apellido = $_POST['apellido'];
-        $dni = $_POST['dni'];
+        $dni = trim($_POST['dni']);
+
+        if (!ctype_digit($dni) || strlen($dni) < 7 || strlen($dni) > 8) {
+            echo "<p class='error'>DNI inválido (debe tener 7 u 8 números).</p>";
+            echo "<a href='index.php'>Volver</a>";
+            exit;
+        }
         $telefono = $_POST['telefono'];
-        $correo=$_POST["correo"];
+        $correo=trim($_POST["correo"]);
+        
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            echo "<p class='error'>Email inválido.</p>";
+            echo "<a href='index.php'>Volver</a>";
+            exit;
+        }
         $nacimiento=$_POST["fecha_nacimiento"];
         $domicilio=$_POST["direccion"];
         $localidad=$_POST["localidad"];
@@ -34,10 +46,38 @@
         try {
         // preparar la consulta de actualización con marcadores de posición
         // en este caso, usamos signos de interrogación como marcadores
-        $consulta = $conn->prepare("UPDATE alumnos SET nombre = ?, apellido = ?, dni = ?, telefono = ?,correo = ?, fecha_nacimiento = ?, direccion = ?, localidad = ?, cp = ?, vehiculo = ?, patente = ?, observaciones = ? WHERE id_alumno = ?");
-        // ejecutar la consulta pasando un array con los valores a actualizar
-        // el orden de los valores en el array debe coincidir con el orden de los marcadores en la consulta
-        $consulta->execute([$nombre, $apellido, $dni, $telefono, $correo, $nacimiento, $domicilio, $localidad, $postal,$autos, $patente, $observaciones , $id_alumno]);
+        // preparar la consulta de actualización con marcadores de posición nombrados
+        $consulta = $conn->prepare("UPDATE alumnos SET 
+            nombre = :nombre, 
+            apellido = :apellido, 
+            dni = :dni, 
+            telefono = :telefono, 
+            correo = :correo, 
+            fecha_nacimiento = :nacimiento, 
+            direccion = :direccion, 
+            localidad = :localidad, 
+            cp = :cp, 
+            vehiculo = :autos, 
+            patente = :patente, 
+            observaciones = :observaciones 
+            WHERE id_alumno = :id_alumno");
+
+        // ejecutar la consulta pasando un array asociativo
+        $consulta->execute([
+            ':nombre'       => $nombre,
+            ':apellido'     => $apellido,
+            ':dni'          => $dni,
+            ':telefono'     => $telefono,
+            ':correo'       => $correo,
+            ':nacimiento'   => $nacimiento,
+            ':direccion'    => $domicilio,
+            ':localidad'    => $localidad,
+            ':cp'           => $postal,
+            ':autos'        => $autos,
+            ':patente'      => $patente,
+            ':observaciones'=> $observaciones,
+            ':id_alumno'    => $id_alumno
+        ]);
 
         if ($consulta->rowCount() > 0) { // si se modificó al menos una fila
             // si los datos a guardar en la modificación son iguales a los que ya estaban, 
@@ -64,7 +104,14 @@
             ";
         }
         } catch (Exception $e) {
-            echo "<p class='error'>Error al modificar el alumno: " . $e->getMessage() . "</p>";
+            // 🛡️ SEGURIDAD: No mostrar $e->getMessage() al usuario
+            logError('Error al modificar alumno', $e, ['id_alumno' => $id_alumno]);
+            
+            echo "<div class='error'>
+                    <div class='titulo-error'> Error del Sistema </div>
+                    <div class='motivo'> Ocurrió un error interno. Por favor contacte al administrador. </div>
+                    <a href='index.php'>Volver </a>
+                  </div>";
         }
     } else {
         echo "<p class='error'>Solicitud inválida.</p>"; // mensaje de error si no es método POST

@@ -58,13 +58,19 @@
             <!-- ======================================================
                  SELECT: Instructores (desde la BD)
             ====================================================== -->
+            <!-- ======================================================
+                 SELECT: Instructores (desde la BD)
+            ====================================================== -->
             <?php
                 $instructores = $conn->query("SELECT nombre, apellido, id_instructor FROM instructores");
                 echo "<div>
                         <label for='instructor'>Instructor</label>
                         <select name='instructor' id='instructor'>";
                 while ($i = $instructores->fetch()) {
-                    echo "<option value='{$i['id_instructor']}'>{$i['apellido']}, {$i['nombre']}</option>";
+                    $nombre = htmlspecialchars($i['nombre']);
+                    $apellido = htmlspecialchars($i['apellido']);
+                    $id = htmlspecialchars($i['id_instructor']);
+                    echo "<option value='{$id}'>{$apellido}, {$nombre}</option>";
                 }
                 echo "</select></div>";
             ?>
@@ -78,7 +84,9 @@
                         <label for='turno'>Turno</label>
                         <select name='turno' id='turno'>";
                 while ($t = $turnos->fetch()) {
-                    echo "<option value='{$t['id_turno']}'>{$t['descripcion']}</option>";
+                    $desc = htmlspecialchars($t['descripcion']);
+                    $id = htmlspecialchars($t['id_turno']);
+                    echo "<option value='{$id}'>{$desc}</option>";
                 }
                 echo "</select></div>";
             ?>

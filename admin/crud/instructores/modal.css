@@ -2,28 +2,38 @@
    CONTENEDOR DEL MODAL (FONDO)
    =============================== */
 .modal {
-  display: none; /* Oculto por defecto */
+  display: none;
+  /* Oculto por defecto */
   position: fixed;
   z-index: 9999;
-  inset: 0; /* left:0; top:0; right:0; bottom:0 */
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  /* left:0; top:0; right:0; bottom:0 */
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   padding-top: 60px;
+  align-items: center;
+  /* Centrado flex */
+  justify-content: center;
 }
 
 /* ===============================
      CAJA DEL MODAL
      =============================== */
 .modal-content {
-  background: #fff;
+  background: #1e293b !important;
+  /* Slate 800 forzado */
+  color: var(--text, #e2e8f0);
   margin: auto;
-  padding: 25px 30px;
-  border-radius: 14px;
+  padding: 30px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 800px;
+  max-width: 600px;
   max-height: 90vh;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  /* Para pantallas chicas */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border, #334155);
   overflow-y: auto;
-  animation: fadeIn 0.25s ease;
+  animation: fadeIn 0.3s ease;
 }
 
 /* ===============================
@@ -31,23 +41,32 @@
      =============================== */
 .cerrar {
   float: right;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: -10px;
+  color: var(--text);
+  line-height: 1;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
 }
 
 .cerrar:hover {
-  color: #007bff;
+  color: var(--accent, #3b82f6);
 }
 
 /* ===============================
      TÍTULO DEL MODAL
      =============================== */
+/* Se puede usar .modal-header si cambiamos el HTML, o mantener h2 directo */
 .modal-content h2 {
-  margin-bottom: 20px;
-  color: #007bff;
+  margin-bottom: 25px;
+  color: var(--accent, #3b82f6);
   font-weight: 600;
+  text-align: left;
+  /* Alineado izquierda estilo dashboard */
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
 }
 
 /* ===============================
@@ -55,19 +74,6 @@
      =============================== */
 .modal-content form div {
   margin-bottom: 15px;
-}
-
-.modal-content h3 {
-  margin-top: 20px;
-  margin-bottom: 15px;
-  color: #333;
-  font-size: 18px;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 5px;
-}
-
-.modal-content h3:first-of-type {
-  margin-top: 0;
 }
 
 .modal-content .fila {
@@ -83,10 +89,11 @@
 }
 
 .modal-content .fila .campo label {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-weight: 500;
-  color: #333;
-  font-size: 14px;
+  color: var(--text);
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
 }
 
 .modal-content input,
@@ -94,78 +101,43 @@
 .modal-content textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #bbb;
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
   border-radius: 8px;
   font-size: 15px;
   font-family: inherit;
+  color: var(--text);
+  transition: border-color 0.2s;
 }
 
 .modal-content input:focus,
 .modal-content select:focus,
 .modal-content textarea:focus {
-  border-color: #007bff;
+  border-color: var(--accent, #3b82f6);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-.modal-content textarea {
-  resize: vertical;
-  min-height: 80px;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 /* ===============================
      BOTONES
      =============================== */
-.btn-primary {
-  padding: 12px 20px;
-  border: none;
-  background: #007bff;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: #005fcc;
-}
-
 .btn-submit {
   width: 100%;
-  margin-top: 15px;
-  background: #007bff;
+  margin-top: 20px;
+  background: var(--accent, #3b82f6);
   color: white;
   padding: 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   font-size: 16px;
-}
-
-.btn-submit:hover {
-  background: #005fcc;
-}
-
-.btn-cancel {
-  padding: 10px 20px;
-  background: #6c757d;
-  color: white;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
+  font-weight: 500;
   transition: background 0.2s;
 }
 
-.btn-cancel:hover {
-  background: #5a6268;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: flex-end;
+.btn-submit:hover {
+  background: #2563eb;
+  /* Blue 600 */
 }
 
 /* ===============================
@@ -174,10 +146,11 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(20px);
   }
+
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }

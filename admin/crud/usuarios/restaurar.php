@@ -27,6 +27,7 @@ requireLogin();
 $conn = conectar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
 
 
     $id_usuario = $_POST["id"];
@@ -54,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($e->getCode() == '42S22') {
                 fallido("El campo 'autos' no existe en tu tabla");
             } else {
-                echo "Ocurrió un error al insertar los datos: " . $e->getMessage();
+                error_log("Error DB: " . $e->getMessage());
+                echo "Ocurrió un error al insertar los datos. Por favor contacte al administrador.";
             }
         }
     }

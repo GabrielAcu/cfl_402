@@ -7,13 +7,15 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
+body.main_instructores_body {
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 100px 30px 30px 30px !important;
+  min-height: 100vh;
 }
 
 /* --------------------------
@@ -23,158 +25,121 @@ h1,
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--accent, #007bff);
+}
+
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* --------------------------
      FORMULARIO NUEVO INSTRUCTOR
   --------------------------- */
-form {
-  margin-bottom: 25px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-form input[type="text"],
-form input[type="number"],
-form input[type="email"] {
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-form input[type="submit"] {
-  padding: 10px 16px;
-  background: #007bff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-form input[type="submit"]:hover {
-  background: #0056c1;
-}
+/* (Por si se usa en línea, aunque ahora es Modal) */
 
 /* --------------------------
      TABLA DE INSTRUCTORES
   --------------------------- */
-table {
-  width: 100%;
-  max-width: 1200px;
-  border-collapse: collapse;
-  background: white;
+.main_instructores {
   margin-top: 20px;
-  border-radius: 10px;
-  overflow: visible;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: none;
+  /* Override global 'main' background */
 }
 
-table th,
-table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+.info_table {
+  width: fit-content;
+  /* Shrink exactly to content */
+  max-width: 100%;
+  margin: 0 auto;
+  /* Ensure centering */
+  /* Compacto */
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.info_table th,
+.info_table td {
+  padding: 8px 12px;
+  /* Increased padding slightly for width: auto */
+  border-bottom: 1px solid var(--border);
   text-align: center;
+  color: var(--text);
+  vertical-align: middle;
 }
 
-thead {
-  background: #007bff;
-  color: white;
-}
+/* ... (rest of styles) */
 
-tr:hover {
-  background: #f1f7ff;
-}
+/* ... */
 
-/* --------------------------
-     BOTONES DE ACCIONES
-  --------------------------- */
-.enlinea {
-  display: inline-block;
-}
-
-.enlinea input[type="submit"] {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px !important;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 14px;
-}
-
-.enlinea input[type="submit"]:hover {
-  background: #0056c1;
-}
-
-/* Boton modificar */
-/* Tamaño del ícono */
-.svg_lite {
-  width: 22px;
-  height: 22px;
-  display: block; /* Evita espacios extra */
-  pointer-events: none; /* Evita problemas al hacer clic */
-}
-
-/* Botón estilo icon-button moderno */
-.submit-buttom {
+.submit-button,
+.btnVerInstructor,
+.btnModificarInstructor {
   background: none;
   border: none;
-  padding: 6px;
   cursor: pointer;
-  border-radius: 10px !important; /* Suave, moderno */
-  display: flex; /* Centra el SVG */
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.15s ease;
+  line-height: 0;
 }
 
-/* Hover moderno */
-.submit-buttom:hover {
-  background: rgba(0, 0, 0, 0.08); /* Fondo suave */
-  transform: translateY(-1px); /* Micro-animación */
+.submit-button:hover,
+.btnVerInstructor:hover,
+.btnModificarInstructor:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Activo (click) */
-.submit-buttom:active {
-  transform: scale(0.95);
+.submit-button img,
+.btnVerInstructor img,
+.btnModificarInstructor img,
+.svg_lite {
+  width: 18px;
+  height: 18px;
+  filter: invert(1) brightness(2);
 }
-
-/* Si quieres que combine con dark mode */
-@media (prefers-color-scheme: dark) {
-  .submit-buttom:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-}
-/* fin boton modificar */
 
 /* --------------------------
      MENSAJES
   --------------------------- */
 .mensaje-exito {
-  background: #d4edda;
-  color: #155724;
+  background: rgba(212, 237, 218, 0.1);
+  color: #4ade80;
+  /* Green 400 */
   padding: 12px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-  border: 1px solid #c3e6cb;
+  border: 1px solid rgba(74, 222, 128, 0.2);
   text-align: center;
-  max-width: 1200px;
+  max-width: 950px;
   width: 100%;
 }
 
 .mensaje-error {
-  background: #f8d7da;
-  color: #721c24;
+  background: rgba(248, 215, 218, 0.1);
+  color: #f87171;
+  /* Red 400 */
   padding: 12px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-  border: 1px solid #f5c6cb;
+  border: 1px solid rgba(248, 113, 113, 0.2);
   text-align: center;
-  max-width: 1200px;
+  max-width: 950px;
   width: 100%;
 }
 
@@ -184,37 +149,55 @@ tr:hover {
 .acciones-superiores {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 1200px;
+  max-width: 950px;
   width: 100%;
 }
 
-.btn-secondary {
-  padding: 12px 20px;
-  border: none;
-  background: #6c757d;
+.btn-primary {
+  background-color: var(--accent, #007bff);
   color: white;
-  font-size: 16px;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #0056c1;
+  transform: translateY(-1px);
+}
+
+.btn-primary img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+.btn-secondary {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 14px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .btn-secondary:hover {
-  background: #5a6268;
+  background: var(--border);
 }
 
-a.btn-secondary {
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-}
-
-/* --------------------------
-     MODAL - FILAS
-  --------------------------- */
+/* MODAL: Se cargará desde modal.css, aquí no hace falta definirlo si las clases coinciden */
 .fila {
   display: flex;
   gap: 15px;
@@ -230,61 +213,5 @@ a.btn-secondary {
 .fila .campo label {
   margin-bottom: 5px;
   font-weight: 500;
-  color: #333;
-}
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  justify-content: flex-end;
-}
-
-.btn-cancel {
-  padding: 10px 20px;
-  background: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-cancel:hover {
-  background: #5a6268;
-}
-
-/* Botón modificar instructor */
-.btnModificarInstructor {
-  background: none;
-  border: none;
-  padding: 6px;
-  cursor: pointer;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease, transform 0.15s ease;
-  margin-right: 5px;
-}
-
-.btnModificarInstructor:hover {
-  background: rgba(0, 123, 255, 0.1);
-  transform: translateY(-1px);
-}
-
-.submit-button {
-  background: none;
-  border: none;
-  padding: 6px;
-  cursor: pointer;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.submit-button:hover {
-  background: rgba(0, 123, 255, 0.1);
+  color: var(--text);
 }

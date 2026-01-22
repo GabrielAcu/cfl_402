@@ -7,13 +7,16 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;  
+body.main_alumnos_body {
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 100px 30px 30px 30px !important;
+  /* Aumentado a 100px y forzado */
+  min-height: 100vh;
 }
 
 /* --------------------------
@@ -23,6 +26,15 @@ h1,
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: var(--accent, #007bff);
+}
+
+h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* --------------------------
@@ -33,14 +45,16 @@ h2 {
   max-width: 900px;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .search_block {
   width: 100%;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .search_row {
@@ -59,35 +73,44 @@ h2 {
 
 .search_bar {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 12px;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.search_bar:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
 .boton_enviar {
-  padding: 10px 16px;
-  background: #007bff;
+  padding: 10px 18px;
+  background: var(--accent, #007bff);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
   transition: 0.2s;
+  font-weight: 500;
 }
 
 .boton_enviar:hover {
-  background: #0056c1;
-}
-
-.search_line {
-  margin: 15px 0;
+  background-color: #0056c1;
+  /* O darken(var(--accent)) */
+  opacity: 0.9;
 }
 
 /* Selector de filtros */
 #filtros {
   width: 100%;
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
 /* --------------------------
@@ -102,199 +125,189 @@ h2 {
 
 .info_table {
   width: 100%;
-  max-width: 1200px;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 10px;
+  max-width: 950px;
+  /* Reducido de 1200px para comprimir visualmente */
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card-bg);
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  /* Fuente más compacta */
 }
 
 .info_table th,
 .info_table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 8px 4px;
+  /* Aún menos padding */
+  border-bottom: 1px solid var(--border);
   text-align: center;
+  color: var(--text);
+  vertical-align: middle;
+  /* Centrado vertical */
 }
 
 .info_table thead {
-  background: #007bff;
+  background: var(--accent, #007bff);
   color: white;
 }
 
-.info_table tr:hover {
-  background: #f1f7ff;
-  cursor: pointer;
+.info_table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  /* Un poco más chico */
+  letter-spacing: 0.5px;
 }
 
-.td_actions,
-.td_actions3 {
-  /* display: flex; */
+.info_table tr:last-child td {
+  border-bottom: none;
+}
+
+.info_table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+  /* Hover sutil en dark mode */
+}
+
+/* Acciones en tabla - Unificación de clases */
+.acciones_wrapper {
+  display: flex;
   justify-content: center;
   gap: 8px;
+  /* Espacio reducido entre iconos */
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
-.submit-button {
+.text-left {
+  text-align: left !important;
+  padding-left: 15px !important;
+}
+
+/* Reset de margenes de formularios para bajar altura */
+form {
+  margin: 0;
+  padding: 0;
+}
+
+.submit-button,
+.btnVerCurso,
+.btnModificarAlumno {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.submit-button img {
-  width: 22px;
-  height: 22px;
-  opacity: 0.8;
-  transition: 0.2s;
-}
-
-.submit-button:hover img {
-  opacity: 1;
-}
-
-/* Enlace inferior del tfoot */
-.info_table tfoot td {
-  text-align: center;
-  padding: 15px;
-}
-
-.info_table tfoot a {
-  font-weight: bold;
-  text-decoration: none;
-  color: #007bff;
-}
-.info_table tfoot a:hover {
-  text-decoration: underline;
-}
-/* Formularios en línea dentro de acciones */
-.enlinea {
+  padding: 4px;
+  /* Padding chico */
+  border-radius: 4px;
+  /* Un poco menos redondeado para ahorrar espacio */
+  transition: background 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 0;
+  /* Importante para que no herede altura de linea */
 }
 
-/* ----------------------------------------
-   PAGINADO — versión final estética suave
------------------------------------------ */
+.submit-button:hover,
+.btnVerCurso:hover,
+.btnModificarAlumno:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.submit-button img,
+.btnVerCurso img,
+.btnModificarAlumno img,
+.svg_lite {
+  width: 18px;
+  /* Iconos un poco más chicos (eran 20px) */
+  height: 18px;
+}
+
+/* Si el SVG ya tiene color, quitar el filter */
+
+/* PAGINACION */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
-  margin: 25px auto;
+  gap: 8px;
+  margin: 30px auto;
   width: 100%;
   flex-wrap: wrap;
 }
 
-/* Botones generales */
 .pagination a {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 34px;
-  height: 34px;
-  padding: 0 10px;
-
-  background: #ffffff;
-  border: 1px solid #d0d4da;
-  color: #007bff;
-  border-radius: 6px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
   text-decoration: none;
   font-size: 0.9rem;
-
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: all 0.2s;
 }
 
-/* Números */
-.pagination a:not(:has(img)) {
-  padding: 0 12px;
-}
-
-/* Íconos SOLO dentro del paginado */
-.pagination img {
-  width: 16px;
-  height: 16px;
-  opacity: 0.8;
-}
-
-/* Hover suave */
 .pagination a:hover {
-  background: #f1f7ff;
-  border-color: #007bff;
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
-/* Activo */
 .pagination .active {
-  background: #007bff !important;
+  background: var(--accent) !important;
   color: #fff !important;
-  border-color: #007bff;
+  border-color: var(--accent);
+  font-weight: bold;
 }
 
-/* Evitar que el icono se vuelva blanco */
-.pagination .active img {
-  filter: brightness(0) invert(1);
-  opacity: 1;
-}
-
-.svg_lite{
-  height: 32px;
-  width: 22px;
-}
-
+/* Boton Nuevo Alumno */
 .btn-primary {
-  background-color: #007bff;
+  background-color: var(--accent, #007bff);
   color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
   font-size: 14px;
-  margin-bottom: 10px;
-}
-
-
-.btnModificarAlumno{
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.btnModificarAlumno .svg_lite{
-    width: 22px;
-  height: 22px;
-  opacity: 0.8;
-  transition: 0.2s;
-}
-
-.btnModificarAlumno:hover .svg_lite{
-  opacity: 1;
-}
-
-
-
-.eliminados_block{
-  border: 1px solid #b92b37;
-  padding: 5 20px;
-
-  border-radius: 8px;
-}
-
-.eliminados_form{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.eliminados_form h3{
-  color: #b92b37;
-}
-
-.eliminados_form button[type="submit"]{
   display: flex;
   align-items: center;
+  gap: 8px;
+  font-weight: 500;
 }
 
-.eliminados_form img{
-  height: 32px;
-  width: 32px;
+.btn-primary:hover {
+  background-color: #0056c1;
+  transform: translateY(-1px);
+}
+
+.btn-primary img {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  /* Blanco */
+}
+
+/* Bloque Eliminados */
+.eliminados_block {
+  margin-top: 40px;
+  border: 1px solid rgba(185, 43, 55, 0.5);
+  padding: 15px 25px;
+  border-radius: 12px;
+  background: rgba(185, 43, 55, 0.05);
+}
+
+.eliminados_form h3 {
+  color: #ef4444;
+  /* Rojo más brillante para dark mode */
+  margin: 0;
+  font-size: 1rem;
 }

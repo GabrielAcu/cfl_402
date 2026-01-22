@@ -10,3 +10,6 @@ $host = $_SERVER['HTTP_HOST'];
 
 // URL base del proyecto (útil para enlaces)
 define("BASE_URL", $protocol . "://" . $host . "/cfl_402");
+
+// Incluir headers de seguridad globales
+require_once __DIR__ . '/security_headers.php';

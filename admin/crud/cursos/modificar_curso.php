@@ -36,24 +36,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $consulta->execute(); // ejecutar la consulta
         $curso=$consulta->fetch(); // obtener el registro del curso
         if ($curso){ // si el curso existe, mostrar el formulario de modificación con los datos actuales
+            // Asegurar salida
+            $c_id = htmlspecialchars($curso['id_curso']);
+            $c_cod = htmlspecialchars($curso['codigo']);
+            $c_nom = htmlspecialchars($curso['nombre_curso']);
+            $c_desc = htmlspecialchars($curso['descripcion']);
+            $c_cupo = htmlspecialchars($curso['cupo']);
+
             echo "<h2>Modificar curso</h2>
                 <form action='procesar_modificacion_curso.php' method='POST'>
-                <input type='hidden' name='id_curso' value='$curso[id_curso]'>
+                <input type='hidden' name='id_curso' value='$c_id'>
         <div>
             <label for='codigo'>Código</label>
-            <input type='text' name='codigo' id='codigo' placeholder='Código' required value='$curso[codigo]'>
+            <input type='text' name='codigo' id='codigo' placeholder='Código' required value='$c_cod'>
         </div>
         <div>
             <label for='nombre_curso'>Nombre del Curso</label>
-            <input type='text' name='nombre_curso' id='nombre_curso' placeholder='Nombre del Curso' required value= '$curso[nombre_curso]'>
+            <input type='text' name='nombre_curso' id='nombre_curso' placeholder='Nombre del Curso' required value='$c_nom'>
         </div>
         <div>
             <label for='descripcion'>Descripción</label>
-            <input type='text' name='descripcion' id='descripcion' placeholder='Descripción' required value= '$curso[descripcion]'>
+            <input type='text' name='descripcion' id='descripcion' placeholder='Descripción' required value='$c_desc'>
         </div>
         <div>
             <label for='cupo'>Cupo</label>
-            <input type='text' name='cupo' id='cupo' placeholder='Cupo' required value= '$curso[cupo]'>
+            <input type='text' name='cupo' id='cupo' placeholder='Cupo' required value='$c_cupo'>
         </div>";
         
         $instructores=$conexion->query("SELECT nombre, apellido, id_instructor FROM instructores");
@@ -62,10 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for='instructor'>Instructor</label>
             <select name='instructor' id='instructor'>";
         while ($instructor=$instructores->fetch()){
+            $i_id = htmlspecialchars($instructor['id_instructor']);
+            $i_nom = htmlspecialchars($instructor['nombre']);
+            $i_ape = htmlspecialchars($instructor['apellido']);
+            
             if ($instructor["id_instructor"]==$curso["id_instructor"]){
-                echo "<option value='$instructor[id_instructor]' selected>$instructor[apellido],$instructor[nombre]</option>";
+                echo "<option value='$i_id' selected>$i_ape, $i_nom</option>";
             } else {
-                echo "<option value='$instructor[id_instructor]'>$instructor[apellido],$instructor[nombre]</option>";
+                echo "<option value='$i_id'>$i_ape, $i_nom</option>";
             }
         
         }
@@ -77,10 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for='turno'>Turno</label>
             <select name='turno' id='turno'>";
         while ($turno=$turnos->fetch()){
+            $t_id = htmlspecialchars($turno['id_turno']);
+            $t_desc = htmlspecialchars($turno['descripcion']);
+
             if($turno["id_turno"]==$curso["id_turno"]){
-                echo "<option value='$turno[id_turno]' selected>$turno[descripcion]</option>";
+                echo "<option value='$t_id' selected>$t_desc</option>";
             } else {
-                echo "<option value='$turno[id_turno]'>$turno[descripcion]</option>";
+                echo "<option value='$t_id'>$t_desc</option>";
             }
         }
         echo "    </select>

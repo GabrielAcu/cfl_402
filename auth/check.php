@@ -28,18 +28,18 @@ function requireLogin() {
         }
 
         // Request normal → redirección
-        header('Location: /cfl_402/index.php');
+        header('Location: ' . BASE_URL . '/index.php');
         exit();
     }
 }
 
 
 function isSuperAdmin() {
-    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 0;
+    return isset($_SESSION['user']) && ($_SESSION['user']['rol'] == 0);
 }
 
 function isAdmin() {
-    return isset($_SESSION['user']['rol']) && $_SESSION['user']['rol'] == 1;
+    return isset($_SESSION['user']) && ($_SESSION['user']['rol'] == 1);
 }
 
 function isInstructor() {
@@ -48,11 +48,22 @@ function isInstructor() {
 
 function idAdminOrInstructor() {
     if (isAdmin() || isSuperAdmin()) {
-        header('Location: /cfl_402/admin');
+        header('Location: ' . BASE_URL . '/admin');
         exit();
     } elseif (isInstructor()) {
-        header('Location: /cfl_402/instructor');
+        header('Location: ' . BASE_URL . '/instructor');
         exit();
     }
 }
 
+function redirectIfLoggedIn() {
+    if (isset($_SESSION['user'])) {
+        if (isAdmin() || isSuperAdmin()) {
+            header('Location: ' . BASE_URL . '/admin');
+            exit();
+        } else {
+            header('Location: ' . BASE_URL . '/instructor');
+            exit();
+        }
+    }
+}

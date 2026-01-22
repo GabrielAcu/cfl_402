@@ -11,7 +11,7 @@ require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
 if (!isAdmin() && !isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 

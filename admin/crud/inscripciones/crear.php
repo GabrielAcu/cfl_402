@@ -84,7 +84,8 @@ try {
     }
 } catch (Exception $e) {
     // por si hay error en la BD
-    die("Error al insertar: " . $e->getMessage());
+    error_log("Error DB: " . $e->getMessage());
+    die("Error al insertar los datos. Por favor contacte al administrador.");
 }
 
 // Si llegamos acá, la inserción fue OK.

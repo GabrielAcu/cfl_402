@@ -5,14 +5,14 @@ require_once __DIR__ . '/../config/path.php';
 // 2. Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
-require_once BASE_PATH . '/include/header.php';
+// (Header moved to body) -> Cleaned
 
 // 3. Autenticación general
 requireLogin();
 
 // Si no es admin ni superadmin, afuera del panel
 if (!isAdmin() && !isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 
@@ -29,11 +29,12 @@ $panelClass = isSuperAdmin() ? 'superadmin' : (isAdmin() ? 'admin' : 'instructor
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración - CFL402</title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/panel.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/panel.css?v=2.1">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css?v=2.1">
 </head>
 
-<body class="hide-crud-links light">
+<body class="hide-crud-links">
+<?php require_once BASE_PATH . '/include/header.php'; ?>
 <h1>Panel de Administración</h1>
 
 <main>

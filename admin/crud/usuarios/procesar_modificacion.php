@@ -24,6 +24,7 @@ if (!isSuperAdmin()) {
         $id_usuario = $_POST['id']; // obtener el id_usuario enviado desde el formulario
         $nombre = $_POST['nombre']; // obtener los demás datos enviados desde el formulario
         $contrasenia = $_POST['contrasenia'] ?? '';
+        $confcontrasenia = $_POST['contrasenia-conf'] ?? ''; // <-- FIX: Retrieve confirmation password
         $rol = $_POST['rol'];
         $roles =[0,1,2];
         
@@ -82,7 +83,8 @@ if (!isSuperAdmin()) {
             ]); 
         }
         } catch (Exception $e) {
-            echo "<p class='error'>Error al modificar el alumno: " . $e->getMessage() . "</p>";
+            error_log("Error DB: " . $e->getMessage());
+            echo "<p class='error'>Error al modificar el usuario. Por favor contacte al administrador.</p>";
         }
     } else {
         echo "<p class='error'>Solicitud inválida.</p>"; // mensaje de error si no es método POST

@@ -2,3 +2,7 @@
 /vendor/
 /logs/
 *.log
+
+# Ignore all markdown documentation
+*.md
+!README.md

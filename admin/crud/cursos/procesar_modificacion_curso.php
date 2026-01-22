@@ -54,7 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<a href='index.php'>Volver al Listado de cursos</a>"; // enlace para volver al listado
         }
         } catch (Exception $e) {
-            echo "<p class='error'>Error al modificar el curso: " . $e->getMessage() . "</p>"; 
+            error_log("Error DB: " . $e->getMessage());
+            echo "<p class='error'>Error al modificar el curso. Por favor contacte al administrador.</p>"; 
         }
     } else {
         echo "<p class='error'>Solicitud inválida.</p>"; // mensaje de error si no es método POST

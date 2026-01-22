@@ -13,9 +13,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 require_once BASE_PATH . '/config/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../../index.php');
-    exit();
+    header("Location: listar_contactos.php");
+    exit;
 }
+
+requireCSRFToken();
 
 // Validar CSRF
 requireCSRFToken();
@@ -45,6 +47,13 @@ $confirmar_vincular = isset($_POST['confirmar_vincular']) && $_POST['confirmar_v
 // Validación básica
 if (empty($entidad_id) || empty($tipo)) {
     $_SESSION['mensaje'] = "Error: Faltan datos de la entidad.";
+    header('Location: listar_contactos.php');
+    exit();
+}
+
+// Validar Email
+if (!empty($correo) && !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['mensaje'] = "Error: Email inválido.";
     header('Location: listar_contactos.php');
     exit();
 }
@@ -168,11 +177,8 @@ try {
     exit();
 
 } catch(PDOException $e) {
-    if ($e->getCode() == 23000) { 
-        $_SESSION['mensaje'] = "Error: " . $e->getMessage();
-    } else {
-        $_SESSION['mensaje'] = "Error de base de datos: " . $e->getMessage();
-    }
+    error_log("Error DB: " . $e->getMessage()); // Log all PDO exceptions
+    $_SESSION['mensaje'] = "Error al procesar la solicitud."; // Generic message for all PDO exceptions
 
     $_SESSION['id_entidad_temp'] = $entidad_id;
     $_SESSION['tipo_temp']       = $tipo;

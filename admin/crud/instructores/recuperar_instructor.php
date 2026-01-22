@@ -20,6 +20,7 @@ $conn = conectar();
 
 // Procesar recuperación si viene ID
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_instructor"])) {
+    requireCSRFToken();
     $id_instructor = filter_var($_POST["id_instructor"], FILTER_VALIDATE_INT);
     
     if (!$id_instructor) {

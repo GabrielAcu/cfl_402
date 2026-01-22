@@ -1,137 +1,172 @@
-/* Fondo oscuro */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  padding-top: 60px;
-}
+/* ===============================
+   CONTENEDOR DEL MODAL (FONDO)
+   =============================== */
+.modal,
 .modal2 {
   display: none;
+  /* Oculto por defecto */
   position: fixed;
   z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   padding-top: 60px;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Caja del modal */
+/* ===============================
+     CAJA DEL MODAL
+     =============================== */
 .modal-content {
-  background: #fff;
+  background: #1e293b !important;
+  /* Slate 800 */
+  color: var(--text, #e2e8f0);
   margin: auto;
-  padding: 25px 30px;
-  border-radius: 14px;
-  height: 90%;
+  padding: 30px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 700px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.25s ease;
-  overflow-y: scroll;
+  max-width: 600px;
+  max-height: 90vh;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border, #334155);
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
-label {
-  width: 100%;
-}
-
-/* Animación */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Botón cerrar */
+/* ===============================
+     BOTÓN DE CIERRE
+     =============================== */
 .cerrar {
   float: right;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  color: var(--text);
+  line-height: 1;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
 }
 
 .cerrar:hover {
-  color: #007bff;
+  color: var(--accent, #3b82f6);
 }
 
-/* Títulos */
+/* ===============================
+     TÍTULO DEL MODAL
+     =============================== */
 .modal-content h2 {
-  margin-bottom: 20px;
-  color: #007bff;
+  margin-bottom: 25px;
+  color: var(--accent, #3b82f6);
+  font-weight: 600;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
 }
 
-/* Inputs */
-.modal-content form div {
-  margin-bottom: 15px;
+/* ===============================
+     ELEMENTOS GRID (Detalles)
+     =============================== */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
+.detalle-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  /* Slate 500 */
+  margin-bottom: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detalle-valor {
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+/* ===============================
+     CAMPOS FORMULARIO (Si aplica)
+     =============================== */
 .modal-content input,
 .modal-content select,
 .modal-content textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #bbb;
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
   border-radius: 8px;
   font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
 }
 
 .modal-content input:focus,
-.modal-content select:focus {
-  border-color: #007bff;
+.modal-content select:focus,
+.modal-content textarea:focus {
+  border-color: var(--accent);
   outline: none;
 }
 
-/* Botón guardar */
-.btn-submit {
-  margin-top: 15px;
-  width: 100%;
-  background: #007bff;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.btn-submit:hover {
-  background: #005fcc;
-}
-
-/* Botón principal */
+/* ===============================
+     BOTONES
+     =============================== */
+.btn-submit,
 .btn-primary {
-  padding: 12px 20px;
-  border: none;
-  background: #007bff;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: #005fcc;
-}
-
-/* Botón guardar */
-.btn-cancel {
-  margin-top: 15px;
   width: 100%;
-  background: #f0f0f0;
-  color: rgb(4, 4, 4);
+  margin-top: 20px;
+  background: var(--accent, #3b82f6);
+  color: white;
   padding: 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   font-size: 16px;
+  font-weight: 500;
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  background: #6c757d;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

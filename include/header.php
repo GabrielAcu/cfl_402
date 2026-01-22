@@ -20,8 +20,9 @@ if (!headers_sent()) {
     <div class="right-section">
       <!-- Botón menú hamburguesa -->
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
-      <button id="toggleTheme" class="theme-btn">🌙</button>
-
+      
+      <!-- Toggle Tema Moderno -->
+      <button id="toggleTheme" class="theme-btn" aria-label="Cambiar tema">🌙</button>
 
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
@@ -32,22 +33,16 @@ if (!headers_sent()) {
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/cursos/index.php">Cursos</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/usuarios/index.php">Usuarios</a></li>
           <li><a href="<?= BASE_URL ?>/auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
-          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/horarios/index.php">Horarios</a></li> -->
-          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/inscripciones/index.php">Inscripciones</a></li> -->
         </ul>
       </nav>
-
-      <!-- Bienvenida -->
     </div>
 
   </div>
 </header>
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css">
 
-<script src="<?= BASE_URL ?>/assets/js/tema.js" defer></script>
+<!-- CSS Global y JS -->
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=2.0">
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css?v=2.0">
 
-
-
-<!-- Enlaces CSS y JS -->
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
-<script src="<?= BASE_URL ?>/assets/js/header.js" defer></script>
+<script src="<?= BASE_URL ?>/assets/js/tema.js?v=2.0" defer></script>
+<script src="<?= BASE_URL ?>/assets/js/header.js?v=2.0" defer></script>

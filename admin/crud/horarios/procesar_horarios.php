@@ -55,7 +55,8 @@ $conn = conectar();
                 <input type='submit' value='Volver al Listado de Horarios'>
                 </form>";
         }catch (Exception $e) {
-            echo "<p class='error'>Error al modificar el horario: " . $e->getMessage() . "</p>";
+            error_log("Error DB: " . $e->getMessage());
+            echo "<p class='error'>Error al modificar el horario. Por favor contacte al administrador.</p>";
         }
     };
     ?>

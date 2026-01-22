@@ -266,5 +266,4 @@ echo"
 <script src="delete.js"></script>
 
 <script src="modal_nuevo.js"></script>
-<script src="modal_detalles.js"> </script>
-<script src="carteles.js"></script>
+<script src="modal_editar.js"></script>

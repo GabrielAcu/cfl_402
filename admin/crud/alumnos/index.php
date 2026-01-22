@@ -6,7 +6,8 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
 require_once BASE_PATH . '/config/csrf.php';
-require_once BASE_PATH . '/include/header.php';
+require_once BASE_PATH . '/config/csrf.php';
+// Header moved to body
 require_once 'layouts.php';
 
 // Autenticación
@@ -27,11 +28,16 @@ $conn = conectar();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="modal.css">
-    <link rel="stylesheet" href="alumnos2.css">
+    <title>Alumnos - CFL 402</title>
+    
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.2">
+    <!-- CSS Específicos -->
+    <link rel="stylesheet" href="modal.css?v=3.2">
+    <link rel="stylesheet" href="alumnos2.css?v=3.2">
 </head>
-<body class="light">
+<body class="main_alumnos_body">
+    <?php require_once BASE_PATH . '/include/header.php'; ?>
     <h1>Alumnos</h1>
 
     <div class="search_container">
@@ -133,13 +139,9 @@ if ($consulta->rowCount() > 0) {
         <thead>
             <tr class='table_header'>
                 <th>Ver</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Fecha Nac.</th>
+                <th>Alumno</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
-                <th>Correo</th>
                 <th>Datos Extra</th>
                 <th>Acciones</th>
             </tr>
@@ -151,16 +153,12 @@ if ($consulta->rowCount() > 0) {
     <tr>
         <td> 
             <button class="btnVerCurso" data-id="<?= $registro['id_alumno'] ?>">
-                <img class="svg_lite" src="/cfl_402/assets/svg/blue_search.svg" title="Modificar">
+                <img class="svg_lite" src="/cfl_402/assets/svg/eye.svg" title="Ver Detalles">
             </button>
         </td>
-        <td><?= $registro['nombre'] ?></td>
-        <td><?= $registro['apellido'] ?></td>
-        <td><?= $registro['dni'] ?></td>
-        <td><?= $registro['fecha_nacimiento'] ?></td>
+        <td class="text-left"><strong><?= $registro['apellido'] ?></strong>, <?= $registro['nombre'] ?></td>
         <td><?= $registro['telefono'] ?></td>
         <td><?= $registro['direccion'] ?></td>
-        <td><?= $registro['correo'] ?></td>
 
         <td class="td_actions">
             <div class="acciones_wrapper">
@@ -169,41 +167,42 @@ if ($consulta->rowCount() > 0) {
                     <input type="hidden" name="id_entidad" value="<?= $registro['id_alumno'] ?>">
                     <input type="hidden" name="tipo" value="alumno">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/contact.svg" title="Contactos">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/contact-card.svg" title="Gestionar Contactos">
                     </button>
                 </form>
 
                 <form action="/cfl_402/admin/crud/cursos/index.php" method="POST" class="enlinea">
                     <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/book.svg" title="Cursos">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/graduation-cap.svg" title="Historial Académico">
                     </button>
                 </form>
             </div>
         </td>
 
         <td class="td_actions2">
-
-            <button class="btnModificarAlumno" data-id="<?= $registro['id_alumno'] ?>">
-                <img class="svg_lite" src="/cfl_402/assets/svg/pencil.svg" title="Modificar">
-            </button>
-
-            <form action="../alumnos/bajar.php" method="POST" class="enlinea confirm-delete">
-                <?= getCSRFTokenField() ?>
-                <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/trash.svg" title="Eliminar">
+            <div class="acciones_wrapper">
+                <button class="btnModificarAlumno" data-id="<?= $registro['id_alumno'] ?>">
+                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Modificar Datos">
                 </button>
-            </form>
 
-            <form action="../inscripciones/index.php" method="POST" class="enlinea">
-                <input type="hidden" name="tipo" value="alumno">
-                <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
-                <input type="hidden" name="volver" value="alumnos">
-                <button type="submit" class="submit-button">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus.svg" title="Inscribir a un curso">
-                </button>
-            </form>
+                <form action="../alumnos/bajar.php" method="POST" class="enlinea confirm-delete">
+                    <?= getCSRFTokenField() ?>
+                    <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
+                    <button type="submit" class="submit-button">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Dar de Baja">
+                    </button>
+                </form>
+
+                <form action="../inscripciones/index.php" method="POST" class="enlinea">
+                    <input type="hidden" name="tipo" value="alumno">
+                    <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
+                    <input type="hidden" name="volver" value="alumnos">
+                    <button type="submit" class="submit-button">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/user-plus.svg" title="Inscribir en Curso">
+                    </button>
+                </form>
+            </div>
         </td>
     </tr>
     
@@ -278,6 +277,7 @@ echo"
 <script src="modal_nuevo.js"></script>
 <script src="modal_detalles.js"> </script>
 <script src="modal_ver.js"></script>
+<script src="modal_editar.js"></script>
 
     
     </body>

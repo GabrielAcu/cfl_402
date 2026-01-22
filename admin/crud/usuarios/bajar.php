@@ -13,7 +13,7 @@ require_once 'layouts.php';
 requireLogin();
 
 if (!isSuperAdmin()) {
-    header('Location: /cfl_402/index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit();
 }
 

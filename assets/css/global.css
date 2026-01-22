@@ -1,53 +1,60 @@
 /* ===== TEMAS ===== */
 
 :root {
+  /* Paleta Oscura (Default) */
+  --bg: #0f172a;
+  /* Slate 900 - Más rico que negro puro */
+  --text: #e2e8f0;
+  /* Slate 200 */
+  --card-bg: #1e293b;
+  /* Slate 800 */
+  --border: #334155;
+  /* Slate 700 */
+  --accent: #3b82f6;
+  /* Blue 500 */
+}
+
+/* Modo Claro (Opcional, activado por clase) */
+body.light-mode {
   --bg: #ffffff;
   --text: #1a1a1a;
   --card-bg: #f5f5f5;
   --border: #dcdcdc;
 }
 
-body.dark {
-  --bg: #121212;
-  --text: #e5e5e5;
-  --card-bg: #1e1e1e;
-  --border: #333333;
+/* Tablas en modo oscuro (Default) */
+table tr {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
 
-  table tr{
-    background-color: #121212;
-    color: aliceblue;
-    border: 1px solid white;
-  }
-  table tr:hover{
-    color: #121212;
-  }
+table tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
 
-  .search_block{
-    background-color:#121212 ;
-    border: 1px solid #ffffff;
-    
-  }
+.search_block {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+}
 
-  .eliminados_form{
-    
-  }
-
-  .submit-button{
-    background-color: none !important;
-    border-color: none;
-  }
-
-
+.submit-button {
+  background-color: transparent !important;
+  border-color: transparent;
 }
 
 /* APLICACIÓN GLOBAL */
 body {
-  background-color: var(--bg) !important;
+  background: var(--bg);
+  /* Fallback */
+  background: linear-gradient(to bottom right, var(--bg), #020617);
+  /* Gradiente sutil */
   color: var(--text) !important;
   transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
 }
 
-.main_alumnos{
+.main_alumnos {
   background: none;
 }
 

@@ -47,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($e->errorInfo[1]==1451){ // código de error para restricción de clave foránea
                 echo "<p class='error'>No se puede eliminar el curso porque está inscripto en curso/s.</p>";
             }else{ // otro error
-            echo "<p class='error'>Error al eliminar el curso: ".$e->getMessage()."</p>";
+            error_log("Error DB: " . $e->getMessage());
+            echo "<p class='error'>Error al eliminar el curso. Por favor contacte al administrador.</p>";
             }
         }
     } else { // si no es método POST, mostrar mensaje de error

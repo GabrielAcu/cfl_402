@@ -33,16 +33,24 @@ $conn = conectar();
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     
     // Datos del formulario
-    $codigo         = $_POST["codigo"];
-    $nombre_curso   = $_POST["nombre_curso"];
-    $descripcion    = $_POST["descripcion"];
-    $cupo           = $_POST["cupo"];
+    // Datos del formulario
+    $codigo         = trim($_POST["codigo"]);
+    $nombre_curso   = trim($_POST["nombre_curso"]);
+    $descripcion    = trim($_POST["descripcion"]);
+    $cupo           = trim($_POST["cupo"]);
     $id_instructor  = $_POST["instructor"];
     $id_turno       = $_POST["turno"];
 
     // 🔵 Nuevos campos:
     $fecha_inicio   = $_POST["fecha_inicio"];
     $fecha_fin      = $_POST["fecha_fin"];
+
+    // Validaciones
+    if (empty($codigo)) die("Error: Código requerido");
+    if (empty($nombre_curso)) die("Error: Nombre requerido");
+    if (!is_numeric($cupo) || $cupo < 1) die("Error: Cupo debe ser un número positivo");
+    if (!is_numeric($id_instructor) || $id_instructor < 1) die("Error: Instructor inválido");
+    if (!is_numeric($id_turno) || $id_turno < 1) die("Error: Turno inválido");
 
     // ✔ Validación básica de fechas
     if ($fecha_inicio > $fecha_fin) {
@@ -80,7 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($e->getCode() == 23000) {
             echo "<p class='error'>No se pudo registrar porque repitió el código del curso.</p>";
         } else {
-            echo "Ocurrió un error al insertar los datos: " . $e->getMessage();
+            error_log("Error DB: " . $e->getMessage());
+            echo "Ocurrió un error al insertar los datos. Por favor contacte al administrador.";
         }
     }
 

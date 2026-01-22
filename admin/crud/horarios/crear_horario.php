@@ -74,7 +74,8 @@ $conn = conectar();
                 </form>";
             // <a href='index.php?id_curso=$id_curso'>Volver al Listado de Horarios</a>";
         } catch (PDOException $e) {
-            echo "Ocurrió un error al insertar los datos: ". $e->getMessage();
+            error_log("Error DB: " . $e->getMessage());
+            echo "Ocurrió un error al insertar los datos. Por favor contacte al administrador.";
         }
     } else {
         // echo "<h1 class='error'>Aha pillín!!!</h1>";
