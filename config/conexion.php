@@ -1,5 +1,10 @@
 <?php
-require_once 'env.php';
+// Cargar variables de entorno locales si existen (Dev)
+// En producción (Railway), las variables vienen del servidor, y este archivo no existe (está en .gitignore)
+$envFile = __DIR__ . '/env.php';
+if (file_exists($envFile)) {
+    require_once $envFile;
+}
 function conectar(){
     $servidor = getenv("DB_HOST");
     $nombreBaseDeDatos = getenv("DB_NAME");
