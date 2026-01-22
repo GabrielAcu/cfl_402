@@ -1,4 +1,5 @@
 <?php 
+ob_start(); // Iniciar buffer de salida para evitar errores de headers
 session_start();
 require_once __DIR__ . '/config/path.php';
 require_once BASE_PATH . '/config/security_headers.php';
