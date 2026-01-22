@@ -40,9 +40,22 @@ function conectar(){
         $conexion = new PDO($dsn, $usuario, $contrasena, $opciones);
         return $conexion;
     } catch (PDOException $e) {
-        // En producción no mostrar errores detallados, pero para debug inicial puede servir
-        // echo "Error de conexión: " . $e->getMessage();
-        die("Error de conexión a la Base de Datos. Verifique sus variables de entorno.");
+        // TEMPORAL: Mostrar error detallado para debugging en Railway
+        $errorMsg = "<h2>Error de Conexión a Base de Datos</h2>";
+        $errorMsg .= "<p><strong>Mensaje de error:</strong> " . htmlspecialchars($e->getMessage()) . "</p>";
+        $errorMsg .= "<h3>Variables de entorno:</h3>";
+        $errorMsg .= "<pre>";
+        $errorMsg .= "MYSQL_URL: " . (getenv("MYSQL_URL") ? "✅ Configurada" : "❌ NO configurada") . "\n";
+        $errorMsg .= "DATABASE_URL: " . (getenv("DATABASE_URL") ? "✅ Configurada" : "❌ NO configurada") . "\n";
+        $errorMsg .= "DB_HOST: " . (getenv("DB_HOST") ?: "NO configurada") . "\n";
+        $errorMsg .= "DB_NAME: " . (getenv("DB_NAME") ?: "NO configurada") . "\n";
+        $errorMsg .= "DB_USER: " . (getenv("DB_USER") ?: "NO configurada") . "\n";
+        $errorMsg .= "DB_PASS: " . (getenv("DB_PASS") ? "***existe***" : "NO configurada") . "\n";
+        $errorMsg .= "\nDSN usado: " . htmlspecialchars($dsn) . "\n";
+        $errorMsg .= "Usuario usado: " . htmlspecialchars($usuario) . "\n";
+        $errorMsg .= "</pre>";
+        $errorMsg .= "<p><em>Este mensaje detallado es temporal para debugging. Será removido después.</em></p>";
+        die($errorMsg);
     }
 }
 ?>
