@@ -2,8 +2,10 @@
 // Ruta absoluta del proyecto
 define("BASE_PATH", realpath(__DIR__ . "/.."));
 
-// Detectar el protocolo de forma segura
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+// Detectar el protocolo de forma segura (soporte para proxies/Railway)
+$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
+             (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) 
+            ? "https" : "http";
 
 // Host actual
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
