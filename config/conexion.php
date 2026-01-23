@@ -11,11 +11,16 @@ function conectar(){
     $usuario = getenv("DB_USER");
     $contrasena = getenv("DB_PASS");
 
-    // Intentar leer variables individuales primero
-    $servidor = getenv("DB_HOST");
-    $nombreBaseDeDatos = getenv("DB_NAME");
-    $usuario = getenv("DB_USER");
-    $contrasena = getenv("DB_PASS");
+    // Intentar leer variables individuales primero (Estándar o Railway)
+    $servidor = getenv("DB_HOST") ?: getenv("MYSQLHOST");
+    $nombreBaseDeDatos = getenv("DB_NAME") ?: getenv("MYSQLDATABASE");
+    $usuario = getenv("DB_USER") ?: getenv("MYSQLUSER");
+    $contrasena = getenv("DB_PASS") ?: getenv("MYSQLPASSWORD");
+    $puerto = getenv("DB_PORT") ?: getenv("MYSQLPORT");
+
+    if ($puerto && $servidor) {
+        $servidor = "$servidor:$puerto";
+    }
 
     // Si no están, buscar una URL de conexión (Típico de Railway/Heroku)
     // Ejemplo: mysql://usuario:pass@host:port/nombre_db
