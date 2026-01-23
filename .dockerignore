@@ -1,0 +1,9 @@
+.git
+.gitignore
+.env
+config/env.php
+vendor/
+node_modules/
+tests/
+*.md
+*.sql

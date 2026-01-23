@@ -5,10 +5,16 @@ require_once dirname(__DIR__, 3) . '/config/path.php';
 // Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 require_once BASE_PATH . '/include/header.php';
 
 // Seguridad
 requireLogin();
+
+// Validar CSRF
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    requireCSRFToken();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +47,8 @@ requireLogin();
             if ($e->errorInfo[1]==1451){ // código de error para restricción de clave foránea
                 echo "<p class='error'>No se puede eliminar el curso porque está inscripto en curso/s.</p>";
             }else{ // otro error
-            echo "<p class='error'>Error al eliminar el curso: ".$e->getMessage()."</p>";
+            error_log("Error DB: " . $e->getMessage());
+            echo "<p class='error'>Error al eliminar el curso. Por favor contacte al administrador.</p>";
             }
         }
     } else { // si no es método POST, mostrar mensaje de error

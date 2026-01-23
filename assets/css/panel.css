@@ -1,26 +1,30 @@
 /* ====== ESTILOS GENERALES ====== */
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
 }
 
 /* ====== HEADER ====== */
 header {
-  background: #0077cc;
-  color: white;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
   text-align: center;
   padding: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent, #007bff);
 }
 
 /* ====== ESPACIADO Y ESTRUCTURA ====== */
 body.hide-crud-links {
-  padding-top: 80px; /* espacio para el header fijo */
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -31,122 +35,150 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 20px 20px;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 /* ====== TÍTULO PRINCIPAL ====== */
 h1 {
   text-align: center;
-  margin-bottom: 5px;
-  font-size: 2rem;
-  color: #004b8d;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent, #007bff) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* ====== PANEL PRINCIPAL ====== */
 .panel-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* más grandes */
-  gap: 20px; /* más separación */
-  width: 90%;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1100px;
+  gap: 30px;
+  margin: 0 auto;
 }
 
-/* ====== TARJETAS ====== */
+/* Layout por roles */
+.panel-container.superadmin {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.panel-container.admin,
+.panel-container.instructor {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* ====== TARJETAS MODERNAS ====== */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* mantiene proporciones */
-  background: #fff;
-  border-radius: 16px;
-  padding: 36px;
+  justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
   text-decoration: none;
-  color: #222;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-  transition: all 0.25s ease;
-  min-height: 220px; /* asegura altura uniforme */
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  min-height: 240px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+/* Gradiente sutil al fondo para dar profundidad */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
 }
 
 .card h2 {
-  font-size: 22px;
-  color: #007bff;
-  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: var(--accent, #007bff);
+  z-index: 1;
 }
 
 .card p {
-  color: #555;
-  font-size: 16px;
-  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.7;
+  font-size: 1rem;
+  line-height: 1.6;
   margin: 0;
-  flex-grow: 1;
+  z-index: 1;
+}
+
+/* Efectos Hover */
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--accent, #007bff);
+  box-shadow: 0 20px 40px -10px rgba(0, 123, 255, 0.3);
+}
+
+.card:hover h2 {
+  color: var(--text);
+  /* Cambia el título al color de texto principal */
+}
+
+/* Fondo de tarjeta animado en hover (Gradiente Full) */
+.card:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent, #007bff), #00d2ff);
+  opacity: 0.1;
+  z-index: 0;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Iconos decorativos grandes (opcional si se agregan en HTML después) */
+.card h2::before {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+  opacity: 0.8;
 }
 
 /* ====== FOOTER ====== */
 footer {
   text-align: center;
-  background: #f0f0f0;
-  color: #555;
-  padding: 1rem;
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 2rem;
   font-size: 0.9rem;
-  width: 100%;
-  position: relative;
-  bottom: 0;
+  border-top: 1px solid var(--border);
+  opacity: 0.7;
 }
 
 /* ====== RESPONSIVE ====== */
-
-/* 📱 Celulares */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-  }
-
+@media (max-width: 768px) {
   .panel-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: 1fr !important;
+    padding: 0 20px;
   }
 
   .card {
-    padding: 32px 24px;
-    border-radius: 18px;
-    background: linear-gradient(145deg, #ffffff, #f0f4f8);
-    text-align: center;
     min-height: 200px;
-  }
-
-  .card h2 {
-    font-size: 20px;
-    color: #0066cc;
-    margin-bottom: 10px;
-  }
-
-  .card p {
-    font-size: 15px;
-    line-height: 1.6;
+    padding: 30px;
   }
 }
 
-/* 💻 Tablets */
-@media (min-width: 768px) and (max-width: 1200px) {
-  .panel-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  .card {
-    padding: 32px;
-  }
-}
-
-/* 🖥️ Escritorio grande */
-@media (min-width: 1201px) {
-  .panel-container {
-    grid-template-columns: repeat(3, 1fr);
+  to {
+    opacity: 0.1;
   }
 }

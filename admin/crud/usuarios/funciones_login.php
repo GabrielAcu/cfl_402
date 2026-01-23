@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 
+if (!isSuperAdmin()) {
+    header('Location: /cfl_402/index.php');
+    exit();
+}
+
 /**
  * Verifica usuario y contraseña en la base de datos.
  * Retorna:
@@ -20,8 +25,8 @@ function verificarUsuario(string $usuario, string $password): int|false
     $stmt->execute();
     $usuarioDB = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verificamos credenciales (de momento sin hash)
-    if ($usuarioDB && $usuarioDB['contrasenia'] === $password) {
+    // Verificamos credenciales usando password_verify()
+    if ($usuarioDB && password_verify($password, $usuarioDB['contrasenia'])) {
         return (int)$usuarioDB['rol'];
     }
 

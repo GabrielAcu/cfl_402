@@ -1,6 +1,11 @@
 <?php
 // header.php — Header general del sistema CFL_402
 // Se incluye en todos los index de los CRUD y admin
+
+// Asegurar que los headers de seguridad estén establecidos
+if (!headers_sent()) {
+    require_once __DIR__ . '/../config/security_headers.php';
+}
 ?>
 
 <header class="main-header">
@@ -15,6 +20,9 @@
     <div class="right-section">
       <!-- Botón menú hamburguesa -->
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+      
+      <!-- Toggle Tema Moderno -->
+      <button id="toggleTheme" class="theme-btn" aria-label="Cambiar tema">🌙</button>
 
       <!-- Menú principal -->
       <nav class="main-nav" id="main-nav">
@@ -23,23 +31,19 @@
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/alumnos/index.php">Alumnos</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/instructores/index.php">Instructores</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/cursos/index.php">Cursos</a></li>
+          <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/planillas/index.php">Planillas</a></li>
           <li class="crud-link"><a href="<?= BASE_URL ?>/admin/crud/usuarios/index.php">Usuarios</a></li>
           <li><a href="<?= BASE_URL ?>/auth/logout.php" class="btn-logout">Cerrar sesión</a></li>
-          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/horarios/index.php">Horarios</a></li> -->
-          <!-- <li class="crud-link"><a href="<?= BASE_URL ?>/crud/inscripciones/index.php">Inscripciones</a></li> -->
         </ul>
       </nav>
-
-      <!-- Bienvenida -->
     </div>
 
   </div>
 </header>
 
+<!-- CSS Global y JS -->
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=2.0">
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css?v=2.0">
 
-
-
-
-<!-- Enlaces CSS y JS -->
-<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/header.css">
-<script src="<?= BASE_URL ?>/assets/js/header.js" defer></script>
+<script src="<?= BASE_URL ?>/assets/js/tema.js?v=2.0" defer></script>
+<script src="<?= BASE_URL ?>/assets/js/header.js?v=2.0" defer></script>

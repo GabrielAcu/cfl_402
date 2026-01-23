@@ -1,0 +1,126 @@
+/* Fondo oscuro */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  /* Efecto difuminado moderno */
+  padding-top: 60px;
+  align-items: center;
+  /* Centrado flex */
+  justify-content: center;
+}
+
+/* Caja del modal */
+.modal-content {
+  background: #1e293b !important;
+  /* Slate 800 forzado */
+  color: var(--text, #e2e8f0);
+  margin: auto;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border, #334155);
+  animation: fadeIn 0.3s ease;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header del Modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border, #334155);
+  padding-bottom: 15px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: var(--accent, #3b82f6);
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+/* Botón cerrar */
+.cerrar {
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text);
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.cerrar:hover {
+  color: var(--accent);
+}
+
+/* GRID LAYOUT para los datos */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detalle-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-label {
+  font-size: 0.85rem;
+  color: #64748b;
+  /* Slate 500 */
+  margin-bottom: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detalle-valor {
+  font-size: 1rem;
+  color: var(--text);
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* Full width para items largos */
+.full-width {
+  grid-column: span 2;
+}
+
+/* Responsive Grid */
+@media (max-width: 600px) {
+  .detalle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+}

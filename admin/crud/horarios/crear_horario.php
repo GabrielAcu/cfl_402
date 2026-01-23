@@ -1,79 +1,46 @@
 <?php
-
 require_once dirname(__DIR__, 3) . '/config/path.php';
-
-// Dependencias
 require_once BASE_PATH . '/config/conexion.php';
 require_once BASE_PATH . '/auth/check.php';
-require_once BASE_PATH . '/include/header.php';
+require_once BASE_PATH . '/config/csrf.php';
 
-// Seguridad
 requireLogin();
+if (!isAdmin() && !isSuperAdmin()) {
+    header('Location: ' . BASE_URL . '/index.php');
+    exit();
+}
 
-// Conexión
-$conn = conectar();
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XX</title>
-</head>
-<body>
-    <!-- <h1>Crear horario</h1>
-    <ul>
-        <li><a href="index.php">Volver al inicio</a></li>
-    </ul> -->
-
-    <?php
-    $id_curso=$_POST["id_curso"];
-    // $id_curso=1;
-   
-    ?>
-    <!-- <form action="crear_horario.php" method= "POST">
-        <input type="hidden" name="id_curso" values="id_curso">
-        <select name="dia_semana" id="dias">
-            <option value="Lunes">Lunes</option>
-            <option value="Martes">Martes</option>
-            <option value="Miércoles">Miercoles</option>
-            <option value="Jueves">Jueves</option>
-            <option value="Viernes">Viernes</option>
-            <option value="Sábado">Sabado</option>
-        </select>
-        <input type="time" name="hora_inicio" placeholpder="hora_inicio">
-        <input type="time" name="hora_fin" placeholpder="hora_fin">
-        <input type="submit">
-    </form>  -->
-
-    <?php
+// Validar Request y CSRF
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    requireCSRFToken();
     
-    if ($_SERVER["REQUEST_METHOD"]=="POST"){
-        $conn=conectar();
-        $dia_semana=$_POST["dia_semana"];
-        $hora_inicio=$_POST["hora_inicio"];
-        $hora_fin=$_POST["hora_fin"];
+    $id_curso = filter_var($_POST["id_curso"] ?? 0, FILTER_VALIDATE_INT);
+    $dia_semana = $_POST["dia_semana"] ?? '';
+    $hora_inicio = $_POST["hora_inicio"] ?? '';
+    $hora_fin = $_POST["hora_fin"] ?? '';
 
+    if ($id_curso && $dia_semana && $hora_inicio && $hora_fin) {
+        $conn = conectar();
         try {
-            $sql="INSERT INTO horarios (id_curso, dia_semana, hora_inicio, hora_fin) 
-            VALUES (:id_curso, :dia_semana, :hora_inicio, :hora_fin)";
-            $consulta=$conn->prepare($sql);
-            $consulta->execute([':id_curso'=>$id_curso,':dia_semana'=>$dia_semana,':hora_inicio'=>$hora_inicio,':hora_fin'=>$hora_fin]);
-            echo "<p class='correcto'>Se registró exitosamente</p>";     
-
-
-            echo "<form action='index.php' method='POST'>
-                <input type='hidden' value='$id_curso' name='id_curso'>
-                <input type='submit' value='Volver al Listado de Horarios'>
-                </form>";
-            // <a href='index.php?id_curso=$id_curso'>Volver al Listado de Horarios</a>";
+            $sql = "INSERT INTO horarios (id_curso, dia_semana, hora_inicio, hora_fin) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$id_curso, $dia_semana, $hora_inicio, $hora_fin]);
+            // Mensaje éxito? Podes usar $_SESSION si queres, o query param
+            $status = "ok";
         } catch (PDOException $e) {
-            echo "Ocurrió un error al insertar los datos: ". $e->getMessage();
+            error_log("Error creando horario: " . $e->getMessage());
+            $status = "error";
         }
     } else {
-        // echo "<h1 class='error'>Aha pillín!!!</h1>";
-        "<p>$_SERVER[REQUEST_METHOD]</p>";
-    }   
-    ?>
-</body>
-</html>
+        $status = "error"; // Faltan datos
+    }
+    
+    // Redirect de vuelta al indice del curso
+    header("Location: index.php?id_curso=$id_curso&$status=1");
+    exit();
+} else {
+    // Si entran por GET, afuera
+    header('Location: ' . BASE_URL . '/admin/crud/cursos/index.php');
+    exit();
+}
+?>

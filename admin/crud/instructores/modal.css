@@ -1,0 +1,198 @@
+/* ===============================
+   CONTENEDOR DEL MODAL (FONDO)
+   =============================== */
+.modal {
+  display: none;
+  /* Oculto por defecto */
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  /* left:0; top:0; right:0; bottom:0 */
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  padding-top: 60px;
+  align-items: center;
+  /* Centrado flex */
+  justify-content: center;
+}
+
+/* ===============================
+     CAJA DEL MODAL
+     =============================== */
+.modal-content {
+  background: #1e293b !important;
+  /* Slate 800 forzado */
+  color: var(--text, #e2e8f0);
+  margin: auto;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  /* Para pantallas chicas */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border, #334155);
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===============================
+     BOTÓN DE CIERRE
+     =============================== */
+.cerrar {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--text);
+  line-height: 1;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+}
+
+.cerrar:hover {
+  color: var(--accent, #3b82f6);
+}
+
+/* ===============================
+     TÍTULO DEL MODAL
+     =============================== */
+/* Se puede usar .modal-header si cambiamos el HTML, o mantener h2 directo */
+.modal-content h2 {
+  margin-bottom: 25px;
+  color: var(--accent, #3b82f6);
+  font-weight: 600;
+  text-align: left;
+  /* Alineado izquierda estilo dashboard */
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+}
+
+/* ===============================
+     CAMPOS DEL FORMULARIO
+     =============================== */
+.modal-content form div {
+  margin-bottom: 15px;
+}
+
+.modal-content .fila {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.modal-content .fila .campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content .fila .campo label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: var(--text);
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  border-color: var(--accent, #3b82f6);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* ===============================
+     BOTONES
+     =============================== */
+.btn-submit {
+  width: 100%;
+  margin-top: 20px;
+  background: var(--accent, #3b82f6);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background: #2563eb;
+  /* Blue 600 */
+}
+
+/* ===============================
+     ANIMACIÓN
+     =============================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===============================
+     DETALLES VER INSTRUCTOR
+     =============================== */
+.detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.detalle-item {
+  background: var(--bg, #0f172a);
+  border: 1px solid var(--border, #334155);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-item.full-width {
+  grid-column: span 2;
+}
+
+.detalle-label {
+  font-size: 0.8rem;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.detalle-valor {
+  font-size: 1rem;
+  color: var(--text, #e2e8f0);
+  font-weight: 500;
+}
+
+.modal-header h2 {
+  margin-top: 0;
+  color: var(--accent, #3b82f6);
+}

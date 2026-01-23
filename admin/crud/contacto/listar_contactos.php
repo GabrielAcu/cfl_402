@@ -2,9 +2,11 @@
 // 1. Configuración y Auth
 require_once dirname(__DIR__, 2) . '/../config/path.php';
 require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
 requireLogin();
 
-if (!isAdmin()) {
+// Si no es admin ni superadmin, afuera del panel
+if (!isAdmin() && !isSuperAdmin()) {
     header('Location: /cfl_402/index.php');
     exit();
 }
@@ -37,15 +39,6 @@ if ($tipo == null || $id_entidad == null) {
     exit();
 }
 
-// 3. MOSTRAR MENSAJES (Si hubo error de DNI o éxito al guardar)
-if (isset($_SESSION['mensaje'])) {
-    $clase_alerta = str_contains($_SESSION['mensaje'], 'Error') ? 'color: red;' : 'color: green;';
-    echo "<div style='padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; $clase_alerta font-weight: bold;'>
-            " . htmlspecialchars($_SESSION['mensaje']) . "
-          </div>";
-    unset($_SESSION['mensaje']); // Borrar mensaje tras mostrarlo
-}
-
 // 4. Preparar Consultas
 $individuo = $tipo . 's';
 $id_individuo = ($individuo == 'instructors') ? 'id_instructor' : 'id_alumno';
@@ -65,60 +58,102 @@ $stmt_entidad->execute([$id_entidad]);
 $datos_entidad = $stmt_entidad->fetch();
 
 $nombre_mostrar = $datos_entidad ? $datos_entidad['nombre'] . ' ' . $datos_entidad['apellido'] : 'Desconocido';
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos - CFL 402</title>
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/global.css?v=3.2">
+    <!-- Reusamos alumnos2.css para la tabla y estilos generales -->
+    <link rel="stylesheet" href="../alumnos/alumnos2.css?v=3.2">
+</head>
+<body class="main_alumnos_body">
+    
+    <?php require_once BASE_PATH . '/include/header.php'; ?>
 
-echo "<h2>Contactos de: {$nombre_mostrar}</h2><hr>";
+    <h1>Contactos de: <?= htmlspecialchars($nombre_mostrar) ?></h1>
 
-// 5. Botón Agregar Nuevo
-echo "
-<form action='form_contacto.php' method='post'>
-    <input type='hidden' name='id_entidad' value='{$id_entidad}'>
-    <input type='hidden' name='tipo' value='{$tipo}'>
-    <input type='submit' value='Agregar Contacto Nuevo'>
-</form>
-<br>
-";
+    <!-- 3. MOSTRAR MENSAJES -->
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div style="max-width: 900px; margin: 0 auto 20px auto; padding: 15px; border-radius: 8px; background: rgba(0,255,0,0.1); color: #4ade80; border: 1px solid #4ade80;">
+            <?= htmlspecialchars($_SESSION['mensaje']) ?>
+        </div>
+        <?php unset($_SESSION['mensaje']); ?>
+    <?php endif; ?>
 
-// 6. Listado de Contactos
-if ($stmt_contactos->rowCount() > 0) {
-    echo "<table border='1' cellpadding='10' style='border-collapse: collapse; width: 100%;'>
+    <div class="search_container">
+        <div class="search_block">
+            <div class="search_row" style="justify-content: flex-end;">
+                <!-- Botón Agregar Nuevo -->
+                <form action="form_contacto.php" method="post" style="margin:0;">
+                    <input type="hidden" name="id_entidad" value="<?= $id_entidad ?>">
+                    <input type="hidden" name="tipo" value="<?= $tipo ?>">
+                    <button class="btn-primary" type="submit">
+                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                        Nuevo Contacto
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <main class="main_alumnos">
+    <?php if ($stmt_contactos->rowCount() > 0): ?>
+        <table class="info_table">
             <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                <tr class="table_header">
+                    <th class="text-left">Nombre Completo</th>
                     <th>Parentesco</th>
                     <th>Teléfono</th>
                     <th>DNI</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>";
+            <tbody>
+            <?php while($registro = $stmt_contactos->fetch()): ?>
+                <tr>
+                    <td class="text-left"><strong><?= htmlspecialchars($registro['nombre']) ?></strong> <?= htmlspecialchars($registro['apellido']) ?></td>
+                    <td><?= htmlspecialchars($registro['parentesco']) ?></td>
+                    <td><?= htmlspecialchars($registro['telefono']) ?></td>            
+                    <td><?= htmlspecialchars($registro['dni']) ?></td>            
+                    <td class="td_actions">
+                        <div class="acciones_wrapper">
+                            <form action="modificar_contacto.php" method="post" class="enlinea">
+                                <?= getCSRFTokenField() ?>
+                                <input type="hidden" name="id_contacto" value="<?= $registro['id_contacto_alumno'] ?>">                            
+                                <button type="submit" class="submit-button">
+                                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Modificar">
+                                </button>
+                            </form>
+                            
+                            <form action="eliminar_contacto.php" method="post" class="enlinea confirm-delete">
+                                <?= getCSRFTokenField() ?>
+                                <input type="hidden" name="id_contacto" value="<?= $registro['id_contacto_alumno'] ?>">                      
+                                <button type="submit" class="submit-button" onclick="return confirm('¿Estás seguro de eliminar este contacto?');">
+                                    <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p style="text-align: center; color: var(--text-muted);">No hay contactos activos registrados para este usuario.</p>
+    <?php endif; ?>
+    </main>
 
-    while($registro = $stmt_contactos->fetch()) {
-        echo "<tr>
-                <td>{$registro['nombre']}</td>
-                <td>{$registro['apellido']}</td>
-                <td>{$registro['parentesco']}</td>
-                <td>{$registro['telefono']}</td>            
-                <td>{$registro['dni']}</td>            
-                <td>
-                    <div style='display:flex; gap:5px;'>
-                        <form action='modificar_contacto.php' method='post'>
-                            <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                            
-                            <input type='submit' value='Modificar'>
-                        </form>
-                        
-                        <form action='eliminar_contacto.php' method='post'>
-                            <input type='hidden' name='id_contacto' value='{$registro['id_contacto_alumno']}'>                      
-                            <input type='submit' value='Eliminar' onclick='return confirm(\"¿Estás seguro de eliminar este contacto?\");'>
-                        </form>
-                    </div>
-                </td>
-              </tr>";
-    }
-    echo "</tbody></table>";
-} else {
-    echo "<p>No hay contactos activos registrados.</p>";
-}
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="../<?= $individuo ?>/index.php" style="color: var(--accent); text-decoration: none; font-weight: bold;">
+            &larr; Volver a la lista de <?= ucfirst($individuo) ?>
+        </a>
+    </div>
 
-echo "<br><br><a href='../{$individuo}/index.php'>&larr; Volver a la lista general</a><br><br>";
-?>
+    <br><br>
+
+</body>
+</html>

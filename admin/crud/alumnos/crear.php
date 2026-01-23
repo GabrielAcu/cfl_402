@@ -1,50 +1,58 @@
 <?php
-
-include_once __DIR__ . '/../../../config/conexion.php';
+// ==========================
+//   CONFIGURACIÓN INICIAL
+// ==========================
+require_once dirname(__DIR__, 3) . '/config/path.php';
+require_once BASE_PATH . '/config/conexion.php';
+require_once BASE_PATH . '/auth/check.php';
+require_once BASE_PATH . '/config/csrf.php';
+require_once BASE_PATH . '/include/header.php';
 require_once 'layouts.php';
+
+// Autenticación
+requireLogin();
+
+// Validar CSRF en POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    requireCSRFToken();
+}
+
+// Conexión
 $conn = conectar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nombre      = $_POST["nombre"] ?? null; 
-    $apellido    = $_POST["apellido"];
-    $dni         = $_POST["dni"];
-    $telefono    = $_POST["telefono"];
-    $correo      = $_POST["email"];
+    // Sanitización
+    $nombre      = trim($_POST["nombre"]); 
+    $apellido    = trim($_POST["apellido"]);
+    $dni         = trim($_POST["dni"]);
+    $telefono    = trim($_POST["telefono"]);
+    $correo      = trim($_POST["email"]);
     $nacimiento  = $_POST["nacimiento"];
-    $domicilio   = $_POST["domicilio"];
-    $localidad   = $_POST["localidad"];
-    $postal      = $_POST["postal"];
-    $autos       = $_POST["autos"];
-    $patente     = $_POST["patente"];
-    $observaciones = $_POST["observaciones"];
+    $domicilio   = trim($_POST["domicilio"]);
+    $localidad   = trim($_POST["localidad"]);
+    $postal      = trim($_POST["postal"]);
+    $autos       = trim($_POST["autos"]);
+    $patente     = trim($_POST["patente"]);
+    $observaciones = htmlspecialchars(trim($_POST["observaciones"]));
     $activo      = "1";
 
-    if (isset($nombre) || $nombre == '') {
-        fallido("Sin Nombre");
-        exit();
-    } elseif (strlen($nombre) > 50) {
-        fallido("El Nombre supera el límite de caractéres");
-    } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre)) { 
-        fallido("El nombre solo puede tener letras y espacios");
-    } elseif (empty($apellido)) {
-        fallido("Sin Apellido");
-    } elseif (strlen($apellido) > 50) {
-        fallido("El Apellido supera el límite de caractéres");
-    } elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $apellido)) { 
-        fallido("El apellido solo puede tener letras y espacios");
-    } elseif (empty($dni)) {
-        fallido("Sin DNI");
-    } elseif (empty($telefono)) {
-        fallido("Sin Télefono");
-    } elseif (empty($correo)) {
-        fallido("Sin Email");
+    if (empty($nombre) || strlen($nombre) > 50 || !preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre)) {
+        fallido("Nombre inválido (solo letras, max 50 caracteres)");
+    } elseif (empty($apellido) || strlen($apellido) > 50 || !preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $apellido)) {
+        fallido("Apellido inválido (solo letras, max 50 caracteres)");
+    } elseif (!ctype_digit($dni) || strlen($dni) < 7 || strlen($dni) > 8) {
+        fallido("DNI inválido (debe tener 7 u 8 números)");
+    } elseif (!preg_match('/^[0-9\-\+\s]+$/', $telefono) || strlen($telefono) < 6) {
+        fallido("Teléfono inválido");
+    } elseif (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        fallido("Email inválido");
     } elseif (empty($nacimiento)) {
         fallido("Sin Fecha de Nacimiento");
     } elseif (empty($domicilio)) {
         fallido("Sin Domicilio");
     } elseif (empty($localidad)) {
-        fallido("El Domicilio no tiene localidad");
+        fallido("Sin Localidad");
     } elseif (empty($postal)) {
         fallido("Sin Código Postal");
     } else {
@@ -80,12 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':observaciones' => $observaciones
             ]);
 
-            echo "
-            <div class='exitoso'>
-                <div class='titulo-exitoso'>Registro Exitoso</div>
-                <div class='motivo'></div>
-            </div>
-            <a href='crud_alumnos.php'>Volver al Listado de Alumnos</a>";
+            header("location: index.php ");
 
         } catch (PDOException $e) {
 
@@ -94,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($e->getCode() == '42S22') {
                 fallido("El campo 'autos' no existe en tu tabla");
             } else {
-                echo "Ocurrió un error al insertar los datos: " . $e->getMessage();
+                error_log("Error DB: " . $e->getMessage());
+                echo "Ocurrió un error al insertar los datos. Por favor contacte al administrador.";
             }
         }
     }
@@ -103,16 +107,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "<h1 class='error'>Aha pillín!!!</h1>"; 
     echo "<p>{$_SERVER['REQUEST_METHOD']}</p>";
 }
-
 ?>
-
-
-
-<?php
-
-    // ':id_instructor' => $_POST['id_instructor']
-    header('Location: index.php');
-    exit;
-
-?>
-
