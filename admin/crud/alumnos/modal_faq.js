@@ -13,8 +13,12 @@ cerrarFAQ.onclick = () => {
 // Cerrar el modal al hacer clic fuera del contenido del modal
 
 window.onclick = (e) => {
+
+  // modalfaq.classList.add("fade-out");    
   if (e.target === modalfaq) {
+
     modalfaq.style.display = "none";
+    // modalfaq.classList.remove("fade-out"), { once: true };
     // modalfaq.style.animation = "fadeOut 1s ease";
   }
 };
