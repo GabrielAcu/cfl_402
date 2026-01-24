@@ -13,6 +13,20 @@ require_once BASE_PATH . '/auth/check.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Sistema CFL 402</title>
   
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cfl402-production.up.railway.app/">
+  <meta property="og:title" content="CFL 402 - Sistema de Gestión Educativa">
+  <meta property="og:description" content="Sistema integral de gestión para el Centro de Formación Laboral 402. Administración de alumnos, instructores, cursos e inscripciones.">
+  <meta property="og:image" content="<?= BASE_URL ?>/assets/images/og-preview.png">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://cfl402-production.up.railway.app/">
+  <meta name="twitter:title" content="CFL 402 - Sistema de Gestión Educativa">
+  <meta name="twitter:description" content="Sistema integral de gestión para el Centro de Formación Laboral 402.">
+  <meta name="twitter:image" content="<?= BASE_URL ?>/assets/images/og-preview.png">
+  
   <!-- CSS Global y Específico -->
   <link rel="stylesheet" href="assets/css/global.css?v=2.0">
   <link rel="stylesheet" href="assets/css/login.css?v=2.0">
