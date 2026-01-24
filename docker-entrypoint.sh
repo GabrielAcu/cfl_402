@@ -34,6 +34,11 @@ sed -i "s/Listen 80/Listen $PORT/g" /etc/apache2/ports.conf
 # Actualizar VirtualHost en 000-default.conf
 sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$PORT>/g" /etc/apache2/sites-available/000-default.conf
 
+# CRÍTICO: Configurar Apache para NO incluir el puerto en redirecciones
+# UseCanonicalName Off hace que Apache use el Host header del cliente
+echo "UseCanonicalName Off" >> /etc/apache2/apache2.conf
+echo "Configuración de redirecciones: UseCanonicalName Off"
+
 echo "Configuración de Apache completada"
 echo "Iniciando Apache en primer plano..."
 
