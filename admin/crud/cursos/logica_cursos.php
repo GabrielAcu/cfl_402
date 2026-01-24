@@ -26,7 +26,7 @@ if (isset($_POST["dato"])){
                     cursos.codigo LIKE :codigo OR
                     turnos.descripcion LIKE :descripcion OR
                     instructores.nombre LIKE :nombre OR
-                    Instructores.apellido LIKE :apellido)";
+                    instructores.apellido LIKE :apellido)";
         $stmt_total=$conn->prepare($texto);
         $stmt_total->execute([":nombre_curso"=>"%$dato%",":codigo"=>"%$dato%",":descripcion"=>"%$dato%",":nombre"=>"%$dato%",":apellido"=>"%$dato%"]);
         $total_registros = $stmt_total->fetchColumn();
@@ -43,7 +43,7 @@ if (isset($_POST["dato"])){
             cursos.codigo LIKE :codigo OR
             turnos.descripcion LIKE :descripcion OR
             instructores.nombre LIKE :nombre OR
-            Instructores.apellido LIKE :apellido)  ORDER BY id_curso DESC LIMIT :registros_por_pagina OFFSET :offset";
+            instructores.apellido LIKE :apellido)  ORDER BY id_curso DESC LIMIT :registros_por_pagina OFFSET :offset";
         $consulta=$conn->prepare($texto);
         $consulta->bindParam(':registros_por_pagina', $registros_por_pagina, PDO::PARAM_INT);
         $consulta->bindParam(':offset', $offset, PDO::PARAM_INT);
