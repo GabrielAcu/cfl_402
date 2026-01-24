@@ -44,4 +44,5 @@ RUN if [ -f composer.json ]; then \
 EXPOSE 80
 
 # Usar el script personalizado como punto de entrada
-CMD ["/usr/local/bin/docker-entrypoint.sh"]
+# ENTRYPOINT no puede ser sobrescrito por Railway (a diferencia de CMD)
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
