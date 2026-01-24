@@ -48,10 +48,10 @@ function isInstructor() {
 
 function idAdminOrInstructor() {
     if (isAdmin() || isSuperAdmin()) {
-        header('Location: ' . BASE_URL . '/admin');
+        header('Location: ' . BASE_URL . '/admin/');
         exit();
     } elseif (isInstructor()) {
-        header('Location: ' . BASE_URL . '/instructor');
+        header('Location: ' . BASE_URL . '/instructor/');
         exit();
     }
 }
@@ -59,10 +59,10 @@ function idAdminOrInstructor() {
 function redirectIfLoggedIn() {
     if (isset($_SESSION['user'])) {
         if (isAdmin() || isSuperAdmin()) {
-            header('Location: ' . BASE_URL . '/admin');
+            header('Location: ' . BASE_URL . '/admin/');
             exit();
         } else {
-            header('Location: ' . BASE_URL . '/instructor');
+            header('Location: ' . BASE_URL . '/instructor/');
             exit();
         }
     }
