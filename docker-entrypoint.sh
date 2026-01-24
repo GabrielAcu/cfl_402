@@ -37,7 +37,14 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$PORT>/g" /etc/apache2/sites-availa
 # CRÍTICO: Configurar Apache para NO incluir el puerto en redirecciones
 # UseCanonicalName Off hace que Apache use el Host header del cliente
 echo "UseCanonicalName Off" >> /etc/apache2/apache2.conf
-echo "Configuración de redirecciones: UseCanonicalName Off"
+
+# Configurar ServerName para evitar warnings
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# IMPORTANTE: Agregar UseCanonicalName Off también en el VirtualHost
+sed -i "/<VirtualHost \*:$PORT>/a \    UseCanonicalName Off" /etc/apache2/sites-available/000-default.conf
+
+echo "Configuración de redirecciones: UseCanonicalName Off (global y VirtualHost)"
 
 echo "Configuración de Apache completada"
 echo "Iniciando Apache en primer plano..."
