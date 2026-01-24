@@ -18,6 +18,10 @@ RUN a2dismod mpm_event && a2enmod mpm_prefork
 # Habilitar mod_rewrite de Apache (útil para rutas amigables)
 RUN a2enmod rewrite
 
+# Configurar Apache para usar el Host header del cliente en redirecciones
+# Esto evita que Apache incluya el puerto interno (8080) en redirecciones automáticas
+RUN echo "UseCanonicalName Off" >> /etc/apache2/apache2.conf
+
 # Copiar script de inicio personalizado PRIMERO (antes del código)
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
