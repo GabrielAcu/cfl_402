@@ -51,7 +51,7 @@ $conn = conectar();
 
                     <!-- Registrar nuevo alumno -->
                 <button id="btnAbrirModal" class="btn-primary">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">Alumno
+                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="Nuevo">Alumno
                 </button>
             </div>
         </div>
@@ -153,7 +153,7 @@ if ($consulta->rowCount() > 0) {
     <tr>
         <td> 
             <button class="btnVerCurso" data-id="<?= $registro['id_alumno'] ?>">
-                <img class="svg_lite" src="/cfl_402/assets/svg/eye.svg" title="Ver Detalles">
+                <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/eye.svg" title="Ver Detalles">
             </button>
         </td>
         <td class="text-left"><strong><?= $registro['apellido'] ?></strong>, <?= $registro['nombre'] ?></td>
@@ -167,14 +167,14 @@ if ($consulta->rowCount() > 0) {
                     <input type="hidden" name="id_entidad" value="<?= $registro['id_alumno'] ?>">
                     <input type="hidden" name="tipo" value="alumno">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/contact-card.svg" title="Gestionar Contactos">
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/contact-card.svg" title="Gestionar Contactos">
                     </button>
                 </form>
 
-                <form action="/cfl_402/admin/crud/cursos/index.php" method="POST" class="enlinea">
+                <form action="<?= BASE_URL ?>/admin/crud/cursos/index.php" method="POST" class="enlinea">
                     <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/graduation-cap.svg" title="Historial Académico">
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/graduation-cap.svg" title="Historial Académico">
                     </button>
                 </form>
             </div>
@@ -183,14 +183,14 @@ if ($consulta->rowCount() > 0) {
         <td class="td_actions2">
             <div class="acciones_wrapper">
                 <button class="btnModificarAlumno" data-id="<?= $registro['id_alumno'] ?>">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Modificar Datos">
+                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/edit-pencil.svg" title="Modificar Datos">
                 </button>
 
                 <form action="../alumnos/bajar.php" method="POST" class="enlinea confirm-delete">
                     <?= getCSRFTokenField() ?>
                     <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Dar de Baja">
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Dar de Baja">
                     </button>
                 </form>
 
@@ -199,7 +199,7 @@ if ($consulta->rowCount() > 0) {
                     <input type="hidden" name="id_alumno" value="<?= $registro['id_alumno'] ?>">
                     <input type="hidden" name="volver" value="alumnos">
                     <button type="submit" class="submit-button">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/user-plus.svg" title="Inscribir en Curso">
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/user-plus.svg" title="Inscribir en Curso">
                     </button>
                 </form>
             </div>
@@ -225,13 +225,13 @@ echo"
     
         // 👉 Primera página
         echo "<a href='?pagina=1' class='" . ($pagina_actual == 1 ? "active" : "") . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg'>
+                <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_arrow.svg'>
               </a>";
     
         // 👉 Página anterior
         if ($pagina_actual > 1) {
             echo "<a href='?pagina=" . ($pagina_actual - 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg'>
+                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_one_arrow.svg'>
                   </a>";
         }
     
@@ -244,13 +244,13 @@ echo"
         // 👉 Página siguiente
         if ($pagina_actual < $total_paginas) {
             echo "<a href='?pagina=" . ($pagina_actual + 1) . "'>
-                    <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg'>
+                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_one_arrow.svg'>
                   </a>";
         }
     
         // 👉 Última página
         echo "<a href='?pagina=$total_paginas' class='" . (($pagina_actual == $total_paginas) ? 'active' : '') . "'>
-                <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg'>
+                <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_arrow.svg'>
               </a>";
     
         echo "</div>";
@@ -268,7 +268,7 @@ echo"
         <button type='submit' class='submit-button'>
 
         <h3> Ver Alumnos Eliminados</h3>
-            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Contactos'>
+            <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/trash.svg' title='Contactos'>
         </button>
     </form>
 </div>

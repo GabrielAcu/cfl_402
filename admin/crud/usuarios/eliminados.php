@@ -42,7 +42,7 @@ $conn = conectar();
             <!-- Volver -->
             <form action="index.php" method="get">
                  <button class="btn-primary" type="submit">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);">
+                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);">
                     Volver al Listado
                  </button>
             </form>
@@ -115,7 +115,7 @@ $consulta->execute();
                         <?= getCSRFTokenField() ?>
                         <input type="hidden" name="id" value="<?= $registro['id'] ?>">
                         <button type="submit" class="submit-button" title="Restaurar Usuario" onclick="return confirm('¿Restaurar este usuario?');">
-                            <img class="svg_lite" src="/cfl_402/assets/svg/restore.svg" alt="Restaurar">
+                            <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/restore.svg" alt="Restaurar">
                         </button>
                     </form>
                 </td>
@@ -134,10 +134,10 @@ $consulta->execute();
     if ($total_paginas > 1) {
         echo "<div class='pagination'>";
         
-        echo "<a href='?pagina=1'><img class='svg_lite' src='/cfl_402/assets/svg/first_page.svg'></a>";
+        echo "<a href='?pagina=1'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/first_page.svg'></a>";
         
         if ($pagina_actual > 1) {
-            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-left.svg'></a>";
+            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/arrow-left.svg'></a>";
         }
 
         $rango = 2;
@@ -147,10 +147,10 @@ $consulta->execute();
         }
 
         if ($pagina_actual < $total_paginas) {
-            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-right.svg'></a>";
+            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/arrow-right.svg'></a>";
         }
 
-        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='/cfl_402/assets/svg/last_page.svg'></a>";
+        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/last_page.svg'></a>";
         echo "</div>";
     }
 ?>

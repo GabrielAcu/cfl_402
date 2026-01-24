@@ -240,17 +240,17 @@ $alumnos = $stmtAlumnos->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="actions-bar">
         <a href="index.php" class="btn-custom btn-back">
-            <img src="/cfl_402/assets/svg/arrow-left.svg" class="svg_icon" style="filter: invert(1) brightness(0.5);"> Volver
+            <img src="<?= BASE_URL ?>/assets/svg/arrow-left.svg" class="svg_icon" style="filter: invert(1) brightness(0.5);"> Volver
         </a>
         
         <div class="actions-right">
             <button onclick="window.print()" class="btn-custom btn-print">
-                 <img src="/cfl_402/assets/svg/file-text.svg" class="svg_icon" style="filter: brightness(0) invert(1);"> Imprimir
+                 <img src="<?= BASE_URL ?>/assets/svg/file-text.svg" class="svg_icon" style="filter: brightness(0) invert(1);"> Imprimir
             </button>
             <form action="ficha_de_curso.php" method="POST" style="margin:0;">
                 <input type="hidden" name="id_curso" value="<?= $id_curso ?>">
                 <button type="submit" class="btn-custom btn-download">
-                    <img src="/cfl_402/assets/svg/file-excel.svg" class="svg_icon" style="filter: brightness(0) invert(1);"> Guardar Excel
+                    <img src="<?= BASE_URL ?>/assets/svg/file-excel.svg" class="svg_icon" style="filter: brightness(0) invert(1);"> Guardar Excel
                 </button>
             </form>
         </div>

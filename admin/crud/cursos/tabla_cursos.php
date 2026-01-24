@@ -35,7 +35,7 @@
 
                     <td>
                         <button class="btnVerCurso" data-id="<?= $registro['id_curso'] ?>">
-                            <img class="svg_lite" src="/cfl_402/assets/svg/eye.svg" title="Ver Detalles">
+                            <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/eye.svg" title="Ver Detalles">
                         </button> 
                     </td> 
                     
@@ -56,7 +56,7 @@
                             <form action='../horarios/index.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/clock.svg" title="Horarios">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/clock.svg" title="Horarios">
                                 </button>
                             </form>
 
@@ -65,14 +65,14 @@
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <input type='hidden' name='volver' value='cursos'>
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/user-plus.svg" title="Inscripciones">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/user-plus.svg" title="Inscripciones">
                                 </button>
                             </form>
                             
                             <form action='../planillas/index.php' method='GET' class='enlinea'>
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/file-text.svg" title="Planilla">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/file-text.svg" title="Planilla">
                                 </button>
                             </form>  
                         </div>
@@ -88,7 +88,7 @@
                                 ?>
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <button type="submit" class="btnModificarCurso">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Modificar">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/edit-pencil.svg" title="Modificar">
                                 </button>
                             </form>
 
@@ -100,7 +100,7 @@
                                 ?>
                                 <input type='hidden' name='id_curso' value='<?= $registro['id_curso'] ?>'>
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Eliminar">
                                 </button>
                             </form>
                         </div>

@@ -91,7 +91,7 @@ if (!$curso) {
             <input type="time" name="hora_fin" required title="Hora Fin">
 
             <button type="submit" class="btn-primary">
-                <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="+"> Agregar
+                <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="+"> Agregar
             </button>
         </form>
     </div>
@@ -125,7 +125,7 @@ if (!$curso) {
                                 <input type="hidden" name="id_horario" value="<?= $h['id_horario'] ?>">
                                 <input type="hidden" name="id_curso" value="<?= $id_curso ?>">
                                 <button type="submit" class="submit-button" onclick="return confirm('¿Eliminar este horario?');">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Eliminar">
                                 </button>
                             </form>
                         </td>

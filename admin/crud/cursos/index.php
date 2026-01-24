@@ -41,7 +41,7 @@ $conn = conectar();
 
                 <!-- Registrar nuevo curso -->
                 <button id="btnAbrirModal" class="btn-primary">
-                    <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="Nuevo">
                     Nuevo Curso
                 </button>
             </div>

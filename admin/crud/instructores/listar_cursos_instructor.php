@@ -80,7 +80,7 @@ $cursos = $stmt_cursos->fetchAll();
             Cursos de <span style="color:var(--primary)"><?= htmlspecialchars($instructor['apellido'] . ', ' . $instructor['nombre']) ?></span>
         </h1>
         <a href="index.php" class="btn-back">
-            <img class="svg_lite" src="/cfl_402/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);" > Volver
+            <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/arrow-left.svg" alt="<" style="transform: rotate(180deg);" > Volver
         </a>
     </div>
 
@@ -108,14 +108,14 @@ $cursos = $stmt_cursos->fetchAll();
                             <form action="../horarios/index.php" method="POST" class="enlinea" title="Ver Horarios">
                                 <input type="hidden" name="id_curso" value="<?= htmlspecialchars($curso['id_curso']) ?>">
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/clock.svg" alt="Horarios">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/clock.svg" alt="Horarios">
                                 </button>
                             </form>
                             
                             <form action="../planillas/planillas.php" method="POST" class="enlinea" title="Ver Planilla">
                                 <input type="hidden" name="id_curso" value="<?= htmlspecialchars($curso['id_curso']) ?>">
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/file-text.svg" alt="Planilla">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/file-text.svg" alt="Planilla">
                                 </button>
                             </form>
                         </td>

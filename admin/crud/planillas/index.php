@@ -121,7 +121,7 @@ $stmt->execute();
                         <form action="ver_ficha.php" method="POST" style="flex:1;">
                             <input type="hidden" name="id_curso" value="<?= $curso['id_curso'] ?>">
                             <button type="submit" class="submit-button btn-primary btn-report" title="Ver Ficha">
-                                <img src="/cfl_402/assets/svg/file-excel.svg" class="svg_lite" style="filter: brightness(0) invert(1);"> 
+                                <img src="<?= BASE_URL ?>/assets/svg/file-excel.svg" class="svg_lite" style="filter: brightness(0) invert(1);"> 
                                 Ficha
                             </button>
                         </form>
@@ -130,7 +130,7 @@ $stmt->execute();
                         <form action="presentismo.php" method="POST" target="_blank" style="flex:1;">
                             <input type="hidden" name="id_curso" value="<?= $curso['id_curso'] ?>">
                             <button type="submit" class="submit-button btn-secondary btn-report" title="Ver Presentismo">
-                                <img src="/cfl_402/assets/svg/calendar-check.svg" class="svg_lite" style="filter: invert(1);"> 
+                                <img src="<?= BASE_URL ?>/assets/svg/calendar-check.svg" class="svg_lite" style="filter: invert(1);"> 
                                 Asistencia
                             </button>
                         </form>
@@ -139,7 +139,7 @@ $stmt->execute();
                         <form action="acta_examen.php" method="POST" target="_blank" style="flex:1;">
                             <input type="hidden" name="id_curso" value="<?= $curso['id_curso'] ?>">
                             <button type="submit" class="submit-button btn-secondary btn-report" title="Acta de Examen">
-                                <img src="/cfl_402/assets/svg/file-certificate.svg" class="svg_lite" style="filter: invert(1);"> 
+                                <img src="<?= BASE_URL ?>/assets/svg/file-certificate.svg" class="svg_lite" style="filter: invert(1);"> 
                                 Acta
                             </button>
                         </form>

@@ -49,7 +49,7 @@ $conn = conectar();
 
             <!-- Registrar nuevo alumno -->
             <button id="btnAbrirModal" class="btn-primary">
-                <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="Nuevo">
                 Nuevo Usuario
             </button>
 
@@ -135,14 +135,14 @@ $consulta->execute();
                 <td class="td_actions">
                     <div class="acciones_wrapper" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
                         <button class="submit-button btnModificarAlumno" data-id="<?= $registro['id'] ?>" title="Modificar">
-                             <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" alt="Modificar">
+                             <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/edit-pencil.svg" alt="Modificar">
                         </button>
 
                         <form action="bajar.php" method="POST" class="enlinea confirm-delete">
                             <?= getCSRFTokenField() ?>
                             <input type="hidden" name="id" value="<?= $registro['id'] ?>">
                             <button type="submit" class="submit-button" onclick="return confirm('¿Está seguro de eliminar este usuario?');">
-                                <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                                <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Eliminar">
                             </button>
                         </form>
                     </div>
@@ -163,11 +163,11 @@ $consulta->execute();
         echo "<div class='pagination'>";
         
         // Primera página
-        echo "<a href='?pagina=1'><img class='svg_lite' src='/cfl_402/assets/svg/first_page.svg' alt='<<'></a>"; // Ajustar path SVG si es necesario
+        echo "<a href='?pagina=1'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/first_page.svg' alt='<<'></a>"; // Ajustar path SVG si es necesario
         
         // Anterior
         if ($pagina_actual > 1) {
-            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-left.svg' alt='<'></a>";
+            echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/arrow-left.svg' alt='<'></a>";
         }
 
         // Rango
@@ -179,11 +179,11 @@ $consulta->execute();
 
         // Siguiente
         if ($pagina_actual < $total_paginas) {
-            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='/cfl_402/assets/svg/arrow-right.svg' alt='>'></a>";
+            echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/arrow-right.svg' alt='>'></a>";
         }
 
         // Última
-        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='/cfl_402/assets/svg/last_page.svg' alt='>>'></a>";
+        echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/last_page.svg' alt='>>'></a>";
 
         echo "</div>";
     }
@@ -193,7 +193,7 @@ $consulta->execute();
     <form class="eliminados_form" action="eliminados.php" method="post" style="display: flex; gap: 10px; align-items: center; justify-content: center;">
         <h3 style="margin: 0;">Ver Usuarios Eliminados</h3>
         <button type='submit' class='submit-button'>
-            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' title='Ver Eliminados' style="width: 24px; height: 24px;">
+            <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/trash.svg' title='Ver Eliminados' style="width: 24px; height: 24px;">
         </button>
     </form>
 </div>

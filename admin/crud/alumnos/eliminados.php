@@ -29,7 +29,7 @@ $conn = conectar();
         <div class="search_block">
 
             <div class="search_row">
-                <form class="search_form" action="/cfl_402/admin/crud/alumnos/index.php" method="post">
+                <form class="search_form" action="<?= BASE_URL ?>/admin/crud/alumnos/index.php" method="post">
                     <input class="search_bar" type="search" name="search" placeholder="Buscar Alumno.."> 
                     <button class="boton_enviar" type="submit"> Buscar </button>
                 </form>
@@ -168,7 +168,7 @@ $conn = conectar();
                                 <input type='hidden' name='id_entidad' value='$registro[id_alumno]'>
                                 <input type='hidden' name='tipo' value='alumno'>
                                 <button type='submit' class='submit-button'>
-                                    <img class='svg_lite' src='/cfl_402/assets/svg/contact.svg' alt='Contactos' title='Contactos'>
+                                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/contact.svg' alt='Contactos' title='Contactos'>
                                 </button>
                             </form>
                         
@@ -176,7 +176,7 @@ $conn = conectar();
                             <form action='/cfl_402/admin/crud/alumnos/ver_inscripciones.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                     <button type='submit' class='submit-button'>
-                                     <img class='svg_lite' src='/cfl_402/assets/svg/book.svg' alt='Ver contactos' title='Cursos'>
+                                     <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/book.svg' alt='Ver contactos' title='Cursos'>
                                     </button>
                             </form>
                         </td>
@@ -186,7 +186,7 @@ $conn = conectar();
                             <form action='../../crud/alumnos/modificar.php' method='POST' class='enlinea'>
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
-                                    <img class='svg_lite2' src='/cfl_402/assets/svg/pencil.svg' alt='Modificar' title='Modificar'>
+                                    <img class='svg_lite2' src='<?= BASE_URL ?>/assets/svg/pencil.svg' alt='Modificar' title='Modificar'>
                                 </button>
                             </form>
 
@@ -194,7 +194,7 @@ $conn = conectar();
                                 " . getCSRFTokenField() . "
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <button type='submit' class='submit-button'>
-                                    <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
+                                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/trash.svg' alt='Eliminar' title='Eliminar'>
                                 </button>
                             </form>
 
@@ -203,7 +203,7 @@ $conn = conectar();
                                 <input type='hidden' name='id_alumno' value='$registro[id_alumno]'>
                                 <input type='hidden' name='volver' value='alumnos'>
                                 <button type='submit' class='submit-button'>
-                                    <img class='svg_lite' src='/cfl_402/assets/svg/plus.svg' alt='Modificar' title='Inscribir a un curso'>
+                                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/plus.svg' alt='Modificar' title='Inscribir a un curso'>
                                 </button>
                             </form>
                         </td>
@@ -229,7 +229,7 @@ $conn = conectar();
                     <form action='../inscripciones/eliminados.php' method='POST' class='enlinea'>
                         <h3 class='eliminados_titulo'> Ver Alumnos Eliminados </h3>
                         <button type='submit' class='submit-button'>
-                            <img class='svg_lite' src='/cfl_402/assets/svg/trash.svg' alt='Modificar' title='Ver Eliminados'>
+                            <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/trash.svg' alt='Modificar' title='Ver Eliminados'>
                         </button>
                     </form>
                 </div>
@@ -245,16 +245,16 @@ $conn = conectar();
                     // Enlace a la primera página 
                     
                     if($pagina_actual == 1){
-                        echo "<a href='?pagina=1' class='active'> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>
+                        echo "<a href='?pagina=1' class='active'> <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>
                         </a>";
                     } else {
-                        echo "<a href='?pagina=1' class=''> <img class='svg_lite' src='/cfl_402/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>   
+                        echo "<a href='?pagina=1' class=''> <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_arrow.svg' alt='Primera Página ' title='Primer Página'>   
                         </a>";
                     }
                     
                     // Enlace a la página anterior 
                     if ($pagina_actual > 1){
-                        echo "<a href='?pagina=".($pagina_actual - 1)."'> <img class='svg_lite' src='/cfl_402/assets/svg/left_one_arrow.svg' alt='Página Anterior' title='Página Anterior'>
+                        echo "<a href='?pagina=".($pagina_actual - 1)."'> <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_one_arrow.svg' alt='Página Anterior' title='Página Anterior'>
                         </a>";
                     }
 
@@ -268,12 +268,12 @@ $conn = conectar();
 
                     // Enlace a la página siguiente 
                     if ($pagina_actual < $total_paginas){
-                        echo "<a href='?pagina=".($pagina_actual + 1)."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_one_arrow.svg' alt='Página Siguiente' title='Página Siguiente'>
+                        echo "<a href='?pagina=".($pagina_actual + 1)."'> <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_one_arrow.svg' alt='Página Siguiente' title='Página Siguiente'>
                         </a>";
                     }
 
                     // Enlace a la última página 
-                    echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'> <img class='svg_lite' src='/cfl_402/assets/svg/right_arrow.svg' alt='Última Página' title='Última Página'>
+                    echo "<a href='?pagina=$total_paginas' class='".(($pagina_actual == $total_paginas) ? 'active':'')."'> <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_arrow.svg' alt='Última Página' title='Última Página'>
                     </a>";
                 }
                 

@@ -190,7 +190,7 @@ switch ($tipo) {
                     </select>
 
                     <button type="submit" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="+"> Inscribir
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="+"> Inscribir
                     </button>
                 </form>
 
@@ -211,7 +211,7 @@ switch ($tipo) {
                     </select>
 
                     <button type="submit" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="+"> Inscribir
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="+"> Inscribir
                     </button>
                 </form>
 
@@ -230,7 +230,7 @@ switch ($tipo) {
                     </select>
 
                     <button type="submit" class="btn-primary">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="+"> Asignar
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="+"> Asignar
                     </button>
                 </form>
             <?php endif; ?>
@@ -294,7 +294,7 @@ switch ($tipo) {
                             <form action="editar.php" method="GET" class="enlinea">
                                 <input type="hidden" name="id" value="<?= $i['id_inscripcion'] ?>">
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Editar Inscripción">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/edit-pencil.svg" title="Editar Inscripción">
                                 </button>
                             </form>
 
@@ -306,7 +306,7 @@ switch ($tipo) {
                                 <input type="hidden" name="id_retorno" value="<?= $id ?>">
                                 
                                 <button type="submit" class="submit-button" onclick="return confirm('¿Estás seguro de eliminar esta inscripción?');">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar Inscripción">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Eliminar Inscripción">
                                 </button>
                             </form>
                         </div>

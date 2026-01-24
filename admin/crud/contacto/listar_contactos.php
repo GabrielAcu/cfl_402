@@ -92,7 +92,7 @@ $nombre_mostrar = $datos_entidad ? $datos_entidad['nombre'] . ' ' . $datos_entid
                     <input type="hidden" name="id_entidad" value="<?= $id_entidad ?>">
                     <input type="hidden" name="tipo" value="<?= $tipo ?>">
                     <button class="btn-primary" type="submit">
-                        <img class="svg_lite" src="/cfl_402/assets/svg/plus_circle.svg" alt="Nuevo">
+                        <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/plus_circle.svg" alt="Nuevo">
                         Nuevo Contacto
                     </button>
                 </form>
@@ -125,7 +125,7 @@ $nombre_mostrar = $datos_entidad ? $datos_entidad['nombre'] . ' ' . $datos_entid
                                 <?= getCSRFTokenField() ?>
                                 <input type="hidden" name="id_contacto" value="<?= $registro['id_contacto_alumno'] ?>">                            
                                 <button type="submit" class="submit-button">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/edit-pencil.svg" title="Modificar">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/edit-pencil.svg" title="Modificar">
                                 </button>
                             </form>
                             
@@ -133,7 +133,7 @@ $nombre_mostrar = $datos_entidad ? $datos_entidad['nombre'] . ' ' . $datos_entid
                                 <?= getCSRFTokenField() ?>
                                 <input type="hidden" name="id_contacto" value="<?= $registro['id_contacto_alumno'] ?>">                      
                                 <button type="submit" class="submit-button" onclick="return confirm('¿Estás seguro de eliminar este contacto?');">
-                                    <img class="svg_lite" src="/cfl_402/assets/svg/trash-can.svg" title="Eliminar">
+                                    <img class="svg_lite" src="<?= BASE_URL ?>/assets/svg/trash-can.svg" title="Eliminar">
                                 </button>
                             </form>
                         </div>
