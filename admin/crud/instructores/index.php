@@ -126,7 +126,7 @@ $conn = conectar();
                     <tr>
                         <td> 
                             <button class='btnVerInstructor' data-id='" . htmlspecialchars($registro['id_instructor']) . "'>
-                                <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/eye.svg' title='Ver Detalles'>
+                                <img class='svg_lite' src='" . BASE_URL . "/assets/svg/eye.svg' title='Ver Detalles'>
                             </button>
                         </td>
                         <td class='text-left'><strong>" . htmlspecialchars($registro['apellido']) . "</strong>, " . htmlspecialchars($registro['nombre']) . "</td>
@@ -139,14 +139,14 @@ $conn = conectar();
                                     <input type='hidden' name='id_entidad' value='" . htmlspecialchars($registro['id_instructor']) . "'>
                                     <input type='hidden' name='tipo' value='instructor'>
                                     <button type='submit' class='submit-button'>
-                                        <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/contact-card.svg' title='Gestionar Contactos'>
+                                        <img class='svg_lite' src='" . BASE_URL . "/assets/svg/contact-card.svg' title='Gestionar Contactos'>
                                     </button>
                                 </form>
 
                                 <form action='listar_cursos_instructor.php' method='POST' class='enlinea'>
                                     <input type='hidden' name='id_instructor' value='" . htmlspecialchars($registro['id_instructor']) . "'>
                                     <button type='submit' class='submit-button'>
-                                        <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/graduation-cap.svg' title='Cursos Asignados'>
+                                        <img class='svg_lite' src='" . BASE_URL . "/assets/svg/graduation-cap.svg' title='Cursos Asignados'>
                                     </button>
                                 </form>
                             </div>
@@ -155,14 +155,14 @@ $conn = conectar();
                         <td class='td_actions2'>
                             <div class='acciones_wrapper'>
                                 <button class='btnModificarInstructor' data-id='" . htmlspecialchars($registro['id_instructor']) . "'>
-                                    <img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/edit-pencil.svg' title='Modificar Datos'>
+                                    <img class='svg_lite' src='" . BASE_URL . "/assets/svg/edit-pencil.svg' title='Modificar Datos'>
                                 </button>
             
                                 <form action='eliminar_instructor.php' method='POST' class='enlinea' onsubmit='return confirm(\"¿Está seguro de eliminar este instructor?\");'>
                                     " . getCSRFTokenField() . "
                                     <input type='hidden' name='id_instructor' value='" . htmlspecialchars($registro['id_instructor']) . "'>
                                     <button type='submit' class='submit-button' title='Eliminar'>
-                                        <img src='<?= BASE_URL ?>/assets/svg/trash-can.svg' class='svg_lite'>
+                                        <img src='" . BASE_URL . "/assets/svg/trash-can.svg' class='svg_lite'>
                                     </button>
                                 </form>
                             </div>
@@ -177,11 +177,11 @@ $conn = conectar();
             echo "<div class='pagination'>";
             
             // Primera
-            echo "<a href='?pagina=1'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_arrow.svg' title='Primera'></a>";
+            echo "<a href='?pagina=1'><img class='svg_lite' src='" . BASE_URL . "/assets/svg/left_arrow.svg' title='Primera'></a>";
             
             // Anterior
             if ($pagina_actual > 1) {
-                echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/left_one_arrow.svg' title='Anterior'></a>";
+                echo "<a href='?pagina=" . ($pagina_actual - 1) . "'><img class='svg_lite' src='" . BASE_URL . "/assets/svg/left_one_arrow.svg' title='Anterior'></a>";
             }
 
             // Números
@@ -193,11 +193,11 @@ $conn = conectar();
 
             // Siguiente
             if ($pagina_actual < $total_paginas) {
-                echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_one_arrow.svg' title='Siguiente'></a>";
+                echo "<a href='?pagina=" . ($pagina_actual + 1) . "'><img class='svg_lite' src='" . BASE_URL . "/assets/svg/right_one_arrow.svg' title='Siguiente'></a>";
             }
 
             // Última
-            echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='<?= BASE_URL ?>/assets/svg/right_arrow.svg' title='Última'></a>";
+            echo "<a href='?pagina=$total_paginas'><img class='svg_lite' src='" . BASE_URL . "/assets/svg/right_arrow.svg' title='Última'></a>";
             echo "</div>";
         }
 
