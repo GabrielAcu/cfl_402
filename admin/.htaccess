@@ -1,0 +1,3 @@
+# Configuración para Railway - Forzar que Apache use el host público
+# Esto evita que Apache incluya el puerto interno (8080) en redirecciones automáticas
+UseCanonicalName Off

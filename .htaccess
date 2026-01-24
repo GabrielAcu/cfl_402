@@ -1,0 +1,11 @@
+# Configuración global para Railway
+# Evitar que Apache incluya el puerto interno en redirecciones automáticas
+UseCanonicalName Off
+
+# Habilitar rewrite engine para manejar rutas
+RewriteEngine On
+
+# Opcional: Redirigir HTTP a HTTPS en producción
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteCond %{HTTP_HOST} railway\.app$ [NC]
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
