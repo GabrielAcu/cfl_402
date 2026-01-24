@@ -8,7 +8,8 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
             ? "https" : "http";
 
 // Host actual
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+// Host actual - Priorizar X-Forwarded-Host para proxies (Railway)
+$host = $_SERVER['HTTP_X_FORWARDED_HOST'] ?? $_SERVER['HTTP_HOST'] ?? 'localhost';
 
 // URL base del proyecto (útil para enlaces)
 // URL base del proyecto
