@@ -15,7 +15,10 @@ $host = $_SERVER['HTTP_X_FORWARDED_HOST'] ?? $_SERVER['HTTP_HOST'] ?? 'localhost
 // URL base del proyecto
 // Si estamos en Railway (o producción en raíz), no usamos subcarpeta
 if (strpos($host, 'railway.app') !== false || getenv('RAILWAY_ENVIRONMENT')) {
-    define("BASE_URL", $protocol . "://" . $host);
+    // En Railway, el puerto interno (ej: 8080) no debe ser parte de la URL pública
+    // porque el load balancer expone el puerto 80/443.
+    $host_no_port = explode(':', $host)[0];
+    define("BASE_URL", $protocol . "://" . $host_no_port);
 } else {
     // En local (XAMPP), usamos la subcarpeta del proyecto
     define("BASE_URL", $protocol . "://" . $host . "/cfl_402");
